@@ -1,0 +1,59 @@
+{% comment %}
+  Sticky add to cart.
+
+  Appears once the real add-to-cart button scrolls out of view.
+
+  This bar owns no cart logic. Its button forwards the click to
+  #ProductSubmitButton-{{ section_id }} and mirrors that button's label and
+  disabled state, so variant changes, sold-out states and quantity rules stay
+  correct without being reimplemented here.
+
+  Accepts:
+  - product: {Object} product object
+  - section_id: {String} id of the parent section
+  - product_form_id: {String} id of the product form
+
+  Usage:
+  {% render 'sticky-atc', product: product, section_id: section.id, product_form_id: product_form_id %}
+{% endcomment %}
+
+<script src="{{ 'sticky-atc.js' | asset_url }}" defer="defer"></script>
+
+<sticky-atc
+  class="sticky-atc color-{{ section.settings.color_scheme }}"
+  data-visible="false"
+  data-submit-target="ProductSubmitButton-{{ section_id }}"
+  data-observe-target="ProductSubmitButton-{{ section_id }}"
+  data-price-source="price-{{ section_id }}"
+>
+  <div class="sticky-atc__inner">
+    {%- if product.featured_media -%}
+      {{
+        product.featured_media
+        | image_url: width: 156
+        | image_tag:
+          loading: 'lazy',
+          widths: '52, 104, 156',
+          sizes: '52px',
+          class: 'sticky-atc__image',
+          alt: product.featured_media.alt | default: product.title | escape
+      }}
+    {%- endif -%}
+
+    <div class="sticky-atc__text">
+      <p class="sticky-atc__title">{{ product.title | escape }}</p>
+      <div class="sticky-atc__price" data-sticky-price>
+        {%- render 'price', product: product, use_variant: true, show_badges: false -%}
+      </div>
+    </div>
+
+    <button
+      type="button"
+      class="button button--primary sticky-atc__button"
+      data-sticky-submit
+      aria-describedby="ProductInfo-{{ section_id }}"
+    >
+      <span data-sticky-label>{{ 'products.product.add_to_cart' | t }}</span>
+    </button>
+  </div>
+</sticky-atc>

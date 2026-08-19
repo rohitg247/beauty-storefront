@@ -1,0 +1,29 @@
+# Shopify CLI
+.shopify/
+*.theme-check.yml.bak
+
+# Node
+node_modules/
+npm-debug.log*
+yarn-error.log
+*.log
+
+# Environment
+.env
+.env.*
+!.env.example
+
+# OS
+.DS_Store
+._*
+Thumbs.db
+desktop.ini
+
+# Editors
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# Local-only documentation (never pushed)
+docs/

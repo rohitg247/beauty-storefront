@@ -14,27 +14,27 @@
       "settings": {
         "show_collection_description": true,
         "show_collection_image": true,
-        "color_scheme": "scheme-1"
+        "color_scheme": "scheme-3"
       }
     },
     "main-collection-product-grid": {
       "type": "main-collection-product-grid",
       "settings": {
-        "products_per_page": 20,
+        "products_per_page": 24,
         "columns_desktop": 4,
         "color_scheme": "scheme-1",
-        "image_ratio": "adapt",
+        "image_ratio": "portrait",
         "image_shape": "default",
         "show_secondary_image": true,
         "show_vendor": false,
         "show_rating": false,
-        "quick_add": "none",
+        "quick_add": "standard",
         "enable_filtering": true,
-        "filter_type": "horizontal",
+        "filter_type": "vertical",
         "enable_sorting": true,
         "columns_mobile": "2",
-        "padding_top": 0,
-        "padding_bottom": 68
+        "padding_top": 48,
+        "padding_bottom": 96
       }
     }
   },

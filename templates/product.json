@@ -27,6 +27,10 @@
           "type": "price",
           "settings": {}
         },
+        "description": {
+          "type": "description",
+          "settings": {}
+        },
         "variant_picker": {
           "type": "variant_picker",
           "settings": {
@@ -45,9 +49,29 @@
             "show_gift_card_recipient": true
           }
         },
-        "description": {
-          "type": "description",
-          "settings": {}
+        "ingredients": {
+          "type": "collapsible_tab",
+          "settings": {
+            "heading": "Full ingredient list",
+            "icon": "check_mark",
+            "content": "<p>Add the complete INCI list here, with each active at the concentration it is dosed at. Customers with sensitivities read this before they buy.</p>"
+          }
+        },
+        "how_to_use": {
+          "type": "collapsible_tab",
+          "settings": {
+            "heading": "How to use",
+            "icon": "heart",
+            "content": "<p>When in the routine, how much, and how often to start. Note anything it should not be layered with.</p>"
+          }
+        },
+        "shipping": {
+          "type": "collapsible_tab",
+          "settings": {
+            "heading": "Shipping and returns",
+            "icon": "truck",
+            "content": "<p>Dispatched within 24 hours. Free over ₹1,499. Unopened returns accepted for 30 days.</p>"
+          }
         },
         "share": {
           "type": "share",
@@ -60,44 +84,48 @@
         "vendor",
         "title",
         "price",
+        "description",
         "variant_picker",
         "quantity_selector",
         "buy_buttons",
-        "description",
+        "ingredients",
+        "how_to_use",
+        "shipping",
         "share"
       ],
       "settings": {
         "enable_sticky_info": true,
+        "enable_sticky_atc": true,
         "color_scheme": "scheme-1",
-        "media_size": "medium",
+        "media_size": "large",
         "constrain_to_viewport": true,
-        "media_fit": "contain",
-        "gallery_layout": "stacked",
-        "mobile_thumbnails": "hide",
+        "media_fit": "cover",
+        "gallery_layout": "thumbnail",
+        "mobile_thumbnails": "columns",
         "media_position": "left",
         "image_zoom": "lightbox",
         "hide_variants": false,
         "enable_video_looping": false,
-        "padding_top": 24,
-        "padding_bottom": 24
+        "padding_top": 36,
+        "padding_bottom": 36
       }
     },
     "related-products": {
       "type": "related-products",
       "settings": {
-        "heading": "You may also like",
-        "heading_size": "h2",
+        "heading": "Pairs with",
+        "heading_size": "h1",
         "products_to_show": 4,
         "columns_desktop": 4,
         "columns_mobile": "2",
         "color_scheme": "scheme-1",
-        "image_ratio": "adapt",
+        "image_ratio": "portrait",
         "image_shape": "default",
-        "show_secondary_image": false,
+        "show_secondary_image": true,
         "show_vendor": false,
         "show_rating": false,
-        "padding_top": 36,
-        "padding_bottom": 68
+        "padding_top": 96,
+        "padding_bottom": 96
       }
     },
     "disclosures": {

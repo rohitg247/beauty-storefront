@@ -1,0 +1,693 @@
+/*
+  brand.css — custom design layer for the beauty storefront.
+
+  Loaded immediately after base.css in layout/theme.liquid.
+
+  Rules:
+  - Every colour comes from a Dawn colour-scheme custom property. No hex values here.
+  - Nothing is hidden by default. Removing this file must leave a working, readable store.
+  - Card and section overrides carry one extra ancestor class so they win against the
+    per-section stylesheets Dawn loads later in the document, without !important.
+*/
+
+/* ------------------------------------------------------------------
+   1. Tokens
+   ------------------------------------------------------------------ */
+
+:root {
+  /* Motion */
+  --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-out-quart: cubic-bezier(0.25, 1, 0.5, 1);
+  --ease-in-out-soft: cubic-bezier(0.65, 0, 0.35, 1);
+  --dur-fast: 180ms;
+  --dur-base: 420ms;
+  --dur-slow: 900ms;
+
+  /* Fluid space */
+  --space-2xs: clamp(0.6rem, 0.5vw, 0.8rem);
+  --space-xs: clamp(1.2rem, 1vw, 1.6rem);
+  --space-sm: clamp(2rem, 2vw, 2.8rem);
+  --space-md: clamp(3.2rem, 4vw, 5.6rem);
+  --space-lg: clamp(5.6rem, 7vw, 10rem);
+  --space-xl: clamp(8rem, 11vw, 16rem);
+
+  /* Hairline — the recurring structural device */
+  --rule: 1px solid rgba(var(--color-foreground), 0.16);
+  --rule-strong: 1px solid rgba(var(--color-foreground), 0.4);
+}
+
+/* ------------------------------------------------------------------
+   2. Typography
+
+   Cormorant Garamond is a high-contrast display serif: it only works
+   large and tight. Jost carries everything functional. The two never
+   swap roles.
+   ------------------------------------------------------------------ */
+
+h0,
+.h0,
+h1,
+.h1 {
+  font-size: clamp(3.6rem, 7vw, 8.4rem);
+  line-height: 0.94;
+  letter-spacing: -0.02em;
+  font-weight: var(--font-heading-weight);
+}
+
+h2,
+.h2 {
+  font-size: clamp(2.8rem, 4.4vw, 5.2rem);
+  line-height: 1;
+  letter-spacing: -0.015em;
+}
+
+h3,
+.h3 {
+  font-size: clamp(2.2rem, 2.6vw, 3.2rem);
+  line-height: 1.08;
+  letter-spacing: -0.01em;
+}
+
+/* Optical sizing keeps the thin strokes from disappearing at display sizes. */
+h1,
+h2,
+h3,
+.h0,
+.h1,
+.h2,
+.h3 {
+  font-variant-ligatures: common-ligatures;
+  text-wrap: balance;
+}
+
+/*
+  The utility voice: Jost, uppercase, widely tracked. Used for eyebrows,
+  section labels, prices in cards, and product data (volume, concentration).
+  No third typeface is loaded to get this.
+*/
+.label,
+.section-header__eyebrow,
+.card__data,
+.collection-hero__description .label {
+  font-family: var(--font-body-family);
+  font-size: 1.1rem;
+  font-weight: 500;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  line-height: 1.4;
+}
+
+p {
+  text-wrap: pretty;
+}
+
+.rte a,
+a.link {
+  text-underline-offset: 0.3em;
+  text-decoration-thickness: 1px;
+}
+
+/* ------------------------------------------------------------------
+   3. Grain
+
+   One fixed layer over the whole page. Fixed positioning keeps it out of
+   the flex flow on <body>. Costs one paint, removes the flat-vector look.
+   ------------------------------------------------------------------ */
+
+body::after {
+  content: '';
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  pointer-events: none;
+  opacity: 0.32;
+  mix-blend-mode: multiply;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='160' height='160' filter='url(%23n)' opacity='0.42'/%3E%3C/svg%3E");
+}
+
+/* ------------------------------------------------------------------
+   4. Focus
+
+   Dawn's default focus ring is a thin outline that vanishes on dark
+   schemes. This one uses the scheme's own foreground plus an offset
+   halo, so it reads on cream and on deep olive alike.
+   ------------------------------------------------------------------ */
+
+*:focus-visible {
+  outline: 2px solid rgb(var(--color-foreground));
+  outline-offset: 3px;
+  box-shadow: 0 0 0 5px rgba(var(--color-background), 0.9);
+}
+
+/* ------------------------------------------------------------------
+   5. Buttons
+
+   Stock Dawn swaps two fills on hover. This sweeps a fill up from the
+   baseline instead, so the button reads as a physical surface.
+
+   The sweep is a background-image on the element, not a pseudo-element:
+   Dawn already uses ::before for the button shadow and ::after for the
+   border, and overriding either of those would delete them.
+   ------------------------------------------------------------------ */
+
+.button:not([disabled]),
+.shopify-challenge__button,
+.customer button {
+  font-family: var(--font-body-family);
+  font-size: 1.2rem;
+  font-weight: 500;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  padding: 1.6rem 3.2rem;
+  min-height: 4.8rem;
+  background-image: linear-gradient(rgb(var(--color-foreground)), rgb(var(--color-foreground)));
+  background-repeat: no-repeat;
+  background-position: 50% 100%;
+  background-size: 100% 0%;
+  transition: background-size var(--dur-base) var(--ease-out-expo), color var(--dur-fast) linear
+      var(--dur-fast);
+}
+
+.button:not([disabled]):hover,
+.button:not([disabled]):focus-visible,
+.shopify-challenge__button:hover,
+.customer button:hover {
+  background-size: 100% 100%;
+  color: rgb(var(--color-background));
+}
+
+/* ------------------------------------------------------------------
+   6. Product and collection cards
+
+   Flat. No box, no drop shadow. The image sits in a fixed frame and
+   drifts on hover; a hairline draws in beneath the title. The extra
+   ancestor class beats component-card.css, which Dawn loads later.
+   ------------------------------------------------------------------ */
+
+.card-wrapper .card,
+.card-wrapper .card__inner {
+  background: transparent;
+  box-shadow: none;
+}
+
+.card-wrapper .card__media,
+.card-wrapper .card .media {
+  overflow: hidden;
+  background-color: rgba(var(--color-foreground), 0.05);
+}
+
+.card-wrapper .card__media img,
+.card-wrapper .card .media img {
+  transition: transform var(--dur-slow) var(--ease-out-expo);
+  will-change: transform;
+}
+
+.card-wrapper:hover .card__media img:not(.motion-reduce),
+.card-wrapper:focus-within .card__media img:not(.motion-reduce) {
+  transform: scale(1.05);
+}
+
+/* Title and price as a two-line grid: name in the serif, data in Jost. */
+.card-wrapper .card__content {
+  padding-top: var(--space-xs);
+  row-gap: 0.4rem;
+}
+
+.card-wrapper .card__heading {
+  font-family: var(--font-heading-family);
+  font-size: 2rem;
+  line-height: 1.1;
+  letter-spacing: -0.005em;
+}
+
+.card-wrapper .card-information .price {
+  font-family: var(--font-body-family);
+  font-size: 1.3rem;
+  letter-spacing: 0.08em;
+}
+
+/*
+  The hairline motif: draws in from the left on hover or keyboard focus.
+
+  Drawn as a background-image rather than a pseudo-element, and without
+  adding `position` to any card ancestor. Dawn stretches
+  `.card__heading a::after` across the whole card to make it clickable —
+  positioning the heading or the content wrapper would shrink that overlay
+  and break the click target on the image.
+*/
+.card-wrapper .card__heading {
+  background-image: linear-gradient(currentColor, currentColor);
+  background-repeat: no-repeat;
+  background-position: 0 100%;
+  background-size: 0% 1px;
+  transition: background-size var(--dur-base) var(--ease-out-expo);
+}
+
+.card-wrapper:hover .card__heading,
+.card-wrapper:focus-within .card__heading {
+  background-size: 100% 1px;
+}
+
+/* Badges: square, small, tracked — a lab label, not a sticker. */
+.card-wrapper .badge,
+.badge {
+  font-family: var(--font-body-family);
+  font-size: 1rem;
+  font-weight: 500;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  padding: 0.5rem 1rem;
+  border: 0;
+}
+
+/* ------------------------------------------------------------------
+   7. Header
+
+   Glass over whatever scrolls beneath it. The hairline underneath is the
+   same device used on cards.
+   ------------------------------------------------------------------ */
+
+.shopify-section-header-sticky .header-wrapper,
+.header-wrapper {
+  border-bottom: var(--rule);
+}
+
+@supports (backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px)) {
+  .shopify-section-header-sticky .header-wrapper {
+    background-color: rgba(var(--color-background), 0.72);
+    -webkit-backdrop-filter: blur(18px) saturate(1.4);
+    backdrop-filter: blur(18px) saturate(1.4);
+  }
+}
+
+.header__menu-item,
+.header__inline-menu .list-menu__item {
+  font-family: var(--font-body-family);
+  font-size: 1.2rem;
+  font-weight: 500;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
+
+/*
+  Nav links get the same drawn hairline as card titles, replacing Dawn's
+  hover underline so the two do not stack.
+*/
+.header__menu-item span,
+.header__menu-item:hover span {
+  text-decoration: none;
+  background-image: linear-gradient(currentColor, currentColor);
+  background-repeat: no-repeat;
+  background-position: 0 100%;
+  background-size: 0% 1px;
+  transition: background-size var(--dur-fast) var(--ease-out-quart);
+  padding-bottom: 0.4rem;
+}
+
+.header__menu-item:hover span,
+.header__menu-item:focus-visible span {
+  background-size: 100% 1px;
+}
+
+.header__heading-link .h2,
+.header__heading-logo {
+  letter-spacing: -0.01em;
+}
+
+/* ------------------------------------------------------------------
+   8. Hero
+
+   The WebGL canvas layers over the banner image. Both sit under the text,
+   which is always real DOM. The conic gradient is what shows while three.js
+   loads, and what stays forever on mobile and reduced motion.
+   ------------------------------------------------------------------ */
+
+.hero-canvas-layer {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  overflow: hidden;
+  pointer-events: none;
+  background:
+    radial-gradient(60% 55% at 62% 45%, rgba(var(--color-button), 0.28), transparent 70%),
+    conic-gradient(
+      from 210deg at 62% 45%,
+      rgba(var(--color-button), 0.22),
+      rgba(var(--color-foreground), 0.05) 35%,
+      rgba(var(--color-button), 0.18) 70%,
+      rgba(var(--color-button), 0.22)
+    );
+  animation: hero-drift 28s var(--ease-in-out-soft) infinite alternate;
+}
+
+.hero-canvas-layer canvas {
+  display: block;
+  width: 100%;
+  height: 100%;
+  opacity: 0;
+  transition: opacity 1.2s var(--ease-out-quart);
+}
+
+.hero-canvas-layer[data-scene-ready='true'] canvas {
+  opacity: 1;
+}
+
+@keyframes hero-drift {
+  from {
+    transform: scale(1.04) translate3d(-1.5%, 0, 0);
+  }
+  to {
+    transform: scale(1.12) translate3d(1.5%, -2%, 0);
+  }
+}
+
+/* Keep banner copy above the canvas. */
+.banner__content,
+.banner__box {
+  position: relative;
+  z-index: 2;
+}
+
+.banner__heading {
+  font-size: clamp(4rem, 9vw, 11rem);
+  line-height: 0.9;
+  letter-spacing: -0.03em;
+}
+
+/* ------------------------------------------------------------------
+   9. Section rhythm
+
+   Section spacing is set to 0 in theme settings so sections butt against
+   each other and the hairline between them does the separating.
+   ------------------------------------------------------------------ */
+
+.section-header,
+.title-wrapper-with-link {
+  border-bottom: var(--rule);
+  padding-bottom: var(--space-xs);
+  margin-bottom: var(--space-md);
+  align-items: baseline;
+}
+
+.title-wrapper-with-link .link,
+.title-wrapper-with-link .link-with-motion {
+  font-family: var(--font-body-family);
+  font-size: 1.15rem;
+  font-weight: 500;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
+
+/* Multicolumn reads as a spec sheet: hairline-divided columns, no cards. */
+.multicolumn-card__info {
+  padding-top: var(--space-xs);
+}
+
+.multicolumn-list__item .multicolumn-card {
+  border-top: var(--rule);
+  padding-top: var(--space-sm);
+  background: transparent;
+  box-shadow: none;
+}
+
+.multicolumn-card__info h3 {
+  font-size: 2.2rem;
+}
+
+/* ------------------------------------------------------------------
+   10. Testimonials
+   ------------------------------------------------------------------ */
+
+.testimonials__grid {
+  display: grid;
+  gap: var(--space-md);
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  grid-template-columns: 1fr;
+}
+
+@media screen and (min-width: 750px) {
+  .testimonials__grid--2 {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  .testimonials__grid--3 {
+    grid-template-columns: repeat(3, 1fr);
+  }
+  .testimonials__grid--4 {
+    grid-template-columns: repeat(4, 1fr);
+  }
+}
+
+.testimonial {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-xs);
+  border-top: var(--rule);
+  padding-top: var(--space-sm);
+  margin: 0;
+}
+
+.testimonial__quote {
+  font-family: var(--font-heading-family);
+  font-size: clamp(2rem, 2.2vw, 2.8rem);
+  line-height: 1.18;
+  letter-spacing: -0.01em;
+  margin: 0;
+}
+
+.testimonial__rating {
+  font-size: 1.4rem;
+  letter-spacing: 0.3em;
+  line-height: 1;
+}
+
+.testimonial__attribution {
+  display: flex;
+  align-items: center;
+  gap: var(--space-xs);
+  margin-top: auto;
+}
+
+.testimonial__avatar {
+  width: 4.4rem;
+  height: 4.4rem;
+  border-radius: 50%;
+  object-fit: cover;
+  flex-shrink: 0;
+}
+
+.testimonial__cite {
+  font-style: normal;
+  display: block;
+}
+
+.testimonial__name {
+  font-family: var(--font-body-family);
+  font-size: 1.2rem;
+  font-weight: 500;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
+
+.testimonial__role {
+  display: block;
+  font-size: 1.3rem;
+  opacity: 0.7;
+  letter-spacing: 0.02em;
+  text-transform: none;
+}
+
+/* Mobile: horizontal snap scroll rather than a tall stack. */
+@media screen and (max-width: 749px) {
+  .testimonials__grid--scroll {
+    grid-auto-flow: column;
+    grid-auto-columns: 78%;
+    grid-template-columns: none;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    scroll-padding-left: 1.5rem;
+    padding-bottom: var(--space-xs);
+    -webkit-overflow-scrolling: touch;
+  }
+
+  .testimonials__grid--scroll .testimonial {
+    scroll-snap-align: start;
+  }
+}
+
+/* ------------------------------------------------------------------
+   11. Sticky add to cart
+   ------------------------------------------------------------------ */
+
+.sticky-atc {
+  position: fixed;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 20;
+  border-top: var(--rule-strong);
+  background-color: rgba(var(--color-background), 0.94);
+  transform: translateY(100%);
+  visibility: hidden;
+  transition: transform var(--dur-base) var(--ease-out-expo), visibility 0s linear var(--dur-base);
+}
+
+@supports (backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px)) {
+  .sticky-atc {
+    background-color: rgba(var(--color-background), 0.78);
+    -webkit-backdrop-filter: blur(20px) saturate(1.4);
+    backdrop-filter: blur(20px) saturate(1.4);
+  }
+}
+
+.sticky-atc[data-visible='true'] {
+  transform: translateY(0);
+  visibility: visible;
+  transition: transform var(--dur-base) var(--ease-out-expo), visibility 0s linear 0s;
+}
+
+.sticky-atc__inner {
+  display: flex;
+  align-items: center;
+  gap: var(--space-xs);
+  padding: 1.2rem 1.5rem;
+  max-width: var(--page-width);
+  margin: 0 auto;
+}
+
+.sticky-atc__image {
+  width: 5.2rem;
+  height: 5.2rem;
+  object-fit: cover;
+  flex-shrink: 0;
+}
+
+.sticky-atc__text {
+  min-width: 0;
+  flex: 1 1 auto;
+}
+
+.sticky-atc__title {
+  font-family: var(--font-heading-family);
+  font-size: 1.9rem;
+  line-height: 1.1;
+  margin: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.sticky-atc__price {
+  font-size: 1.3rem;
+  letter-spacing: 0.08em;
+}
+
+.sticky-atc__button {
+  flex-shrink: 0;
+  margin: 0;
+  min-width: 16rem;
+}
+
+@media screen and (max-width: 749px) {
+  .sticky-atc__image,
+  .sticky-atc__title {
+    display: none;
+  }
+
+  .sticky-atc__button {
+    min-width: 0;
+    flex: 1 1 auto;
+  }
+}
+
+/* ------------------------------------------------------------------
+   12. Cart drawer and footer polish
+   ------------------------------------------------------------------ */
+
+@supports (backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px)) {
+  cart-drawer .drawer__inner {
+    background-color: rgba(var(--color-background), 0.92);
+    -webkit-backdrop-filter: blur(24px);
+    backdrop-filter: blur(24px);
+  }
+}
+
+.drawer__heading,
+.cart__login-title {
+  font-size: 2.6rem;
+  letter-spacing: -0.01em;
+}
+
+.footer-block__heading {
+  font-family: var(--font-body-family);
+  font-size: 1.15rem;
+  font-weight: 500;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+}
+
+.footer__content-top {
+  border-bottom: var(--rule);
+}
+
+.footer__list-social .list-social__link:hover .icon,
+.footer__list-social .list-social__link:focus-visible .icon {
+  transform: translateY(-2px);
+  transition: transform var(--dur-fast) var(--ease-out-quart);
+}
+
+/* ------------------------------------------------------------------
+   13. Magnetic hover
+
+   brand.js writes --mx/--my in pixels. Without JS these stay 0 and the
+   element simply never moves — no broken state.
+   ------------------------------------------------------------------ */
+
+[data-magnetic] {
+  --mx: 0px;
+  --my: 0px;
+  transform: translate3d(var(--mx), var(--my), 0);
+  transition: transform var(--dur-base) var(--ease-out-expo);
+}
+
+[data-magnetic][data-magnetic-active='true'] {
+  transition: transform 80ms linear;
+}
+
+/* ------------------------------------------------------------------
+   14. Reduced motion
+
+   Kills every transform and opacity animation this file introduces,
+   and hides the WebGL canvas so the gradient fallback stands alone.
+   ------------------------------------------------------------------ */
+
+@media (prefers-reduced-motion: reduce) {
+  .hero-canvas-layer {
+    animation: none;
+  }
+
+  .hero-canvas-layer canvas {
+    display: none;
+  }
+
+  .card-wrapper:hover .card__media img,
+  .card-wrapper:focus-within .card__media img {
+    transform: none;
+  }
+
+  .card-wrapper .card__heading,
+  .header__menu-item span,
+  .button:not([disabled]) {
+    transition: none;
+  }
+
+  [data-magnetic] {
+    transform: none;
+    transition: none;
+  }
+
+  .sticky-atc {
+    transition: none;
+  }
+}

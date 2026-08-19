@@ -115,6 +115,21 @@
       }}
     </div>
   {%- endif -%}
+  {%- comment -%}
+    Ambient WebGL layer. Decorative only — all banner copy is real DOM below.
+    The colour-scheme class is here so the shader can read the merchant's own
+    palette. The CSS gradient in .hero-canvas-layer is the permanent fallback:
+    assets/brand.js only loads three.js on desktop, pointer-fine, WebGL2,
+    non-reduced-motion, outside the theme editor.
+  {%- endcomment -%}
+  {%- if section.settings.enable_webgl_hero -%}
+    <div
+      class="hero-canvas-layer color-{{ section.settings.color_scheme }}"
+      aria-hidden="true"
+      data-scene-src="{{ 'hero-scene.js' | asset_url }}"
+      data-three-src="{{ 'three.module.js' | asset_url }}"
+    ></div>
+  {%- endif -%}
   <div class="banner__content banner__content--{{ section.settings.desktop_content_position }} page-width{% if settings.animations_reveal_on_scroll %} scroll-trigger animate--slide-in{% endif %}">
     <div class="banner__box content-container content-container--full-width-mobile color-{{ section.settings.color_scheme }} gradient">
       {%- for block in section.blocks -%}
@@ -175,6 +190,13 @@
     "groups": ["header", "footer"]
   },
   "settings": [
+    {
+      "type": "checkbox",
+      "id": "enable_webgl_hero",
+      "label": "Show animated background",
+      "info": "Adds a slow-moving 3D texture behind the banner. Desktop only. Visitors on phones, or who have reduced motion turned on, see a static gradient instead.",
+      "default": false
+    },
     {
       "type": "image_picker",
       "id": "image",
