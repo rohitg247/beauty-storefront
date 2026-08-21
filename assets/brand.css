@@ -39,9 +39,14 @@
 /* ------------------------------------------------------------------
    2. Typography
 
-   Cormorant Garamond is a high-contrast display serif: it only works
+   Playfair Display is a high-contrast display serif: it only works
    large and tight. Jost carries everything functional. The two never
    swap roles.
+
+   Cormorant Garamond was the original intent but is not a valid
+   Shopify font handle, so it fails theme upload. If it is wanted back,
+   it has to be loaded as a webfont here and the picker left on a real
+   Shopify handle.
    ------------------------------------------------------------------ */
 
 h0,

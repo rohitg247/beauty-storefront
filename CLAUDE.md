@@ -2,6 +2,16 @@
 
 Shopify Online Store 2.0 theme, derived from **Sense** (Dawn family). Branch `shopify-theme`.
 
+## When I paste an error, read the files it names
+
+If I paste an error, a stack trace, a CLI failure or an upload log that names a file path,
+**read that file immediately.** Do not ask permission, do not ask me to confirm, do not ask me
+to paste the contents. The path in the error is the permission. This overrides the global
+"only read files I explicitly name" rule — an error naming a file *is* me naming it.
+
+Follow the trail one hop: if the named file's problem clearly lives in a file it references
+(a schema for a settings value, a snippet for a section), read that too. Beyond one hop, ask.
+
 ## Read before you change anything
 
 At the start of **every** session, read all four files in `docs/` before making any edit:
@@ -55,3 +65,27 @@ additive layer on top of the theme. Any change to them must preserve all of the 
 
 Run `shopify theme check`. Then check in the browser: homepage, product, collection, cart —
 console clean, no horizontal scroll at 360px, keyboard focus visible throughout.
+
+## Preflight — run before every push (mandatory)
+
+`shopify theme check` must be run locally and pass before **any** `shopify theme push`,
+`git push`, or "this is ready" claim. No exceptions, no "it's only a small change".
+If it reports offenses, fix them or say explicitly which ones are being left and why.
+
+`shopify theme check` is a local linter. It does **not** catch Shopify's server-side upload
+validation, which has burned this theme before. Check these by hand in the same preflight:
+
+- **Rich-text settings** (`"type": "richtext"` defaults in `templates/*.json`, `sections/*.liquid`
+  schemas, `config/settings_schema.json`): every top-level node must be `<p>`, `<ul>`, `<ol>` or
+  `<h1>`–`<h6>`. Bare text, `<div>`, `<span>` or a leading `<br>` is rejected on upload.
+- **Font handles**: any `"type": "font_picker"` default must be a real Shopify font handle
+  (e.g. `assistant_n4`). Google-only families such as `cormorant_garamond_n6` do not exist in
+  Shopify's font library and fail upload. If the design needs one, load it as a webfont in
+  `assets/brand.css` and leave the picker on a valid Shopify handle.
+- **Range settings**: any value in `config/settings_data.json` must sit inside the `min`/`max`
+  of its `config/settings_schema.json` range, and `max` itself must respect Shopify's own cap
+  (e.g. `spacing_grid_vertical` cannot exceed 40). Changing a schema `max` downward invalidates
+  saved values already stored in `settings_data.json` — update both together.
+
+`shopify theme dev` proxies the store's live settings and will happily render a theme that
+cannot be uploaded. A clean local preview is **not** evidence the push will succeed.

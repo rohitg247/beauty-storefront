@@ -90,7 +90,7 @@
         "products_to_show": 4,
         "title": "Bestsellers",
         "heading_size": "h1",
-        "description": "The formulas customers finish the bottle of, then reorder.",
+        "description": "<p>The formulas customers finish the bottle of, then reorder.</p>",
         "show_description": true,
         "description_style": "body",
         "columns_desktop": 4,
