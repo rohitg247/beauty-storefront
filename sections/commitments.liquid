@@ -1,0 +1,253 @@
+{% comment %}
+  Commitments — the certification / promise band.
+
+  A row of icon + claim pairs. Both LaCélie and Kimirica run a six-icon grid of
+  these and it is the cheapest credibility signal on a beauty storefront.
+
+  This replaces the text-only `multicolumn` that was doing the job before. It
+  exists as its own section rather than a multicolumn variant because the icons
+  come from the theme's own SVG set via `inline_asset_content`, which means no
+  image uploads and no layout shift.
+
+  Responsive: two columns on mobile, three on tablet, merchant-set on desktop.
+  Deliberately a grid rather than a snap-scroll — these items are small enough
+  that two fit honestly at 360px, and a grid hides nothing.
+
+  Every claim here is a legal statement about the product. Keep it merchant
+  editable so it can be corrected without a deploy.
+{% endcomment %}
+
+{{ 'section-commitments.css' | asset_url | stylesheet_tag }}
+
+<div class="color-{{ section.settings.color_scheme }} gradient">
+  <div class="page-width section-{{ section.id }}-padding">
+    {%- if section.settings.caption != blank or section.settings.heading != blank -%}
+      <div class="commitments__header section-header">
+        {%- if section.settings.caption != blank -%}
+          <p class="commitments__caption label">{{ section.settings.caption | escape }}</p>
+        {%- endif -%}
+
+        {%- if section.settings.heading != blank -%}
+          <h2 class="commitments__heading {{ section.settings.heading_size }}">
+            {{ section.settings.heading }}
+          </h2>
+        {%- endif -%}
+      </div>
+    {%- endif -%}
+
+    {%- if section.blocks.size > 0 -%}
+      <ul
+        class="commitments__grid commitments__grid--{{ section.settings.columns_desktop }} list-unstyled"
+        role="list"
+      >
+        {%- for block in section.blocks -%}
+          <li class="commitment" {{ block.shopify_attributes }}>
+            {%- if block.settings.icon != 'none' -%}
+              <div class="commitment__icon">
+                {%- render 'icon-accordion', icon: block.settings.icon -%}
+              </div>
+            {%- endif -%}
+
+            {%- if block.settings.title != blank -%}
+              <h3 class="commitment__title label">{{ block.settings.title | escape }}</h3>
+            {%- endif -%}
+
+            {%- if block.settings.text != blank -%}
+              <p class="commitment__text">{{ block.settings.text }}</p>
+            {%- endif -%}
+          </li>
+        {%- endfor -%}
+      </ul>
+    {%- endif -%}
+  </div>
+</div>
+
+{%- style -%}
+  .section-{{ section.id }}-padding {
+    padding-top: {{ section.settings.padding_top | times: 0.75 | round: 0 }}px;
+    padding-bottom: {{ section.settings.padding_bottom | times: 0.75 | round: 0 }}px;
+  }
+
+  @media screen and (min-width: 750px) {
+    .section-{{ section.id }}-padding {
+      padding-top: {{ section.settings.padding_top }}px;
+      padding-bottom: {{ section.settings.padding_bottom }}px;
+    }
+  }
+{%- endstyle -%}
+
+{% schema %}
+{
+  "name": "Commitments",
+  "tag": "section",
+  "class": "section",
+  "settings": [
+    {
+      "type": "text",
+      "id": "caption",
+      "label": "Eyebrow",
+      "default": "What we hold ourselves to"
+    },
+    {
+      "type": "inline_richtext",
+      "id": "heading",
+      "label": "Heading",
+      "default": "Every claim, in writing"
+    },
+    {
+      "type": "select",
+      "id": "heading_size",
+      "options": [
+        { "value": "h2", "label": "Small" },
+        { "value": "h1", "label": "Medium" },
+        { "value": "h0", "label": "Large" }
+      ],
+      "default": "h1",
+      "label": "Heading size"
+    },
+    {
+      "type": "select",
+      "id": "columns_desktop",
+      "options": [
+        { "value": "3", "label": "3 columns" },
+        { "value": "4", "label": "4 columns" },
+        { "value": "6", "label": "6 columns" }
+      ],
+      "default": "6",
+      "label": "Columns on desktop",
+      "info": "Mobile is always 2 columns and tablet is always 3, so the claims stay readable."
+    },
+    {
+      "type": "color_scheme",
+      "id": "color_scheme",
+      "label": "t:sections.all.colors.label",
+      "default": "scheme-2"
+    },
+    {
+      "type": "header",
+      "content": "t:sections.all.padding.section_padding_heading"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "label": "t:sections.all.padding.padding_top",
+      "default": 96
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "label": "t:sections.all.padding.padding_bottom",
+      "default": 96
+    }
+  ],
+  "blocks": [
+    {
+      "type": "commitment",
+      "name": "Commitment",
+      "limit": 8,
+      "settings": [
+        {
+          "type": "select",
+          "id": "icon",
+          "options": [
+            { "value": "none", "label": "None" },
+            { "value": "check_mark", "label": "Check mark" },
+            { "value": "leaf", "label": "Leaf" },
+            { "value": "plant", "label": "Plant" },
+            { "value": "paw_print", "label": "Paw print" },
+            { "value": "recycle", "label": "Recycle" },
+            { "value": "heart", "label": "Heart" },
+            { "value": "eye", "label": "Eye" },
+            { "value": "truck", "label": "Truck" },
+            { "value": "return", "label": "Return" },
+            { "value": "padlock", "label": "Padlock" },
+            { "value": "stopwatch", "label": "Stopwatch" },
+            { "value": "clipboard", "label": "Clipboard" },
+            { "value": "bottle", "label": "Bottle" },
+            { "value": "star", "label": "Star" },
+            { "value": "price_tag", "label": "Price tag" },
+            { "value": "plane", "label": "Plane" }
+          ],
+          "default": "check_mark",
+          "label": "Icon"
+        },
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Claim",
+          "default": "Named concentrations"
+        },
+        {
+          "type": "inline_richtext",
+          "id": "text",
+          "label": "Supporting line",
+          "info": "One short line. Keep it legally accurate — this is a product claim."
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Commitments",
+      "blocks": [
+        {
+          "type": "commitment",
+          "settings": {
+            "icon": "check_mark",
+            "title": "Named concentrations",
+            "text": "Every active printed at the strength it is dosed at."
+          }
+        },
+        {
+          "type": "commitment",
+          "settings": {
+            "icon": "paw_print",
+            "title": "Never tested on animals",
+            "text": "Leaping Bunny certified."
+          }
+        },
+        {
+          "type": "commitment",
+          "settings": {
+            "icon": "eye",
+            "title": "Dermatologist tested",
+            "text": "Patch tested on sensitive and acne-prone skin."
+          }
+        },
+        {
+          "type": "commitment",
+          "settings": {
+            "icon": "stopwatch",
+            "title": "Small batches",
+            "text": "Blend date printed on every box."
+          }
+        },
+        {
+          "type": "commitment",
+          "settings": {
+            "icon": "recycle",
+            "title": "Recyclable packaging",
+            "text": "No plastic void fill, ever."
+          }
+        },
+        {
+          "type": "commitment",
+          "settings": {
+            "icon": "truck",
+            "title": "Free over ₹1,499",
+            "text": "Dispatched within 24 hours."
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

@@ -1,0 +1,92 @@
+/*
+  section-commitments.css
+
+  Loaded only by sections/commitments.liquid.
+
+  Colours come from the active Dawn colour scheme. No hex values here, per the
+  theme rules in CLAUDE.md.
+
+  Responsive contract: two columns at 360px, three across the 750-989px tablet
+  band, and the merchant's chosen count only from 990px. Six columns never
+  applies below desktop — at 750px that would be 110px per item.
+*/
+
+.commitments__header {
+  display: block;
+}
+
+.commitments__caption {
+  margin: 0 0 var(--space-2xs);
+  opacity: 0.75;
+}
+
+.commitments__heading {
+  margin: 0;
+}
+
+.commitments__grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: var(--space-sm) var(--space-xs);
+  margin: 0;
+  padding: 0;
+}
+
+@media screen and (min-width: 750px) {
+  .commitments__grid {
+    grid-template-columns: repeat(3, 1fr);
+    gap: var(--space-md) var(--space-sm);
+  }
+}
+
+@media screen and (min-width: 990px) {
+  .commitments__grid--3 {
+    grid-template-columns: repeat(3, 1fr);
+  }
+
+  .commitments__grid--4 {
+    grid-template-columns: repeat(4, 1fr);
+  }
+
+  .commitments__grid--6 {
+    grid-template-columns: repeat(6, 1fr);
+  }
+}
+
+.commitment {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2xs);
+  border-top: var(--rule);
+  padding-top: var(--space-xs);
+  margin: 0;
+  min-width: 0;
+}
+
+/*
+  The icon inherits the scheme's foreground through currentColor, so it works
+  on cream and on deep olive without a second rule.
+*/
+.commitment__icon .svg-wrapper {
+  display: block;
+  width: 2.4rem;
+  height: 2.4rem;
+  color: rgb(var(--color-foreground));
+}
+
+.commitment__icon .svg-wrapper svg {
+  width: 100%;
+  height: 100%;
+}
+
+.commitment__title {
+  margin: 0;
+}
+
+.commitment__text {
+  margin: 0;
+  font-size: 1.4rem;
+  line-height: 1.45;
+  opacity: 0.78;
+  text-wrap: pretty;
+}

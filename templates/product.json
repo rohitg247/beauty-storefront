@@ -49,6 +49,18 @@
             "show_gift_card_recipient": true
           }
         },
+        "complementary": {
+          "type": "complementary",
+          "settings": {
+            "block_heading": "Complete the routine",
+            "make_collapsible_row": false,
+            "product_list_limit": 3,
+            "products_per_page": 3,
+            "pagination_style": "counter",
+            "image_ratio": "square",
+            "enable_quick_add": true
+          }
+        },
         "ingredients": {
           "type": "collapsible_tab",
           "settings": {
@@ -88,6 +100,7 @@
         "variant_picker",
         "quantity_selector",
         "buy_buttons",
+        "complementary",
         "ingredients",
         "how_to_use",
         "shipping",

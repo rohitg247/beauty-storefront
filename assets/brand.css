@@ -432,10 +432,21 @@ body::after {
   grid-template-columns: 1fr;
 }
 
+/*
+  Tablet (750–989px) never goes past two columns. Dawn hands the desktop
+  column count straight to this band, and four columns at 750px works out to
+  163px each — about eight characters per line of a 20px serif quote. Three
+  and four columns wait for 990px.
+*/
 @media screen and (min-width: 750px) {
-  .testimonials__grid--2 {
+  .testimonials__grid--2,
+  .testimonials__grid--3,
+  .testimonials__grid--4 {
     grid-template-columns: repeat(2, 1fr);
   }
+}
+
+@media screen and (min-width: 990px) {
   .testimonials__grid--3 {
     grid-template-columns: repeat(3, 1fr);
   }
@@ -552,11 +563,19 @@ body::after {
   transition: transform var(--dur-base) var(--ease-out-expo), visibility 0s linear 0s;
 }
 
+/*
+  Safe-area insets, not plain padding. Bottom clears the iOS home indicator,
+  which otherwise sits over the add-to-cart button. Left and right clear the
+  notch in landscape. max() keeps the normal padding on every other device.
+*/
 .sticky-atc__inner {
   display: flex;
   align-items: center;
   gap: var(--space-xs);
-  padding: 1.2rem 1.5rem;
+  padding-top: 1.2rem;
+  padding-right: max(1.5rem, env(safe-area-inset-right));
+  padding-bottom: max(1.2rem, env(safe-area-inset-bottom));
+  padding-left: max(1.5rem, env(safe-area-inset-left));
   max-width: var(--page-width);
   margin: 0 auto;
 }
@@ -643,6 +662,37 @@ body::after {
 }
 
 /* ------------------------------------------------------------------
+   12b. Free shipping progress
+
+   A hairline that fills, matching the rule motif rather than becoming a
+   coloured meter. Width is set inline by the Liquid, server-rendered, so
+   there is no state where JS has to reveal or correct it.
+   ------------------------------------------------------------------ */
+
+.shipping-progress {
+  display: grid;
+  gap: var(--space-2xs);
+  padding-bottom: var(--space-xs);
+}
+
+.shipping-progress__text {
+  margin: 0;
+}
+
+.shipping-progress__track {
+  height: 2px;
+  background-color: rgba(var(--color-foreground), 0.16);
+  overflow: hidden;
+}
+
+.shipping-progress__fill {
+  display: block;
+  height: 100%;
+  background-color: rgb(var(--color-foreground));
+  transition: width var(--dur-base) var(--ease-out-expo);
+}
+
+/* ------------------------------------------------------------------
    13. Magnetic hover
 
    brand.js writes --mx/--my in pixels. Without JS these stay 0 and the
@@ -693,6 +743,10 @@ body::after {
   }
 
   .sticky-atc {
+    transition: none;
+  }
+
+  .shipping-progress__fill {
     transition: none;
   }
 }

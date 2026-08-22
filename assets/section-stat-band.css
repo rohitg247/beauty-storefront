@@ -1,0 +1,84 @@
+/*
+  section-stat-band.css
+
+  Loaded only by sections/stat-band.liquid.
+
+  Responsive contract: one column below 750px. The figures carry the section, so
+  the layout reflows rather than shrinking them — three numbers side by side at
+  360px would be 110px each and unreadable.
+*/
+
+.stat-band__caption {
+  margin: 0 0 var(--space-2xs);
+  opacity: 0.75;
+}
+
+.stat-band__heading {
+  margin: 0;
+}
+
+.stat-band__grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: var(--space-sm);
+  margin: 0;
+  padding: 0;
+}
+
+@media screen and (min-width: 750px) {
+  .stat-band__grid {
+    gap: var(--space-md);
+  }
+
+  .stat-band__grid--2 {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .stat-band__grid--3 {
+    grid-template-columns: repeat(3, 1fr);
+  }
+
+  /* Four stats go 2x2 on tablet and only flatten to a single row on desktop. */
+  .stat-band__grid--4 {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media screen and (min-width: 990px) {
+  .stat-band__grid--4 {
+    grid-template-columns: repeat(4, 1fr);
+  }
+}
+
+.stat {
+  border-top: var(--rule);
+  padding-top: var(--space-xs);
+  min-width: 0;
+}
+
+.stat__figure {
+  font-family: var(--font-heading-family);
+  font-weight: var(--font-heading-weight);
+  font-size: clamp(4.8rem, 7vw, 8rem);
+  line-height: 0.92;
+  letter-spacing: -0.03em;
+  margin: 0;
+}
+
+.stat__claim {
+  margin: var(--space-2xs) 0 0;
+  font-size: 1.6rem;
+  line-height: 1.4;
+  opacity: 0.82;
+  text-wrap: pretty;
+}
+
+.stat-band__footnote {
+  margin: var(--space-sm) 0 0;
+  padding-top: var(--space-xs);
+  border-top: var(--rule);
+  font-size: 1.2rem;
+  line-height: 1.5;
+  opacity: 0.62;
+  max-width: 60ch;
+}

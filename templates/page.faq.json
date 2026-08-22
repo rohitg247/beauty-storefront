@@ -1,0 +1,90 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "main": {
+      "type": "main-page",
+      "settings": {
+        "padding_top": 96,
+        "padding_bottom": 36
+      }
+    },
+    "faq": {
+      "type": "collapsible-content",
+      "blocks": {
+        "freshness": {
+          "type": "collapsible_row",
+          "settings": {
+            "heading": "How fresh is what I receive?",
+            "icon": "clipboard",
+            "row_content": "<p>We make in batches of two hundred and print the blend date on every box. We do not warehouse stock, so what arrives is weeks old rather than quarters old. Actives lose potency from the moment they are blended, which is the whole reason for working this way.</p>"
+          }
+        },
+        "ingredients": {
+          "type": "collapsible_row",
+          "settings": {
+            "heading": "What is actually in the formulas?",
+            "icon": "check_mark",
+            "row_content": "<p>Every active is listed at the concentration it is dosed at, printed on the carton. Nothing is hidden inside a proprietary blend. The full INCI list is on each product page, and the botanicals are cold-pressed and sourced from named growers.</p>"
+          }
+        },
+        "animal_testing": {
+          "type": "collapsible_row",
+          "settings": {
+            "heading": "Do you test on animals?",
+            "icon": "heart",
+            "row_content": "<p>No. We are Leaping Bunny certified, and we do not sell into markets that require animal testing as a condition of entry.</p>"
+          }
+        },
+        "sensitive_skin": {
+          "type": "collapsible_row",
+          "settings": {
+            "heading": "Will this work on sensitive skin?",
+            "icon": "eye",
+            "row_content": "<p>Every batch is patch tested on sensitive and acne-prone skin before it ships. That said, skin is individual — patch test on your inner forearm for 24 hours before applying anything new to your face, particularly if you are already using a retinoid or an acid.</p>"
+          }
+        },
+        "shipping": {
+          "type": "collapsible_row",
+          "settings": {
+            "heading": "Shipping and returns",
+            "icon": "truck",
+            "row_content": "<p>Orders are dispatched within 24 hours, in recyclable packaging with no plastic void fill. Shipping is free over ₹1,499. Unopened items can be returned within 30 days.</p>"
+          }
+        }
+      },
+      "block_order": [
+        "freshness",
+        "ingredients",
+        "animal_testing",
+        "sensitive_skin",
+        "shipping"
+      ],
+      "settings": {
+        "caption": "Questions",
+        "heading": "The things people ask",
+        "heading_size": "h1",
+        "heading_alignment": "left",
+        "layout": "none",
+        "color_scheme": "scheme-1",
+        "container_color_scheme": "scheme-2",
+        "open_first_collapsible_row": true,
+        "image_ratio": "adapt",
+        "desktop_layout": "image_second",
+        "padding_top": 36,
+        "padding_bottom": 96
+      }
+    }
+  },
+  "order": [
+    "main",
+    "faq"
+  ]
+}

@@ -161,52 +161,101 @@
         "padding_bottom": 96
       }
     },
-    "promises": {
-      "type": "multicolumn",
+    "results": {
+      "type": "stat-band",
       "blocks": {
-        "formulas": {
-          "type": "column",
+        "hydration": {
+          "type": "stat",
           "settings": {
-            "title": "Named concentrations",
-            "text": "<p>Every active is printed at the strength it is dosed at. No proprietary blends.</p>"
+            "figure": "91%",
+            "claim": "reported skin felt more hydrated"
           }
         },
-        "cruelty": {
-          "type": "column",
+        "tone": {
+          "type": "stat",
           "settings": {
-            "title": "Never tested on animals",
-            "text": "<p>Leaping Bunny certified, and we do not sell into markets that require animal testing.</p>"
+            "figure": "84%",
+            "claim": "saw a more even tone by week six"
           }
         },
-        "tested": {
-          "type": "column",
+        "texture": {
+          "type": "stat",
           "settings": {
-            "title": "Dermatologist tested",
-            "text": "<p>Patch tested on sensitive and acne-prone skin before a batch ships.</p>"
-          }
-        },
-        "shipping": {
-          "type": "column",
-          "settings": {
-            "title": "Free shipping over ₹1,499",
-            "text": "<p>Dispatched within 24 hours, in recyclable packaging with no plastic void fill.</p>"
+            "figure": "71%",
+            "claim": "said texture had visibly improved"
           }
         }
       },
-      "block_order": ["formulas", "cruelty", "tested", "shipping"],
+      "block_order": ["hydration", "tone", "texture"],
       "settings": {
-        "title": "What we hold ourselves to",
+        "caption": "Measured, not asserted",
+        "heading": "What the panel reported",
         "heading_size": "h1",
-        "image_width": "third",
-        "image_ratio": "adapt",
-        "button_label": "",
-        "button_link": "",
-        "columns_desktop": 4,
-        "column_alignment": "left",
-        "background_style": "none",
+        "footnote": "PLACEHOLDER — replace with a real study basis before launch. Independent consumer panel, 8 weeks, n=35, ages 25-55. Self-assessed.",
+        "color_scheme": "scheme-3",
+        "padding_top": 96,
+        "padding_bottom": 96
+      }
+    },
+    "promises": {
+      "type": "commitments",
+      "blocks": {
+        "formulas": {
+          "type": "commitment",
+          "settings": {
+            "icon": "check_mark",
+            "title": "Named concentrations",
+            "text": "Every active printed at the strength it is dosed at."
+          }
+        },
+        "cruelty": {
+          "type": "commitment",
+          "settings": {
+            "icon": "paw_print",
+            "title": "Never tested on animals",
+            "text": "Leaping Bunny certified."
+          }
+        },
+        "tested": {
+          "type": "commitment",
+          "settings": {
+            "icon": "eye",
+            "title": "Dermatologist tested",
+            "text": "Patch tested on sensitive and acne-prone skin."
+          }
+        },
+        "batches": {
+          "type": "commitment",
+          "settings": {
+            "icon": "stopwatch",
+            "title": "Small batches",
+            "text": "Blend date printed on every box."
+          }
+        },
+        "packaging": {
+          "type": "commitment",
+          "settings": {
+            "icon": "recycle",
+            "title": "Recyclable packaging",
+            "text": "No plastic void fill, ever."
+          }
+        },
+        "shipping": {
+          "type": "commitment",
+          "settings": {
+            "icon": "truck",
+            "title": "Free over ₹1,499",
+            "text": "Dispatched within 24 hours."
+          }
+        }
+      },
+      "block_order": ["formulas", "cruelty", "tested", "batches", "packaging", "shipping"],
+      "settings": {
+        "caption": "What we hold ourselves to",
+        "heading": "Every claim, in writing",
+        "heading_size": "h1",
+        "columns_desktop": "6",
         "color_scheme": "scheme-2",
-        "columns_mobile": "1",
-        "swipe_on_mobile": false,
         "padding_top": 96,
         "padding_bottom": 96
       }
@@ -289,6 +338,7 @@
     "categories",
     "bestsellers",
     "story",
+    "results",
     "promises",
     "testimonials",
     "newsletter"

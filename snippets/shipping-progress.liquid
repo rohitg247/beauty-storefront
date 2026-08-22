@@ -1,0 +1,52 @@
+{% comment %}
+  Free shipping progress.
+
+  Renders nothing when the threshold is 0 or the cart is empty, so the merchant
+  can switch it off from Theme settings → Cart without touching code.
+
+  No JavaScript. The bar's width is correct in the server-rendered HTML, which
+  is what the safety contract in CLAUDE.md requires — nothing here is hidden
+  waiting for a script to reveal it.
+
+  It stays in sync for free, but only if it is rendered inside a container the
+  theme re-renders on cart change. Those are exactly two:
+
+  - cart drawer  → anything inside `.drawer__inner`  (see cart-drawer.js:131)
+  - cart page    → anything inside `.js-contents`    (see cart.js:164)
+
+  Rendering it anywhere else on those pages will leave it showing a stale total.
+
+  Accepts: nothing. Reads `cart` and `settings` directly.
+
+  Usage:
+  {% render 'shipping-progress' %}
+{% endcomment %}
+
+{%- liquid
+  assign threshold = settings.free_shipping_threshold | times: 100
+-%}
+
+{%- if threshold > 0 and cart.item_count > 0 -%}
+  {%- liquid
+    assign remaining = threshold | minus: cart.total_price
+    if remaining > 0
+      assign percent = cart.total_price | times: 100 | divided_by: threshold
+    else
+      assign percent = 100
+    endif
+  -%}
+
+  <div class="shipping-progress">
+    <p class="shipping-progress__text label">
+      {%- if remaining > 0 -%}
+        Spend {{ remaining | money }} more for free shipping
+      {%- else -%}
+        Free shipping unlocked
+      {%- endif -%}
+    </p>
+
+    <div class="shipping-progress__track" aria-hidden="true">
+      <span class="shipping-progress__fill" style="width: {{ percent }}%"></span>
+    </div>
+  </div>
+{%- endif -%}

@@ -61,10 +61,48 @@ additive layer on top of the theme. Any change to them must preserve all of the 
 - `three.module.js` is dynamically imported only on desktop, pointer-fine, non-reduced-motion,
   WebGL2-capable browsers, and only when the hero is in view. Mobile must never download it.
 
+## Responsive is a requirement, not a polish pass (mandatory)
+
+Beauty traffic is 70–80% mobile, so mobile is the primary surface and desktop is the
+secondary one. **Nothing is "done" until it is verified at every width below.** This applies
+to every section, snippet and CSS change, with no exception for "it's only a small change".
+
+Dawn/Sense breaks at **750px** and **990px**; `--page-width` caps at 1400px. Four bands:
+
+| Band | Width | Note |
+|---|---|---|
+| Small mobile | 320–479 | **Hard floor is 360px.** No horizontal scroll, ever. |
+| Mobile | 480–749 | Primary revenue surface. |
+| **Tablet** | **750–989** | **The band that rots.** Dawn applies desktop grids here, so `columns_desktop: 4` becomes four ~170px cards. Every grid needs an explicit intermediate count. |
+| Desktop | 990+ | |
+
+Check at **360, 390, 414, 768, 820, 1024, 1280, 1440**, and in landscape at 768 and 820 —
+landscape tablet is 1024px wide but only 768px tall, which breaks anything sized to viewport
+height.
+
+Non-negotiable rules for any new or changed UI:
+
+- **No horizontal overflow at 360px.** Long product titles, ₹ prices with thousands
+  separators, and ingredient names are the usual culprits.
+- **Tap targets ≥44×44px**, with ≥8px between them.
+- **`env(safe-area-inset-bottom)` on anything fixed to the bottom**, or it sits under the iOS
+  home indicator.
+- **Inputs ≥16px font-size**, or iOS Safari zooms the page on focus.
+- **No layout shift as images load** — every image carries width/height or an aspect ratio.
+- **Use the existing fluid tokens** (`--space-2xs` … `--space-xl`, all `clamp()`) before
+  reaching for a new media query.
+- **Mobile gets its own answer where a squeezed desktop layout would be dishonest** — a
+  six-item row becomes a snap-scroll, not six stacked rows; large figures stack rather than
+  shrink below legibility.
+
+Real devices for anything sticky, fixed or snap-scrolling. Emulators do not reproduce
+safe-area insets, momentum scroll, or iOS input-zoom.
+
 ## Before saying it works
 
 Run `shopify theme check`. Then check in the browser: homepage, product, collection, cart —
-console clean, no horizontal scroll at 360px, keyboard focus visible throughout.
+console clean, no horizontal scroll at 360px, keyboard focus visible throughout, and the full
+responsive matrix above.
 
 ## Preflight — run before every push (mandatory)
 

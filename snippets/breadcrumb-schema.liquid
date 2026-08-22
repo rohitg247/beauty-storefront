@@ -1,0 +1,103 @@
+{% comment %}
+  BreadcrumbList structured data.
+
+  Sense already emits Organization and WebSite/SearchAction from
+  sections/header.liquid, Product from sections/main-product.liquid, and Article
+  from sections/main-article.liquid. BreadcrumbList is the one Google-supported
+  type the theme does not produce, and the theme has no visible breadcrumbs
+  either, so nothing here duplicates existing markup.
+
+  Duplicate schema of the same type suppresses rich results outright, so if
+  visible breadcrumbs are ever added, check whether they emit their own JSON-LD
+  before leaving this in place.
+
+  Renders on product, collection, article and page only. Home, search, cart and
+  404 have no meaningful trail.
+
+  Accepts: nothing. Reads the current request.
+
+  Usage:
+  {% render 'breadcrumb-schema' %}
+{% endcomment %}
+
+{%- liquid
+  assign crumb_types = 'product,collection,article,page'
+  assign has_trail = false
+  if crumb_types contains request.page_type
+    assign has_trail = true
+  endif
+-%}
+
+{%- if has_trail -%}
+  {%- capture crumbs -%}
+    {
+      "@type": "ListItem",
+      "position": 1,
+      "name": "Home",
+      "item": {{ request.origin | append: routes.root_url | json }}
+    }
+    {%- case request.page_type -%}
+      {%- when 'product' -%}
+        {%- assign parent_collection = collection | default: product.collections.first -%}
+        {%- if parent_collection != blank and parent_collection.title != blank -%}
+          ,{
+            "@type": "ListItem",
+            "position": 2,
+            "name": {{ parent_collection.title | json }},
+            "item": {{ request.origin | append: parent_collection.url | json }}
+          },
+          {
+            "@type": "ListItem",
+            "position": 3,
+            "name": {{ product.title | json }},
+            "item": {{ request.origin | append: product.url | json }}
+          }
+        {%- else -%}
+          ,{
+            "@type": "ListItem",
+            "position": 2,
+            "name": {{ product.title | json }},
+            "item": {{ request.origin | append: product.url | json }}
+          }
+        {%- endif -%}
+
+      {%- when 'collection' -%}
+        ,{
+          "@type": "ListItem",
+          "position": 2,
+          "name": {{ collection.title | json }},
+          "item": {{ request.origin | append: collection.url | json }}
+        }
+
+      {%- when 'article' -%}
+        ,{
+          "@type": "ListItem",
+          "position": 2,
+          "name": {{ blog.title | json }},
+          "item": {{ request.origin | append: blog.url | json }}
+        },
+        {
+          "@type": "ListItem",
+          "position": 3,
+          "name": {{ article.title | json }},
+          "item": {{ request.origin | append: article.url | json }}
+        }
+
+      {%- when 'page' -%}
+        ,{
+          "@type": "ListItem",
+          "position": 2,
+          "name": {{ page.title | json }},
+          "item": {{ request.origin | append: page.url | json }}
+        }
+    {%- endcase -%}
+  {%- endcapture -%}
+
+  <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "BreadcrumbList",
+      "itemListElement": [{{ crumbs }}]
+    }
+  </script>
+{%- endif -%}

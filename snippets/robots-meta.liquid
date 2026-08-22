@@ -1,0 +1,57 @@
+{% comment %}
+  Robots meta for crawl control.
+
+  The theme already emits <link rel="canonical" href="{{ canonical_url }}"> from
+  layout/theme.liquid, and Shopify's canonical_url drops the query string, so
+  filtered collection URLs already point back to the base collection. This adds
+  the stronger signal where canonical alone is not enough.
+
+  The rule:
+
+  - Search results: always noindex. Never useful in an index, and infinitely
+    generatable.
+  - Two or more active filters: noindex. This is where the combinatorial
+    explosion lives — six concerns x six ingredients x a price range is
+    thousands of near-duplicate URLs.
+  - Exactly one active filter: left indexable on purpose. Single-facet pages
+    like "serums" or "vitamin C" are genuine landing pages for a beauty store
+    and are the whole point of the concern/ingredient collections.
+
+  `follow` in every case, so link equity still flows to the products.
+
+  Accepts: nothing. Reads the current request.
+
+  Usage:
+  {% render 'robots-meta' %}
+{% endcomment %}
+
+{%- liquid
+  assign robots_value = ''
+
+  if request.page_type == 'search'
+    assign robots_value = 'noindex,follow'
+  elsif collection != blank
+    assign active_filters = 0
+
+    for filter in collection.filters
+      case filter.type
+        when 'price_range'
+          if filter.min_value.value != blank or filter.max_value.value != blank
+            assign active_filters = active_filters | plus: 1
+          endif
+        else
+          if filter.active_values.size > 0
+            assign active_filters = active_filters | plus: 1
+          endif
+      endcase
+    endfor
+
+    if active_filters > 1
+      assign robots_value = 'noindex,follow'
+    endif
+  endif
+-%}
+
+{%- if robots_value != blank -%}
+  <meta name="robots" content="{{ robots_value }}">
+{%- endif -%}

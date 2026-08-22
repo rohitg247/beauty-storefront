@@ -1,0 +1,189 @@
+{% comment %}
+  Stat band — clinical or consumer-panel results.
+
+  LaCélie's "91% / 84% / 71%, 8-week study, n=35" is the single strongest proof
+  element found in the competitive audit, and nothing in Sense does it.
+
+  Every field is merchant editable on purpose. These are efficacy claims and
+  they have to be correctable without a deploy. The footnote block exists so the
+  study basis (panel size, duration, self-assessed vs instrumented) travels with
+  the figures rather than being dropped — a percentage without its denominator
+  is not evidence, and in several markets it is not legal either.
+
+  Responsive: stacks to one column below 750px. The figures are the whole point,
+  so they stay large and the layout reflows rather than shrinking them.
+{% endcomment %}
+
+{{ 'section-stat-band.css' | asset_url | stylesheet_tag }}
+
+<div class="color-{{ section.settings.color_scheme }} gradient">
+  <div class="page-width section-{{ section.id }}-padding">
+    {%- if section.settings.caption != blank or section.settings.heading != blank -%}
+      <div class="stat-band__header section-header">
+        {%- if section.settings.caption != blank -%}
+          <p class="stat-band__caption label">{{ section.settings.caption | escape }}</p>
+        {%- endif -%}
+
+        {%- if section.settings.heading != blank -%}
+          <h2 class="stat-band__heading {{ section.settings.heading_size }}">
+            {{ section.settings.heading }}
+          </h2>
+        {%- endif -%}
+      </div>
+    {%- endif -%}
+
+    {%- if section.blocks.size > 0 -%}
+      <dl class="stat-band__grid stat-band__grid--{{ section.blocks.size }}">
+        {%- for block in section.blocks -%}
+          <div class="stat" {{ block.shopify_attributes }}>
+            {%- if block.settings.figure != blank -%}
+              <dt class="stat__figure">{{ block.settings.figure | escape }}</dt>
+            {%- endif -%}
+
+            {%- if block.settings.claim != blank -%}
+              <dd class="stat__claim">{{ block.settings.claim }}</dd>
+            {%- endif -%}
+          </div>
+        {%- endfor -%}
+      </dl>
+    {%- endif -%}
+
+    {%- if section.settings.footnote != blank -%}
+      <p class="stat-band__footnote">{{ section.settings.footnote }}</p>
+    {%- endif -%}
+  </div>
+</div>
+
+{%- style -%}
+  .section-{{ section.id }}-padding {
+    padding-top: {{ section.settings.padding_top | times: 0.75 | round: 0 }}px;
+    padding-bottom: {{ section.settings.padding_bottom | times: 0.75 | round: 0 }}px;
+  }
+
+  @media screen and (min-width: 750px) {
+    .section-{{ section.id }}-padding {
+      padding-top: {{ section.settings.padding_top }}px;
+      padding-bottom: {{ section.settings.padding_bottom }}px;
+    }
+  }
+{%- endstyle -%}
+
+{% schema %}
+{
+  "name": "Stat band",
+  "tag": "section",
+  "class": "section",
+  "settings": [
+    {
+      "type": "text",
+      "id": "caption",
+      "label": "Eyebrow",
+      "default": "Measured, not asserted"
+    },
+    {
+      "type": "inline_richtext",
+      "id": "heading",
+      "label": "Heading",
+      "default": "What the panel reported"
+    },
+    {
+      "type": "select",
+      "id": "heading_size",
+      "options": [
+        { "value": "h2", "label": "Small" },
+        { "value": "h1", "label": "Medium" },
+        { "value": "h0", "label": "Large" }
+      ],
+      "default": "h1",
+      "label": "Heading size"
+    },
+    {
+      "type": "inline_richtext",
+      "id": "footnote",
+      "label": "Study basis",
+      "default": "Independent consumer panel, 8 weeks, n=35, ages 25-55. Self-assessed.",
+      "info": "State the panel size, duration, and whether results were self-assessed or instrumented. A percentage without its basis is not evidence."
+    },
+    {
+      "type": "color_scheme",
+      "id": "color_scheme",
+      "label": "t:sections.all.colors.label",
+      "default": "scheme-3"
+    },
+    {
+      "type": "header",
+      "content": "t:sections.all.padding.section_padding_heading"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "label": "t:sections.all.padding.padding_top",
+      "default": 96
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "label": "t:sections.all.padding.padding_bottom",
+      "default": 96
+    }
+  ],
+  "blocks": [
+    {
+      "type": "stat",
+      "name": "Statistic",
+      "limit": 4,
+      "settings": [
+        {
+          "type": "text",
+          "id": "figure",
+          "label": "Figure",
+          "default": "91%",
+          "info": "Keep it short. This renders very large."
+        },
+        {
+          "type": "inline_richtext",
+          "id": "claim",
+          "label": "What it measured",
+          "default": "reported skin felt more hydrated"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Stat band",
+      "blocks": [
+        {
+          "type": "stat",
+          "settings": {
+            "figure": "91%",
+            "claim": "reported skin felt more hydrated"
+          }
+        },
+        {
+          "type": "stat",
+          "settings": {
+            "figure": "84%",
+            "claim": "saw a more even tone by week six"
+          }
+        },
+        {
+          "type": "stat",
+          "settings": {
+            "figure": "71%",
+            "claim": "said texture had visibly improved"
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}
