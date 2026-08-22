@@ -144,118 +144,118 @@
     "color_schemes": {
       "scheme-1": {
         "settings": {
-          "background": "#F5F3EC",
+          "background": "#FBF3EA",
           "background_gradient": "",
-          "text": "#2C3326",
-          "button": "#556B2F",
-          "button_label": "#F5F3EC",
-          "secondary_button_label": "#2C3326",
-          "shadow": "#2C3326"
+          "text": "#034638",
+          "button": "#034638",
+          "button_label": "#FBF3EA",
+          "secondary_button_label": "#034638",
+          "shadow": "#034638"
         }
       },
       "scheme-2": {
         "settings": {
-          "background": "#B1B7A5",
-          "background_gradient": "linear-gradient(160deg, rgba(177, 183, 165, 1), rgba(123, 143, 99, 1) 100%)",
-          "text": "#2C3326",
-          "button": "#2C3326",
-          "button_label": "#D4C89E",
-          "secondary_button_label": "#2C3326",
-          "shadow": "#2C3326"
+          "background": "#F3CFB3",
+          "background_gradient": "linear-gradient(160deg, rgba(251, 243, 234, 1), rgba(243, 207, 179, 1) 100%)",
+          "text": "#034638",
+          "button": "#034638",
+          "button_label": "#F3CFB3",
+          "secondary_button_label": "#034638",
+          "shadow": "#034638"
         }
       },
       "scheme-3": {
         "settings": {
-          "background": "#2C3326",
+          "background": "#034638",
           "background_gradient": "",
-          "text": "#F5F3EC",
-          "button": "#D4C89E",
-          "button_label": "#2C3326",
-          "secondary_button_label": "#D4C89E",
-          "shadow": "#2C3326"
+          "text": "#F3CFB3",
+          "button": "#63C0AD",
+          "button_label": "#034638",
+          "secondary_button_label": "#63C0AD",
+          "shadow": "#034638"
         }
       },
       "scheme-4": {
         "settings": {
-          "background": "#556B2F",
-          "background_gradient": "linear-gradient(320deg, rgba(85, 107, 47, 1), rgba(44, 51, 38, 1) 100%)",
-          "text": "#F5F3EC",
-          "button": "#D4C89E",
-          "button_label": "#2C3326",
-          "secondary_button_label": "#D4C89E",
-          "shadow": "#2C3326"
+          "background": "#034638",
+          "background_gradient": "linear-gradient(320deg, rgba(3, 70, 56, 1), rgba(2, 42, 34, 1) 100%)",
+          "text": "#F3CFB3",
+          "button": "#63C0AD",
+          "button_label": "#034638",
+          "secondary_button_label": "#63C0AD",
+          "shadow": "#034638"
         }
       },
       "scheme-5": {
         "settings": {
-          "background": "#D4C89E",
+          "background": "#63C0AD",
           "background_gradient": "",
-          "text": "#2C3326",
-          "button": "#2C3326",
-          "button_label": "#D4C89E",
-          "secondary_button_label": "#2C3326",
-          "shadow": "#2C3326"
+          "text": "#034638",
+          "button": "#034638",
+          "button_label": "#F3CFB3",
+          "secondary_button_label": "#034638",
+          "shadow": "#034638"
         }
       }
     }
   },
   "presets": {
-    "Sense": {
+    "EMBRAE": {
       "logo_width": 110,
       "color_schemes": {
         "scheme-1": {
           "settings": {
-            "background": "#F5F3EC",
+            "background": "#FBF3EA",
             "background_gradient": "",
-            "text": "#2C3326",
-            "button": "#556B2F",
-            "button_label": "#F5F3EC",
-            "secondary_button_label": "#2C3326",
-            "shadow": "#2C3326"
+            "text": "#034638",
+            "button": "#034638",
+            "button_label": "#FBF3EA",
+            "secondary_button_label": "#034638",
+            "shadow": "#034638"
           }
         },
         "scheme-2": {
           "settings": {
-            "background": "#B1B7A5",
-            "background_gradient": "linear-gradient(160deg, rgba(177, 183, 165, 1), rgba(123, 143, 99, 1) 100%)",
-            "text": "#2C3326",
-            "button": "#2C3326",
-            "button_label": "#D4C89E",
-            "secondary_button_label": "#2C3326",
-            "shadow": "#2C3326"
+            "background": "#F3CFB3",
+            "background_gradient": "linear-gradient(160deg, rgba(251, 243, 234, 1), rgba(243, 207, 179, 1) 100%)",
+            "text": "#034638",
+            "button": "#034638",
+            "button_label": "#F3CFB3",
+            "secondary_button_label": "#034638",
+            "shadow": "#034638"
           }
         },
         "scheme-3": {
           "settings": {
-            "background": "#2C3326",
+            "background": "#034638",
             "background_gradient": "",
-            "text": "#F5F3EC",
-            "button": "#D4C89E",
-            "button_label": "#2C3326",
-            "secondary_button_label": "#D4C89E",
-            "shadow": "#2C3326"
+            "text": "#F3CFB3",
+            "button": "#63C0AD",
+            "button_label": "#034638",
+            "secondary_button_label": "#63C0AD",
+            "shadow": "#034638"
           }
         },
         "scheme-4": {
           "settings": {
-            "background": "#556B2F",
-            "background_gradient": "linear-gradient(320deg, rgba(85, 107, 47, 1), rgba(44, 51, 38, 1) 100%)",
-            "text": "#F5F3EC",
-            "button": "#D4C89E",
-            "button_label": "#2C3326",
-            "secondary_button_label": "#D4C89E",
-            "shadow": "#2C3326"
+            "background": "#034638",
+            "background_gradient": "linear-gradient(320deg, rgba(3, 70, 56, 1), rgba(2, 42, 34, 1) 100%)",
+            "text": "#F3CFB3",
+            "button": "#63C0AD",
+            "button_label": "#034638",
+            "secondary_button_label": "#63C0AD",
+            "shadow": "#034638"
           }
         },
         "scheme-5": {
           "settings": {
-            "background": "#D4C89E",
+            "background": "#63C0AD",
             "background_gradient": "",
-            "text": "#2C3326",
-            "button": "#2C3326",
-            "button_label": "#D4C89E",
-            "secondary_button_label": "#2C3326",
-            "shadow": "#2C3326"
+            "text": "#034638",
+            "button": "#034638",
+            "button_label": "#F3CFB3",
+            "secondary_button_label": "#034638",
+            "shadow": "#034638"
           }
         }
       },
@@ -356,7 +356,7 @@
       "sold_out_badge_color_scheme": "scheme-4",
       "brand_headline": "Beauty, grown not manufactured",
       "brand_description": "<p>Cold-pressed botanicals, clinically dosed actives, and nothing you would not want on your skin. Formulated in small batches.</p>",
-      "brand_image_width": "100",
+      "brand_image_width": 100,
       "social_twitter_link": "",
       "social_facebook_link": "",
       "social_pinterest_link": "",

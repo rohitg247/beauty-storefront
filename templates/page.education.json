@@ -1,0 +1,136 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "banner": {
+      "type": "main-page",
+      "settings": {
+        "padding_top": 64,
+        "padding_bottom": 40
+      }
+    },
+    "ingredients": {
+      "type": "reference-row",
+      "settings": {
+        "source": "ingredient",
+        "caption": "Ingredient library",
+        "heading": "Every active, explained",
+        "heading_size": "h1",
+        "columns_desktop": "4",
+        "link_label": "",
+        "link": "",
+        "color_scheme": "scheme-1",
+        "padding_top": 72,
+        "padding_bottom": 72,
+        "anchor": "ingredient-library"
+      }
+    },
+    "concerns": {
+      "type": "reference-row",
+      "settings": {
+        "source": "concern",
+        "caption": "Skin concerns",
+        "heading": "Start from what your skin is doing",
+        "heading_size": "h1",
+        "columns_desktop": "3",
+        "link_label": "",
+        "link": "",
+        "color_scheme": "scheme-2",
+        "padding_top": 96,
+        "padding_bottom": 96,
+        "anchor": "skin-concerns"
+      }
+    },
+    "reading": {
+      "type": "multicolumn",
+      "blocks": {
+        "school": {
+          "type": "column",
+          "settings": {
+            "title": "Skin School",
+            "text": "<p>The basics, properly explained. Barrier function, hydration, skin types, and the mistakes almost everyone makes.</p>",
+            "link_label": "Skin School",
+            "link": "/blogs/skin-school"
+          }
+        },
+        "climate": {
+          "type": "column",
+          "settings": {
+            "title": "Climate and skin",
+            "text": "<p>Summer, monsoon, winter, humidity, air conditioning, pollution. What each one does, and what to change.</p>",
+            "link_label": "Climate and skin",
+            "link": "/blogs/climate-skin"
+          }
+        },
+        "myths": {
+          "type": "column",
+          "settings": {
+            "title": "Myth vs fact",
+            "text": "<p>Claims that circulate widely and do not survive contact with the evidence.</p>",
+            "link_label": "Myth vs fact",
+            "link": "/blogs/myth-vs-fact"
+          }
+        },
+        "journal": {
+          "type": "column",
+          "settings": {
+            "title": "Journal",
+            "text": "<p>Longer pieces on formulation, sourcing and the decisions behind each product.</p>",
+            "link_label": "Journal",
+            "link": "/blogs/journal"
+          }
+        }
+      },
+      "block_order": [
+        "school",
+        "climate",
+        "myths",
+        "journal"
+      ],
+      "settings": {
+        "title": "Read more",
+        "heading_size": "h1",
+        "image_width": "full",
+        "image_ratio": "adapt",
+        "columns_desktop": 4,
+        "column_alignment": "left",
+        "background_style": "none",
+        "color_scheme": "scheme-1",
+        "columns_mobile": "1",
+        "swipe_on_mobile": true,
+        "padding_top": 88,
+        "padding_bottom": 88
+      }
+    },
+    "routines": {
+      "type": "reference-row",
+      "settings": {
+        "anchor": "routine-builder",
+        "source": "routine",
+        "caption": "Routine builder",
+        "heading": "Step-by-step, in the order that matters",
+        "heading_size": "h1",
+        "columns_desktop": "3",
+        "link_label": "",
+        "link": "",
+        "color_scheme": "scheme-1",
+        "padding_top": 88,
+        "padding_bottom": 88
+      }
+    }
+  },
+  "order": [
+    "banner",
+    "ingredients",
+    "concerns",
+    "routines",
+    "reading"
+  ]
+}

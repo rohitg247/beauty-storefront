@@ -1,0 +1,104 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "banner": {
+      "type": "main-page",
+      "settings": {
+        "padding_top": 64,
+        "padding_bottom": 24
+      }
+    },
+    "quiz": {
+      "type": "skin-quiz",
+      "settings": {
+        "caption": "Two minutes",
+        "heading": "Find out what your skin actually needs",
+        "heading_size": "h0",
+        "back_label": "Back",
+        "next_label": "Next",
+        "finish_label": "See my routine",
+        "retake_label": "Start again",
+        "error_text": "Pick one to carry on.",
+        "result_eyebrow": "Your result",
+        "routine_label": "What to do about it",
+        "products_label": "Where to start",
+        "concern_cta": "Read the full guide",
+        "shop_cta": "Shop this routine",
+        "show_email_capture": true,
+        "capture_heading": "Want this routine in your inbox?",
+        "capture_text": "We will send it once, with the order to use everything in. No daily emails.",
+        "color_scheme": "scheme-1",
+        "padding_top": 48,
+        "padding_bottom": 96
+      }
+    },
+    "concerns": {
+      "type": "reference-row",
+      "settings": {
+        "source": "concern",
+        "caption": "Or skip the quiz",
+        "heading": "Browse every concern",
+        "heading_size": "h1",
+        "columns_desktop": "3",
+        "link_label": "",
+        "link": "",
+        "color_scheme": "scheme-2",
+        "padding_top": 88,
+        "padding_bottom": 88
+      }
+    },
+    "help": {
+      "type": "rich-text",
+      "blocks": {
+        "heading": {
+          "type": "heading",
+          "settings": {
+            "heading": "Still not sure?",
+            "heading_size": "h1"
+          }
+        },
+        "text": {
+          "type": "text",
+          "settings": {
+            "text": "<p>Message us on WhatsApp and describe what your skin is doing. We will tell you where to start, and we will tell you if the answer is nothing from us.</p>"
+          }
+        },
+        "button": {
+          "type": "button",
+          "settings": {
+            "button_label": "Ask on WhatsApp",
+            "button_link": "/pages/contact",
+            "button_style_secondary": false
+          }
+        }
+      },
+      "block_order": [
+        "heading",
+        "text",
+        "button"
+      ],
+      "settings": {
+        "desktop_content_position": "center",
+        "content_alignment": "center",
+        "color_scheme": "scheme-1",
+        "full_width": false,
+        "padding_top": 72,
+        "padding_bottom": 88
+      }
+    }
+  },
+  "order": [
+    "banner",
+    "quiz",
+    "concerns",
+    "help"
+  ]
+}

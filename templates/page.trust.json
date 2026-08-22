@@ -1,0 +1,173 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "banner": {
+      "type": "main-page",
+      "settings": {
+        "padding_top": 64,
+        "padding_bottom": 24
+      }
+    },
+    "manufacturing": {
+      "type": "anchored-content",
+      "settings": {
+        "anchor": "manufacturing",
+        "eyebrow": "Manufacturing",
+        "heading": "Where and how it is made",
+        "heading_size": "h1",
+        "body": "<p>PLACEHOLDER. Name the facility, the city, and who owns it. If you contract-manufacture, say so - being straight about it costs nothing and being caught hiding it costs everything.</p>",
+        "image_position": "none",
+        "link_label": "",
+        "link": "",
+        "link_style_secondary": true,
+        "color_scheme": "scheme-2",
+        "padding_top": 72,
+        "padding_bottom": 72
+      }
+    },
+    "quality-standards": {
+      "type": "anchored-content",
+      "settings": {
+        "anchor": "quality-standards",
+        "eyebrow": "Quality",
+        "heading": "Quality standards",
+        "heading_size": "h1",
+        "body": "<p>PLACEHOLDER. GMP and ISO certifications, with certificate numbers and the issuing body. An uncited certification claim is the weakest sentence on a trust page.</p>",
+        "image_position": "none",
+        "link_label": "",
+        "link": "",
+        "link_style_secondary": true,
+        "color_scheme": "scheme-1",
+        "padding_top": 72,
+        "padding_bottom": 72
+      }
+    },
+    "ingredient-transparency": {
+      "type": "anchored-content",
+      "settings": {
+        "anchor": "ingredient-transparency",
+        "eyebrow": "Transparency",
+        "heading": "Full ingredient disclosure",
+        "heading_size": "h1",
+        "body": "<p>PLACEHOLDER. Every INCI name published, every active at the concentration it is dosed at, no proprietary blends. This is the claim the rest of the brand rests on, so it has to be literally true.</p>",
+        "image_position": "none",
+        "link_label": "Browse the ingredient library",
+        "link": "/pages/education#ingredient-library",
+        "link_style_secondary": true,
+        "color_scheme": "scheme-2",
+        "padding_top": 72,
+        "padding_bottom": 72
+      }
+    },
+    "product-safety": {
+      "type": "anchored-content",
+      "settings": {
+        "anchor": "product-safety",
+        "eyebrow": "Safety",
+        "heading": "Product safety",
+        "heading_size": "h1",
+        "body": "<p>PLACEHOLDER. Patch test guidance, what to do if a reaction occurs, and who to contact. Include pregnancy and breastfeeding guidance, which is the single most asked safety question in skincare.</p>",
+        "image_position": "none",
+        "link_label": "",
+        "link": "",
+        "link_style_secondary": true,
+        "color_scheme": "scheme-1",
+        "padding_top": 72,
+        "padding_bottom": 72
+      }
+    },
+    "testing-efficacy": {
+      "type": "anchored-content",
+      "settings": {
+        "anchor": "testing-efficacy",
+        "eyebrow": "Testing",
+        "heading": "How we test",
+        "heading_size": "h1",
+        "body": "<p>PLACEHOLDER. The protocol: how many people, over how long, measured how. If the figures elsewhere on the site are consumer-perception rather than instrumented, this is where you say so.</p>",
+        "image_position": "none",
+        "link_label": "See the results",
+        "link": "/pages/results",
+        "link_style_secondary": true,
+        "color_scheme": "scheme-2",
+        "padding_top": 72,
+        "padding_bottom": 72
+      }
+    },
+    "returns-refunds": {
+      "type": "anchored-content",
+      "settings": {
+        "anchor": "returns-refunds",
+        "eyebrow": "Returns",
+        "heading": "Returns and refunds",
+        "heading_size": "h1",
+        "body": "<p>PLACEHOLDER. Thirty days, unopened, no reason required. State how a refund is issued and how long it takes to land, because that is the part people actually worry about.</p>",
+        "image_position": "none",
+        "link_label": "",
+        "link": "",
+        "link_style_secondary": true,
+        "color_scheme": "scheme-1",
+        "padding_top": 72,
+        "padding_bottom": 72
+      }
+    },
+    "customer-support": {
+      "type": "anchored-content",
+      "settings": {
+        "anchor": "customer-support",
+        "eyebrow": "Support",
+        "heading": "How to reach a person",
+        "heading_size": "h1",
+        "body": "<p>PLACEHOLDER. WhatsApp, email, and the hours a human is actually reading them. Publish a response time you can meet on your worst week, not your best.</p>",
+        "image_position": "none",
+        "link_label": "Contact us",
+        "link": "/pages/contact",
+        "link_style_secondary": true,
+        "color_scheme": "scheme-2",
+        "padding_top": 72,
+        "padding_bottom": 72
+      }
+    },
+    "closing": {
+      "type": "rich-text",
+      "blocks": {
+        "heading": {
+          "type": "heading",
+          "settings": {
+            "heading": "Transparency creates trust. Trust drives sales.",
+            "heading_size": "h1"
+          }
+        }
+      },
+      "block_order": [
+        "heading"
+      ],
+      "settings": {
+        "desktop_content_position": "center",
+        "content_alignment": "center",
+        "color_scheme": "scheme-3",
+        "full_width": true,
+        "padding_top": 88,
+        "padding_bottom": 88
+      }
+    }
+  },
+  "order": [
+    "banner",
+    "manufacturing",
+    "quality-standards",
+    "ingredient-transparency",
+    "product-safety",
+    "testing-efficacy",
+    "returns-refunds",
+    "customer-support",
+    "closing"
+  ]
+}

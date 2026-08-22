@@ -1,0 +1,246 @@
+{% comment %}
+  Main concern — renders one `skin_concern` metaobject as a full page.
+
+  Used by templates/metaobject.skin_concern.json. Public URL is
+  /skin-concerns/<handle>.
+
+  Page order follows how someone actually arrives at this page: they recognise
+  a symptom, they want to know why it happens, then what to do about it, then
+  what to buy. Symptoms first, products last — leading with products on a
+  concern page is what makes education content read as an advert and stops it
+  ranking.
+
+  This is the concern axis of the dual-axis navigation. The `collection` field
+  points at the shoppable automated collection, which is the surface that
+  appears in storefront search; this page is the surface that ranks.
+
+  EMPTY-SAFE throughout.
+{% endcomment %}
+
+{{ 'section-editorial.css' | asset_url | stylesheet_tag }}
+
+{%- liquid
+  assign title = metaobject.name.value
+  assign linked_collection = metaobject.collection.value
+  assign products = metaobject.recommended_products.value
+  assign ingredients = metaobject.key_ingredients.value
+-%}
+
+<div class="color-{{ section.settings.color_scheme }} gradient">
+  <div class="page-width section-{{ section.id }}-padding">
+    <article class="editorial">
+      <header class="editorial__header">
+        {%- if section.settings.eyebrow != blank -%}
+          <p class="editorial__eyebrow label">{{ section.settings.eyebrow | escape }}</p>
+        {%- endif -%}
+
+        <h1 class="editorial__title h0">{{ title | escape }}</h1>
+
+        {%- if metaobject.short_description.value != blank -%}
+          <p class="editorial__lede">{{ metaobject.short_description.value | escape }}</p>
+        {%- endif -%}
+      </header>
+
+      {%- if metaobject.image.value != blank -%}
+        <figure class="editorial__media">
+          {{
+            metaobject.image.value
+            | image_url: width: 1600
+            | image_tag:
+              loading: 'lazy',
+              widths: '400, 600, 800, 1200, 1600',
+              sizes: '(min-width: 990px) 60vw, 92vw',
+              class: 'editorial__image',
+              alt: title
+          }}
+        </figure>
+      {%- endif -%}
+
+      <div class="editorial__body">
+        {%- if metaobject.symptoms.value != blank -%}
+          <section class="editorial__section">
+            <h2 class="editorial__section-title h2">{{ section.settings.symptoms_label | escape }}</h2>
+            {{ metaobject.symptoms | metafield_tag }}
+          </section>
+        {%- endif -%}
+
+        {%- if metaobject.causes.value != blank -%}
+          <section class="editorial__section">
+            <h2 class="editorial__section-title h2">{{ section.settings.causes_label | escape }}</h2>
+            {{ metaobject.causes | metafield_tag }}
+          </section>
+        {%- endif -%}
+
+        {%- if metaobject.routine.value != blank -%}
+          <section class="editorial__section">
+            <h2 class="editorial__section-title h2">{{ section.settings.routine_label | escape }}</h2>
+            {{ metaobject.routine | metafield_tag }}
+          </section>
+        {%- endif -%}
+      </div>
+
+      {%- if ingredients != blank and ingredients.size > 0 -%}
+        <section class="editorial__section editorial__section--wide">
+          <h2 class="editorial__section-title h2">{{ section.settings.ingredients_label | escape }}</h2>
+          <ul class="editorial__chips list-unstyled" role="list">
+            {%- for ingredient in ingredients -%}
+              <li>
+                <a class="editorial__chip" href="{{ ingredient.system.url }}">
+                  {{- ingredient.name.value | escape -}}
+                  {%- if ingredient.concentration.value != blank -%}
+                    <span class="editorial__chip-meta">{{ ingredient.concentration.value | escape }}</span>
+                  {%- endif -%}
+                </a>
+              </li>
+            {%- endfor -%}
+          </ul>
+        </section>
+      {%- endif -%}
+
+      {%- if products != blank and products.size > 0 -%}
+        <section class="editorial__section editorial__section--wide">
+          <h2 class="editorial__section-title h2">{{ section.settings.products_label | escape }}</h2>
+
+          {%- assign skip_card_product_styles = false -%}
+          <ul class="editorial__products grid grid--2-col grid--4-col-desktop list-unstyled" role="list">
+            {%- for product in products limit: 8 -%}
+              <li class="grid__item">
+                {% render 'card-product',
+                  card_product: product,
+                  media_aspect_ratio: 'portrait',
+                  show_secondary_image: true,
+                  show_vendor: false,
+                  show_rating: false,
+                  skip_styles: skip_card_product_styles,
+                  section_id: section.id,
+                  quick_add: section.settings.quick_add,
+                  product_view_context: 'collection'
+                %}
+              </li>
+              {%- assign skip_card_product_styles = true -%}
+            {%- endfor -%}
+          </ul>
+        </section>
+      {%- endif -%}
+
+      {%- if linked_collection != blank -%}
+        <div class="editorial__footer">
+          <a class="button" href="{{ linked_collection.url }}">
+            {{- section.settings.collection_label | escape }} {{ linked_collection.title | escape -}}
+          </a>
+        </div>
+      {%- endif -%}
+    </article>
+  </div>
+</div>
+
+{%- style -%}
+  .section-{{ section.id }}-padding {
+    padding-top: {{ section.settings.padding_top | times: 0.75 | round: 0 }}px;
+    padding-bottom: {{ section.settings.padding_bottom | times: 0.75 | round: 0 }}px;
+  }
+
+  @media screen and (min-width: 750px) {
+    .section-{{ section.id }}-padding {
+      padding-top: {{ section.settings.padding_top }}px;
+      padding-bottom: {{ section.settings.padding_bottom }}px;
+    }
+  }
+{%- endstyle -%}
+
+{% schema %}
+{
+  "name": "Concern page",
+  "tag": "section",
+  "class": "section",
+  "settings": [
+    {
+      "type": "paragraph",
+      "content": "Content comes from the skin concern entry itself (Settings > Custom data > Metaobjects). These labels are the only editable copy here."
+    },
+    {
+      "type": "text",
+      "id": "eyebrow",
+      "label": "Eyebrow",
+      "default": "Skin concern"
+    },
+    {
+      "type": "text",
+      "id": "symptoms_label",
+      "label": "\"Symptoms\" heading",
+      "default": "How to recognise it"
+    },
+    {
+      "type": "text",
+      "id": "causes_label",
+      "label": "\"Causes\" heading",
+      "default": "Why it happens"
+    },
+    {
+      "type": "text",
+      "id": "routine_label",
+      "label": "\"Routine\" heading",
+      "default": "What to do about it"
+    },
+    {
+      "type": "text",
+      "id": "ingredients_label",
+      "label": "\"Key ingredients\" heading",
+      "default": "Ingredients that help"
+    },
+    {
+      "type": "text",
+      "id": "products_label",
+      "label": "\"Products\" heading",
+      "default": "Where to start"
+    },
+    {
+      "type": "text",
+      "id": "collection_label",
+      "label": "Collection button prefix",
+      "default": "Shop all"
+    },
+    {
+      "type": "select",
+      "id": "quick_add",
+      "options": [
+        { "value": "none", "label": "None" },
+        { "value": "standard", "label": "Standard" },
+        { "value": "bulk", "label": "Bulk" }
+      ],
+      "default": "standard",
+      "label": "Quick add"
+    },
+    {
+      "type": "color_scheme",
+      "id": "color_scheme",
+      "label": "t:sections.all.colors.label",
+      "default": "scheme-1"
+    },
+    {
+      "type": "header",
+      "content": "t:sections.all.padding.section_padding_heading"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "label": "t:sections.all.padding.padding_top",
+      "default": 64
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "label": "t:sections.all.padding.padding_bottom",
+      "default": 96
+    }
+  ]
+}
+{% endschema %}

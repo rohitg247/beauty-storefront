@@ -1,0 +1,89 @@
+/*
+  section-anchored-content.css
+
+  Loaded only by sections/anchored-content.liquid.
+
+  Colours come from the active Dawn colour scheme. No hex values here, per the
+  theme rules in CLAUDE.md.
+
+  Responsive contract: image and text always stack below 750px, side by side
+  from 990px. The 750-989px tablet band gets the stacked layout too, because a
+  two-column split at 768px leaves roughly 350px per column, which is too narrow
+  for a 68ch measure to read properly.
+*/
+
+.anchored {
+  /* Clears the sticky header when a nav anchor jumps here. Without this the
+     heading lands underneath the header and the section looks like it starts
+     mid-paragraph. */
+  scroll-margin-top: 10rem;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-sm);
+}
+
+.anchored__body {
+  max-width: 68ch;
+  min-width: 0;
+}
+
+.anchored__eyebrow {
+  margin: 0 0 var(--space-2xs);
+  opacity: 0.75;
+}
+
+.anchored__heading {
+  margin: 0;
+}
+
+.anchored__text {
+  margin-top: var(--space-xs);
+}
+
+.anchored__text > *:first-child {
+  margin-top: 0;
+}
+
+.anchored__text > *:last-child {
+  margin-bottom: 0;
+}
+
+.anchored__media {
+  min-width: 0;
+}
+
+/* Fixed ratio so the text does not reflow as the image arrives. */
+.anchored__image {
+  width: 100%;
+  height: auto;
+  aspect-ratio: 4 / 3;
+  object-fit: cover;
+  display: block;
+}
+
+.anchored__footer {
+  margin-top: var(--space-sm);
+}
+
+@media screen and (min-width: 990px) {
+  .anchored--left,
+  .anchored--right {
+    flex-direction: row;
+    align-items: center;
+    gap: var(--space-md);
+  }
+
+  .anchored--right {
+    flex-direction: row-reverse;
+  }
+
+  .anchored--left > *,
+  .anchored--right > * {
+    flex: 1 1 0;
+  }
+
+  .anchored--left .anchored__image,
+  .anchored--right .anchored__image {
+    aspect-ratio: 3 / 4;
+  }
+}

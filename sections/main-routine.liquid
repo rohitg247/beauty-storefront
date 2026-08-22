@@ -1,0 +1,193 @@
+{% comment %}
+  Main routine — renders one `routine` metaobject as a full page.
+
+  Used by templates/metaobject.routine.json. Public URL is
+  /routine-builder/<handle>, set by the definition urlHandle.
+
+  This is area 4 of the Education Hub panel, and it is also where the skin quiz
+  sends people once they have a concern. The order of the steps is the whole
+  value of the page: almost every routine mistake is a sequencing mistake, not
+  a product choice, so the steps render as an ordered list and the product row
+  follows the same order.
+
+  EMPTY-SAFE throughout. Every block is behind a blank check.
+{% endcomment %}
+
+{{ 'section-editorial.css' | asset_url | stylesheet_tag }}
+
+{%- liquid
+  assign title = metaobject.name.value
+  assign concern = metaobject.concern.value
+  assign products = metaobject.products.value
+-%}
+
+<div class="color-{{ section.settings.color_scheme }} gradient">
+  <div class="page-width section-{{ section.id }}-padding">
+    <article class="editorial">
+      <header class="editorial__header">
+        {%- capture meta_line -%}
+          {%- if metaobject.time_of_day.value != blank -%}
+            {{ metaobject.time_of_day.value | escape }}
+          {%- endif -%}
+          {%- if metaobject.level.value != blank -%}
+            {%- if metaobject.time_of_day.value != blank %} / {% endif -%}
+            {{ metaobject.level.value | escape }}
+          {%- endif -%}
+        {%- endcapture -%}
+
+        {%- if meta_line != blank -%}
+          <p class="editorial__eyebrow label">{{ meta_line }}</p>
+        {%- endif -%}
+
+        <h1 class="editorial__title h0">{{ title | escape }}</h1>
+
+        {%- if metaobject.summary.value != blank -%}
+          <p class="editorial__lede">{{ metaobject.summary.value | escape }}</p>
+        {%- endif -%}
+      </header>
+
+      {%- if metaobject.image.value != blank -%}
+        <figure class="editorial__media">
+          {{
+            metaobject.image.value
+            | image_url: width: 1600
+            | image_tag:
+              loading: 'lazy',
+              widths: '400, 600, 800, 1200, 1600',
+              sizes: '(min-width: 990px) 60vw, 92vw',
+              class: 'editorial__image',
+              alt: title
+          }}
+        </figure>
+      {%- endif -%}
+
+      {%- if metaobject.steps.value != blank -%}
+        <section class="editorial__section">
+          <h2 class="editorial__section-title h2">{{ section.settings.steps_label | escape }}</h2>
+          {{ metaobject.steps | metafield_tag }}
+        </section>
+      {%- endif -%}
+
+      {%- if products != blank and products.size > 0 -%}
+        <section class="editorial__section editorial__section--wide">
+          <h2 class="editorial__section-title h2">{{ section.settings.products_label | escape }}</h2>
+
+          {%- assign skip_card_product_styles = false -%}
+          <ul class="editorial__products grid grid--2-col grid--4-col-desktop list-unstyled" role="list">
+            {%- for product in products limit: 8 -%}
+              <li class="grid__item">
+                {% render 'card-product',
+                  card_product: product,
+                  media_aspect_ratio: 'portrait',
+                  show_secondary_image: true,
+                  show_vendor: false,
+                  show_rating: false,
+                  skip_styles: skip_card_product_styles,
+                  section_id: section.id,
+                  quick_add: section.settings.quick_add,
+                  product_view_context: 'collection'
+                %}
+              </li>
+              {%- assign skip_card_product_styles = true -%}
+            {%- endfor -%}
+          </ul>
+        </section>
+      {%- endif -%}
+
+      {%- if concern != blank -%}
+        <div class="editorial__footer">
+          <a class="button button--secondary" href="{{ concern.system.url }}">
+            {{- section.settings.concern_label | escape }} {{ concern.name.value | escape -}}
+          </a>
+        </div>
+      {%- endif -%}
+    </article>
+  </div>
+</div>
+
+{%- style -%}
+  .section-{{ section.id }}-padding {
+    padding-top: {{ section.settings.padding_top | times: 0.75 | round: 0 }}px;
+    padding-bottom: {{ section.settings.padding_bottom | times: 0.75 | round: 0 }}px;
+  }
+
+  @media screen and (min-width: 750px) {
+    .section-{{ section.id }}-padding {
+      padding-top: {{ section.settings.padding_top }}px;
+      padding-bottom: {{ section.settings.padding_bottom }}px;
+    }
+  }
+{%- endstyle -%}
+
+{% schema %}
+{
+  "name": "Routine page",
+  "tag": "section",
+  "class": "section",
+  "settings": [
+    {
+      "type": "paragraph",
+      "content": "Content comes from the routine entry itself (Settings > Custom data > Metaobjects). These labels are the only editable copy here."
+    },
+    {
+      "type": "text",
+      "id": "steps_label",
+      "label": "\"Steps\" heading",
+      "default": "The order that matters"
+    },
+    {
+      "type": "text",
+      "id": "products_label",
+      "label": "\"Products\" heading",
+      "default": "What you need"
+    },
+    {
+      "type": "text",
+      "id": "concern_label",
+      "label": "Concern button prefix",
+      "default": "More about"
+    },
+    {
+      "type": "select",
+      "id": "quick_add",
+      "options": [
+        { "value": "none", "label": "None" },
+        { "value": "standard", "label": "Standard" },
+        { "value": "bulk", "label": "Bulk" }
+      ],
+      "default": "standard",
+      "label": "Quick add"
+    },
+    {
+      "type": "color_scheme",
+      "id": "color_scheme",
+      "label": "t:sections.all.colors.label",
+      "default": "scheme-1"
+    },
+    {
+      "type": "header",
+      "content": "t:sections.all.padding.section_padding_heading"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "label": "t:sections.all.padding.padding_top",
+      "default": 64
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "label": "t:sections.all.padding.padding_bottom",
+      "default": 96
+    }
+  ]
+}
+{% endschema %}

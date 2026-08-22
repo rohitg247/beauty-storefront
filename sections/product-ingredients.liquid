@@ -1,0 +1,194 @@
+{% comment %}
+  Product ingredients — PDP module 4, "Ingredient story".
+
+  Reads product.metafields.embrae.ingredients, a list of `ingredient`
+  metaobject entries, and renders one row each: the active, the dose it is at,
+  what it does, and a link through to the full evidence page.
+
+  This is a separate section rather than a block added to main-product.liquid on
+  purpose. main-product.liquid is inherited Sense commerce code — the variant
+  picker, the buy buttons and the media gallery all live in it — and adding to
+  it means touching a file the theme rules say to leave alone. A sibling section
+  in templates/product.json gets the same `product` object with none of the risk.
+
+  Naming the concentration next to the ingredient is the whole positioning of
+  this brand, so `concentration` is rendered prominently rather than tucked into
+  the ingredient page.
+
+  EMPTY-SAFE: renders nothing when the product has no ingredients set, which is
+  every product until someone fills them in.
+{% endcomment %}
+
+{{ 'section-product-modules.css' | asset_url | stylesheet_tag }}
+
+{%- assign ingredients = product.metafields.embrae.ingredients.value -%}
+
+{%- if ingredients != blank and ingredients.size > 0 -%}
+  <div class="color-{{ section.settings.color_scheme }} gradient">
+    <div class="page-width section-{{ section.id }}-padding">
+      {%- if section.settings.caption != blank or section.settings.heading != blank -%}
+        <div class="product-module__header section-header">
+          {%- if section.settings.caption != blank -%}
+            <p class="product-module__caption label">{{ section.settings.caption | escape }}</p>
+          {%- endif -%}
+
+          {%- if section.settings.heading != blank -%}
+            <h2 class="product-module__heading {{ section.settings.heading_size }}">
+              {{ section.settings.heading }}
+            </h2>
+          {%- endif -%}
+        </div>
+      {%- endif -%}
+
+      <ul class="ingredient-list list-unstyled" role="list">
+        {%- for ingredient in ingredients -%}
+          <li class="ingredient-item">
+            {%- if section.settings.show_images and ingredient.image.value != blank -%}
+              <div class="ingredient-item__media">
+                {{
+                  ingredient.image.value
+                  | image_url: width: 400
+                  | image_tag:
+                    loading: 'lazy',
+                    widths: '100, 150, 200, 300, 400',
+                    sizes: '(min-width: 750px) 120px, 88px',
+                    class: 'ingredient-item__image',
+                    alt: ingredient.name.value
+                }}
+              </div>
+            {%- endif -%}
+
+            <div class="ingredient-item__body">
+              <h3 class="ingredient-item__name">
+                {{ ingredient.name.value | escape }}
+                {%- if ingredient.concentration.value != blank -%}
+                  <span class="ingredient-item__dose">{{ ingredient.concentration.value | escape }}</span>
+                {%- endif -%}
+              </h3>
+
+              {%- if ingredient.inci_name.value != blank -%}
+                <p class="ingredient-item__inci">{{ ingredient.inci_name.value | escape }}</p>
+              {%- endif -%}
+
+              {%- if ingredient.benefit.value != blank -%}
+                <p class="ingredient-item__benefit">{{ ingredient.benefit.value | escape }}</p>
+              {%- endif -%}
+
+              {%- if section.settings.show_links -%}
+                <a class="ingredient-item__link link" href="{{ ingredient.system.url }}">
+                  {{- section.settings.link_label | escape }}
+                  <span class="visually-hidden">: {{ ingredient.name.value | escape }}</span>
+                </a>
+              {%- endif -%}
+            </div>
+          </li>
+        {%- endfor -%}
+      </ul>
+    </div>
+  </div>
+{%- endif -%}
+
+{%- style -%}
+  .section-{{ section.id }}-padding {
+    padding-top: {{ section.settings.padding_top | times: 0.75 | round: 0 }}px;
+    padding-bottom: {{ section.settings.padding_bottom | times: 0.75 | round: 0 }}px;
+  }
+
+  @media screen and (min-width: 750px) {
+    .section-{{ section.id }}-padding {
+      padding-top: {{ section.settings.padding_top }}px;
+      padding-bottom: {{ section.settings.padding_bottom }}px;
+    }
+  }
+{%- endstyle -%}
+
+{% schema %}
+{
+  "name": "Product ingredients",
+  "tag": "section",
+  "class": "section",
+  "settings": [
+    {
+      "type": "paragraph",
+      "content": "Reads the Ingredients metafield on each product. Set it under the product in Admin. Renders nothing if it is empty."
+    },
+    {
+      "type": "text",
+      "id": "caption",
+      "label": "Eyebrow",
+      "default": "What is in it"
+    },
+    {
+      "type": "inline_richtext",
+      "id": "heading",
+      "label": "Heading",
+      "default": "Every active, at the dose it works at"
+    },
+    {
+      "type": "select",
+      "id": "heading_size",
+      "options": [
+        { "value": "h2", "label": "Small" },
+        { "value": "h1", "label": "Medium" },
+        { "value": "h0", "label": "Large" }
+      ],
+      "default": "h2",
+      "label": "Heading size"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_images",
+      "label": "Show ingredient images",
+      "default": true
+    },
+    {
+      "type": "checkbox",
+      "id": "show_links",
+      "label": "Link to the ingredient page",
+      "default": true,
+      "info": "Sends readers to the full evidence page at /ingredients/<name>. Also builds internal links, which is what makes those pages rank."
+    },
+    {
+      "type": "text",
+      "id": "link_label",
+      "label": "Link label",
+      "default": "Read the evidence"
+    },
+    {
+      "type": "color_scheme",
+      "id": "color_scheme",
+      "label": "t:sections.all.colors.label",
+      "default": "scheme-1"
+    },
+    {
+      "type": "header",
+      "content": "t:sections.all.padding.section_padding_heading"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "label": "t:sections.all.padding.padding_top",
+      "default": 64
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "label": "t:sections.all.padding.padding_bottom",
+      "default": 64
+    }
+  ],
+  "presets": [
+    {
+      "name": "Product ingredients"
+    }
+  ]
+}
+{% endschema %}

@@ -1,0 +1,455 @@
+{% comment %}
+  Skin quiz — questions from metaobjects, scored to one concern.
+
+  HOW IT WORKS
+
+  Every question and every answer is a metaobject entry, so the merchant can
+  rewrite, reorder or add questions in Admin without a developer. Each answer
+  names the concerns it points at; picking it adds that answer's weight to
+  those concerns. Highest total wins.
+
+  There is deliberately NO JSON data island. Each input carries data-concerns
+  and data-weight, so the scoring data IS the markup and nothing can drift out
+  of sync with what is on screen.
+
+  Question order comes from the order the merchant drags the questions into on
+  this section, not from a field on the entry. Metaobject entries have no
+  inherent order and sorting them in Liquid is unreliable.
+
+  THE NO-JAVASCRIPT STATE IS A REAL PAGE
+
+  This is what satisfies the safety contract in CLAUDE.md. Nothing is hidden by
+  default. With JS off, every question and every result panel is visible and the
+  page reads as "routines by concern" — browsable, crawlable and useful. The
+  stepping and the scoring are an enhancement layered on top.
+
+  The mechanism is `quiz-form:defined` in the stylesheet. Until the custom
+  element upgrades, the base layout applies. That also means there is no flash
+  of all six panels before JS runs, which a class-toggle approach would give.
+  If the script loads but then throws, it sets data-quiz-failed on itself and
+  the base layout comes back.
+
+  EMPTY-SAFE: renders nothing at all with no questions.
+{% endcomment %}
+
+{{ 'section-editorial.css' | asset_url | stylesheet_tag }}
+{{ 'section-skin-quiz.css' | asset_url | stylesheet_tag }}
+<script src="{{ 'skin-quiz.js' | asset_url }}" defer="defer"></script>
+
+{%- liquid
+  assign questions = section.settings.questions
+  assign concerns = section.settings.concerns
+-%}
+
+{%- if questions != blank and questions.size > 0 -%}
+  <div class="color-{{ section.settings.color_scheme }} gradient">
+    <div class="page-width section-{{ section.id }}-padding">
+      <quiz-form
+        class="quiz"
+        data-total="{{ questions.size }}"
+        data-finish-label="{{ section.settings.finish_label | escape }}"
+      >
+        {%- if section.settings.heading != blank -%}
+          <div class="quiz__header">
+            {%- if section.settings.caption != blank -%}
+              <p class="quiz__caption label">{{ section.settings.caption | escape }}</p>
+            {%- endif -%}
+            <h2 class="quiz__heading {{ section.settings.heading_size }}">{{ section.settings.heading }}</h2>
+          </div>
+        {%- endif -%}
+
+        <p class="quiz__progress label" data-quiz-progress aria-live="polite"></p>
+
+        <form class="quiz__form" data-quiz-form novalidate>
+          {%- for question in questions -%}
+            {%- assign qi = forloop.index -%}
+            {%- if question.multi_select.value == true -%}
+              {%- assign input_type = 'checkbox' -%}
+            {%- else -%}
+              {%- assign input_type = 'radio' -%}
+            {%- endif -%}
+
+            <fieldset
+              class="quiz__step"
+              data-quiz-step="{{ qi }}"
+              data-step-label="{{ question.step_label.value | escape }}"
+            >
+              <legend class="quiz__question h2" tabindex="-1">
+                {{ question.question.value | escape }}
+              </legend>
+
+              {%- if question.help_text.value != blank -%}
+                <p class="quiz__help">{{ question.help_text.value | escape }}</p>
+              {%- endif -%}
+
+              <div class="quiz__options">
+                {%- for option in question.options.value -%}
+                  {%- capture concern_handles -%}
+                    {%- for concern in option.concerns.value -%}
+                      {{- concern.system.handle -}}
+                      {%- unless forloop.last -%},{%- endunless -%}
+                    {%- endfor -%}
+                  {%- endcapture -%}
+
+                  <label class="quiz__option">
+                    <input
+                      class="quiz__input"
+                      type="{{ input_type }}"
+                      name="quiz-q{{ qi }}-{{ section.id }}"
+                      value="{{ option.system.handle }}"
+                      data-concerns="{{ concern_handles | strip }}"
+                      data-weight="{{ option.weight.value | default: 1 }}"
+                    >
+                    {%- if option.image.value != blank -%}
+                      <span class="quiz__option-media">
+                        {{
+                          option.image.value
+                          | image_url: width: 320
+                          | image_tag: loading: 'lazy', widths: '80, 160, 240, 320', sizes: '80px', alt: ''
+                        }}
+                      </span>
+                    {%- endif -%}
+                    <span class="quiz__option-label">{{ option.label.value | escape }}</span>
+                  </label>
+                {%- endfor -%}
+              </div>
+
+              <p class="quiz__error" data-quiz-error hidden>{{ section.settings.error_text | escape }}</p>
+            </fieldset>
+          {%- endfor -%}
+
+          <div class="quiz__nav" data-quiz-nav>
+            <button type="button" class="button button--secondary" data-quiz-back>
+              {{ section.settings.back_label | escape }}
+            </button>
+            <button type="button" class="button" data-quiz-next>
+              {{ section.settings.next_label | escape }}
+            </button>
+          </div>
+        </form>
+
+        {%- if concerns != blank and concerns.size > 0 -%}
+          <div class="quiz__results" id="quiz-result" data-quiz-results>
+            {%- for concern in concerns -%}
+              {%- assign recommended = concern.recommended_products.value -%}
+              <section class="quiz__result" data-quiz-result="{{ concern.system.handle }}">
+                <header class="quiz__result-header">
+                  <p class="quiz__result-eyebrow label">{{ section.settings.result_eyebrow | escape }}</p>
+                  <h3 class="quiz__result-title h1" tabindex="-1">{{ concern.name.value | escape }}</h3>
+                  {%- if concern.short_description.value != blank -%}
+                    <p class="editorial__lede">{{ concern.short_description.value | escape }}</p>
+                  {%- endif -%}
+                </header>
+
+                {%- if concern.routine.value != blank -%}
+                  <div class="quiz__result-routine">
+                    <h4 class="editorial__section-title h2">{{ section.settings.routine_label | escape }}</h4>
+                    {{ concern.routine | metafield_tag }}
+                  </div>
+                {%- endif -%}
+
+                {%- if recommended != blank and recommended.size > 0 -%}
+                  <div class="quiz__result-products">
+                    <h4 class="editorial__section-title h2">{{ section.settings.products_label | escape }}</h4>
+                    {%- assign skip_card_product_styles = false -%}
+                    <ul class="grid grid--2-col grid--3-col-desktop list-unstyled" role="list">
+                      {%- for product in recommended limit: 3 -%}
+                        <li class="grid__item">
+                          {% render 'card-product',
+                            card_product: product,
+                            media_aspect_ratio: 'portrait',
+                            show_secondary_image: true,
+                            show_vendor: false,
+                            show_rating: false,
+                            skip_styles: skip_card_product_styles,
+                            section_id: section.id,
+                            quick_add: 'standard',
+                            product_view_context: 'collection'
+                          %}
+                        </li>
+                        {%- assign skip_card_product_styles = true -%}
+                      {%- endfor -%}
+                    </ul>
+                  </div>
+                {%- endif -%}
+
+                <div class="quiz__result-actions">
+                  <a class="button" href="{{ concern.system.url }}">
+                    {{- section.settings.concern_cta | escape -}}
+                  </a>
+                  {%- if concern.collection.value != blank -%}
+                    <a class="button button--secondary" href="{{ concern.collection.value.url }}">
+                      {{- section.settings.shop_cta | escape -}}
+                    </a>
+                  {%- endif -%}
+                  <button type="button" class="button button--secondary" data-quiz-retake>
+                    {{ section.settings.retake_label | escape }}
+                  </button>
+                </div>
+              </section>
+            {%- endfor -%}
+
+            {%- if section.settings.show_email_capture -%}
+              <div class="quiz__capture" data-quiz-capture>
+                {%- if section.settings.capture_heading != blank -%}
+                  <h4 class="quiz__capture-heading h2">{{ section.settings.capture_heading | escape }}</h4>
+                {%- endif -%}
+                {%- if section.settings.capture_text != blank -%}
+                  <p class="quiz__capture-text">{{ section.settings.capture_text | escape }}</p>
+                {%- endif -%}
+
+                {% form 'customer', class: 'newsletter-form' %}
+                  {%- comment -%}
+                    The theme's own newsletter form already posts contact[tags], so tagging
+                    the subscriber with their result is a supported pattern rather than an
+                    invented one. The script rewrites this value to include the winning
+                    concern before submit, which is what lets an email flow reference the
+                    routine they were actually given.
+                  {%- endcomment -%}
+                  <input type="hidden" name="contact[tags]" value="newsletter" data-quiz-tags>
+                  <div class="newsletter-form__field-wrapper">
+                    <div class="field">
+                      <input
+                        id="QuizNewsletter--{{ section.id }}"
+                        type="email"
+                        name="contact[email]"
+                        class="field__input"
+                        value="{{ form.email }}"
+                        aria-required="true"
+                        autocorrect="off"
+                        autocapitalize="off"
+                        autocomplete="email"
+                        {% if form.errors %}
+                          aria-invalid="true"
+                          aria-describedby="QuizNewsletter-error--{{ section.id }}"
+                        {% endif %}
+                        placeholder="{{ 'newsletter.label' | t }}"
+                        required
+                      >
+                      <label class="field__label" for="QuizNewsletter--{{ section.id }}">
+                        {{ 'newsletter.label' | t }}
+                      </label>
+                      <button
+                        type="submit"
+                        class="newsletter-form__button field__button"
+                        name="commit"
+                        aria-label="{{ 'newsletter.button_label' | t }}"
+                      >
+                        <span class="svg-wrapper">{{- 'icon-arrow.svg' | inline_asset_content -}}</span>
+                      </button>
+                    </div>
+                    {%- if form.errors -%}
+                      <small class="newsletter-form__message form__message" id="QuizNewsletter-error--{{ section.id }}">
+                        <span class="svg-wrapper">{{- 'icon-error.svg' | inline_asset_content -}}</span>
+                        {{- form.errors.translated_fields.email | capitalize }}
+                        {{ form.errors.messages.email -}}
+                      </small>
+                    {%- endif -%}
+                  </div>
+                  {%- if form.posted_successfully? -%}
+                    <h5 class="newsletter-form__message newsletter-form__message--success form__message" tabindex="-1">
+                      <span class="svg-wrapper">{{- 'icon-success.svg' | inline_asset_content -}}</span>
+                      {{- 'newsletter.success' | t }}
+                    </h5>
+                  {%- endif -%}
+                {% endform %}
+              </div>
+            {%- endif -%}
+          </div>
+        {%- endif -%}
+      </quiz-form>
+    </div>
+  </div>
+{%- endif -%}
+
+{%- style -%}
+  .section-{{ section.id }}-padding {
+    padding-top: {{ section.settings.padding_top | times: 0.75 | round: 0 }}px;
+    padding-bottom: {{ section.settings.padding_bottom | times: 0.75 | round: 0 }}px;
+  }
+
+  @media screen and (min-width: 750px) {
+    .section-{{ section.id }}-padding {
+      padding-top: {{ section.settings.padding_top }}px;
+      padding-bottom: {{ section.settings.padding_bottom }}px;
+    }
+  }
+{%- endstyle -%}
+
+{% schema %}
+{
+  "name": "Skin quiz",
+  "tag": "section",
+  "class": "section",
+  "settings": [
+    {
+      "type": "paragraph",
+      "content": "Questions and answers are metaobject entries (Settings > Custom data). Drag the questions below into the order you want them asked."
+    },
+    {
+      "type": "metaobject_list",
+      "id": "questions",
+      "metaobject_type": "quiz_question",
+      "label": "Questions",
+      "info": "The order here is the order they are asked."
+    },
+    {
+      "type": "metaobject_list",
+      "id": "concerns",
+      "metaobject_type": "skin_concern",
+      "label": "Possible results",
+      "info": "Every concern the quiz can land on. A concern not listed here can never be a result."
+    },
+    {
+      "type": "text",
+      "id": "caption",
+      "label": "Eyebrow",
+      "default": "Two minutes"
+    },
+    {
+      "type": "inline_richtext",
+      "id": "heading",
+      "label": "Heading",
+      "default": "Find out what your skin actually needs"
+    },
+    {
+      "type": "select",
+      "id": "heading_size",
+      "options": [
+        { "value": "h2", "label": "Small" },
+        { "value": "h1", "label": "Medium" },
+        { "value": "h0", "label": "Large" }
+      ],
+      "default": "h1",
+      "label": "Heading size"
+    },
+    {
+      "type": "header",
+      "content": "Buttons and messages"
+    },
+    {
+      "type": "text",
+      "id": "back_label",
+      "label": "Back button",
+      "default": "Back"
+    },
+    {
+      "type": "text",
+      "id": "next_label",
+      "label": "Next button",
+      "default": "Next"
+    },
+    {
+      "type": "text",
+      "id": "finish_label",
+      "label": "Last-step button",
+      "default": "See my routine",
+      "info": "Replaces the Next button on the final question."
+    },
+    {
+      "type": "text",
+      "id": "retake_label",
+      "label": "Retake button",
+      "default": "Start again"
+    },
+    {
+      "type": "text",
+      "id": "error_text",
+      "label": "Unanswered question message",
+      "default": "Pick one to carry on."
+    },
+    {
+      "type": "header",
+      "content": "Result"
+    },
+    {
+      "type": "text",
+      "id": "result_eyebrow",
+      "label": "Result eyebrow",
+      "default": "Your result"
+    },
+    {
+      "type": "text",
+      "id": "routine_label",
+      "label": "Routine heading",
+      "default": "What to do about it"
+    },
+    {
+      "type": "text",
+      "id": "products_label",
+      "label": "Products heading",
+      "default": "Where to start"
+    },
+    {
+      "type": "text",
+      "id": "concern_cta",
+      "label": "Concern button",
+      "default": "Read the full guide"
+    },
+    {
+      "type": "text",
+      "id": "shop_cta",
+      "label": "Shop button",
+      "default": "Shop this routine"
+    },
+    {
+      "type": "header",
+      "content": "Email capture"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_email_capture",
+      "label": "Offer to email the routine",
+      "default": true,
+      "info": "Shown under the result, never before it. Subscribers are tagged with the concern they matched."
+    },
+    {
+      "type": "text",
+      "id": "capture_heading",
+      "label": "Capture heading",
+      "default": "Want this routine in your inbox?"
+    },
+    {
+      "type": "text",
+      "id": "capture_text",
+      "label": "Capture text",
+      "default": "We will send it once, with the order to use everything in. No daily emails."
+    },
+    {
+      "type": "color_scheme",
+      "id": "color_scheme",
+      "label": "t:sections.all.colors.label",
+      "default": "scheme-1"
+    },
+    {
+      "type": "header",
+      "content": "t:sections.all.padding.section_padding_heading"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "label": "t:sections.all.padding.padding_top",
+      "default": 64
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "label": "t:sections.all.padding.padding_bottom",
+      "default": 96
+    }
+  ],
+  "presets": [
+    {
+      "name": "Skin quiz"
+    }
+  ]
+}
+{% endschema %}

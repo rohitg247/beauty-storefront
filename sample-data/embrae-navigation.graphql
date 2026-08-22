@@ -1,0 +1,362 @@
+# ---------------------------------------------------------------------------
+# EMBRAE — navigation
+#
+# Creates the six menus the theme renders: the main navigation (9 top-level
+# items, 52 children) and the five footer columns.
+#
+# HOW TO RUN
+#   1. Admin -> Apps -> "Shopify GraphiQL App". It needs the
+#      `write_online_store_navigation` scope. If you installed it for
+#      embrae-definitions.graphql you may need to re-authorise for this scope.
+#   2. Paste this whole file in, then run the six named operations in order.
+#      An empty `userErrors` array means it worked.
+#
+# WHY A NEW HANDLE INSTEAD OF REPLACING `main-menu`
+#   Shopify creates `main-menu` on every store, so `menuCreate` on that handle
+#   fails as taken. The alternative, `menuUpdate`, needs the id of every
+#   existing item to preserve it — ids that cannot be written ahead of time.
+#   So this creates `embrae-nav` instead, and sections/header-group.json already
+#   points at it. The old `main-menu` is left alone and simply stops being used.
+#
+# WHY EVERY ITEM IS `type: HTTP`
+#   PAGE and COLLECTION items need a `resourceId` that only exists once the page
+#   or collection has been created, and — decisive here — a PAGE item cannot
+#   carry a URL fragment, which would break all 30 anchor links. Explicit
+#   relative URLs let the whole navigation be created in one pass, before the
+#   pages exist. Shopify resolves them exactly the same way for visitors.
+#
+# LINKS THAT WILL 404 UNTIL YOU CREATE THE DESTINATION
+#   Every URL below is listed in docs/admin-tasks.md with what has to exist for
+#   it to resolve. The pages, blogs and collections are the work; the menu is
+#   just the pointer.
+#
+# LABELS
+#   Taken verbatim from the architecture diagram, including "Moisturizer".
+#   Note the rest of the site copy uses British spelling ("moisturiser"). Change
+#   the label in Admin if you would rather be consistent — it is a 5-second edit
+#   and I have not overridden your spec.
+# ---------------------------------------------------------------------------
+
+
+# ===========================================================================
+# STEP 1 — The main navigation
+# 9 top-level items, 52 children. This is section 1 of the diagram.
+# ===========================================================================
+mutation Step1_CreateMainNavigation {
+  menuCreate(
+    title: "EMBRAE navigation"
+    handle: "embrae-nav"
+    items: [
+      {
+        title: "WHY EMBRAE"
+        type: HTTP
+        url: "/pages/why"
+        items: [
+          { title: "Why We Exist", type: HTTP, url: "/pages/why#why-we-exist" }
+          { title: "Our Philosophy", type: HTTP, url: "/pages/why#our-philosophy" }
+          { title: "Our Difference", type: HTTP, url: "/pages/why#our-difference" }
+          { title: "Our Promise", type: HTTP, url: "/pages/why#our-promise" }
+        ]
+      }
+      {
+        title: "SHOP"
+        type: HTTP
+        url: "/collections/all"
+        items: [
+          { title: "All Products", type: HTTP, url: "/collections/all" }
+          { title: "Serum", type: HTTP, url: "/collections/serums" }
+          { title: "Moisturizer", type: HTTP, url: "/collections/moisturisers" }
+          { title: "Cleanser", type: HTTP, url: "/collections/cleansers" }
+          { title: "Sunscreen", type: HTTP, url: "/collections/sunscreen" }
+          { title: "Bundles & Kits", type: HTTP, url: "/collections/bundles" }
+          { title: "Gift Sets", type: HTTP, url: "/collections/gift-sets" }
+          { title: "Routine Builder", type: HTTP, url: "/pages/education#routine-builder" }
+        ]
+      }
+      {
+        title: "EDUCATION HUB"
+        type: HTTP
+        url: "/pages/education"
+        items: [
+          { title: "Skin School", type: HTTP, url: "/blogs/skin-school" }
+          { title: "Ingredient Library", type: HTTP, url: "/pages/education#ingredient-library" }
+          { title: "Climate & Skin", type: HTTP, url: "/blogs/climate-skin" }
+          { title: "Routine Builder", type: HTTP, url: "/pages/education#routine-builder" }
+          { title: "Skin Concerns Library", type: HTTP, url: "/pages/education#skin-concerns" }
+          { title: "Myth Vs Fact", type: HTTP, url: "/blogs/myth-vs-fact" }
+          { title: "Blog / Articles", type: HTTP, url: "/blogs/journal" }
+        ]
+      }
+      {
+        title: "RESULTS"
+        type: HTTP
+        url: "/pages/results"
+        items: [
+          { title: "Real Results", type: HTTP, url: "/pages/results#real-results" }
+          { title: "Before & After", type: HTTP, url: "/pages/results#before-after" }
+          { title: "Customer Stories", type: HTTP, url: "/pages/results#customer-stories" }
+          { title: "Reviews", type: HTTP, url: "/pages/results#reviews" }
+          { title: "Video Testimonials", type: HTTP, url: "/pages/results#video-testimonials" }
+          { title: "Media Mentions", type: HTTP, url: "/pages/results#media-mentions" }
+        ]
+      }
+      {
+        title: "SKIN QUIZ"
+        type: HTTP
+        url: "/pages/quiz"
+        items: [
+          { title: "Take Skin Quiz", type: HTTP, url: "/pages/quiz" }
+          { title: "Get Routine", type: HTTP, url: "/pages/quiz#quiz-result" }
+          { title: "Product Recommendations", type: HTTP, url: "/pages/quiz#quiz-result" }
+        ]
+      }
+      {
+        title: "ABOUT"
+        type: HTTP
+        url: "/pages/about"
+        items: [
+          { title: "Founder Story", type: HTTP, url: "/pages/about#founder-story" }
+          { title: "Our Mission", type: HTTP, url: "/pages/about#our-mission" }
+          { title: "Our Values", type: HTTP, url: "/pages/about#our-values" }
+          { title: "Our Team", type: HTTP, url: "/pages/about#our-team" }
+          { title: "Careers", type: HTTP, url: "/pages/careers" }
+          { title: "Press & Media", type: HTTP, url: "/pages/press" }
+        ]
+      }
+      {
+        title: "TRUST CENTER"
+        type: HTTP
+        url: "/pages/trust"
+        items: [
+          { title: "Manufacturing Info", type: HTTP, url: "/pages/trust#manufacturing" }
+          { title: "Quality Standards", type: HTTP, url: "/pages/trust#quality-standards" }
+          { title: "Ingredient Transparency", type: HTTP, url: "/pages/trust#ingredient-transparency" }
+          { title: "Product Safety", type: HTTP, url: "/pages/trust#product-safety" }
+          { title: "Testing & Efficacy", type: HTTP, url: "/pages/trust#testing-efficacy" }
+          { title: "Returns & Refunds", type: HTTP, url: "/pages/trust#returns-refunds" }
+          { title: "Customer Support", type: HTTP, url: "/pages/trust#customer-support" }
+        ]
+      }
+      {
+        title: "FAQ CENTER"
+        type: HTTP
+        url: "/pages/faq"
+        items: [
+          { title: "Product FAQs", type: HTTP, url: "/pages/faq#faq-product" }
+          { title: "Ingredient FAQs", type: HTTP, url: "/pages/faq#faq-ingredient" }
+          { title: "Skin Type FAQs", type: HTTP, url: "/pages/faq#faq-skin-type" }
+          { title: "Usage FAQs", type: HTTP, url: "/pages/faq#faq-usage" }
+          { title: "Safety FAQs", type: HTTP, url: "/pages/faq#faq-safety" }
+          { title: "Shipping FAQs", type: HTTP, url: "/pages/faq#faq-shipping" }
+          { title: "Returns FAQs", type: HTTP, url: "/pages/faq#faq-returns" }
+          { title: "General FAQs", type: HTTP, url: "/pages/faq#faq-general" }
+        ]
+      }
+      {
+        title: "CONTACT"
+        type: HTTP
+        url: "/pages/contact"
+        items: [
+          { title: "Contact Us", type: HTTP, url: "/pages/contact" }
+          { title: "Store Locator", type: HTTP, url: "/pages/store-locator" }
+          # Change this to https://wa.me/91XXXXXXXXXX once the business number
+          # is live. Pointing it at a wa.me link that does not resolve is worse
+          # than sending people to the contact page in the meantime.
+          { title: "WhatsApp Support", type: HTTP, url: "/pages/contact" }
+        ]
+      }
+    ]
+  ) {
+    menu {
+      id
+      handle
+      title
+      items {
+        title
+        url
+        items {
+          title
+          url
+        }
+      }
+    }
+    userErrors {
+      field
+      message
+      code
+    }
+  }
+}
+
+
+# ===========================================================================
+# STEP 2 — Footer column: SHOP
+#
+# Note this is NOT the same list as the SHOP column in the main navigation.
+# The diagram's footer includes Skin Quiz and drops Gift Sets and Routine
+# Builder. That is deliberate in the diagram, so it is two menus, not one
+# reused.
+# ===========================================================================
+mutation Step2_CreateFooterShop {
+  menuCreate(
+    title: "Footer - Shop"
+    handle: "footer-shop"
+    items: [
+      { title: "All Products", type: HTTP, url: "/collections/all" }
+      { title: "Serum", type: HTTP, url: "/collections/serums" }
+      { title: "Moisturizer", type: HTTP, url: "/collections/moisturisers" }
+      { title: "Cleanser", type: HTTP, url: "/collections/cleansers" }
+      { title: "Sunscreen", type: HTTP, url: "/collections/sunscreen" }
+      { title: "Bundles", type: HTTP, url: "/collections/bundles" }
+      { title: "Skin Quiz", type: HTTP, url: "/pages/quiz" }
+    ]
+  ) {
+    menu {
+      id
+      handle
+    }
+    userErrors {
+      field
+      message
+      code
+    }
+  }
+}
+
+
+# ===========================================================================
+# STEP 3 — Footer column: EDUCATION
+# ===========================================================================
+mutation Step3_CreateFooterEducation {
+  menuCreate(
+    title: "Footer - Education"
+    handle: "footer-education"
+    items: [
+      { title: "Skin School", type: HTTP, url: "/blogs/skin-school" }
+      { title: "Ingredient Library", type: HTTP, url: "/pages/education#ingredient-library" }
+      { title: "Climate & Skin", type: HTTP, url: "/blogs/climate-skin" }
+      { title: "Routine Builder", type: HTTP, url: "/pages/education#routine-builder" }
+      { title: "Skin Concerns", type: HTTP, url: "/pages/education#skin-concerns" }
+      { title: "Myth Vs Fact", type: HTTP, url: "/blogs/myth-vs-fact" }
+      { title: "Blog", type: HTTP, url: "/blogs/journal" }
+    ]
+  ) {
+    menu {
+      id
+      handle
+    }
+    userErrors {
+      field
+      message
+      code
+    }
+  }
+}
+
+
+# ===========================================================================
+# STEP 4 — Footer column: ABOUT
+# ===========================================================================
+mutation Step4_CreateFooterAbout {
+  menuCreate(
+    title: "Footer - About"
+    handle: "footer-about"
+    items: [
+      { title: "Why EMBRAE", type: HTTP, url: "/pages/why" }
+      { title: "Founder Story", type: HTTP, url: "/pages/about#founder-story" }
+      { title: "Our Mission", type: HTTP, url: "/pages/about#our-mission" }
+      { title: "Our Values", type: HTTP, url: "/pages/about#our-values" }
+      { title: "Our Team", type: HTTP, url: "/pages/about#our-team" }
+      { title: "Careers", type: HTTP, url: "/pages/careers" }
+    ]
+  ) {
+    menu {
+      id
+      handle
+    }
+    userErrors {
+      field
+      message
+      code
+    }
+  }
+}
+
+
+# ===========================================================================
+# STEP 5 — Footer column: SUPPORT
+#
+# Shipping and Returns point at Shopify policy URLs. They resolve as soon as
+# the policies are written in Settings -> Policies, and 404 until then.
+# ===========================================================================
+mutation Step5_CreateFooterSupport {
+  menuCreate(
+    title: "Footer - Support"
+    handle: "footer-support"
+    items: [
+      { title: "FAQ Center", type: HTTP, url: "/pages/faq" }
+      { title: "Shipping", type: HTTP, url: "/policies/shipping-policy" }
+      { title: "Returns", type: HTTP, url: "/policies/refund-policy" }
+      { title: "Track Order", type: HTTP, url: "/pages/track-order" }
+      { title: "Contact Us", type: HTTP, url: "/pages/contact" }
+    ]
+  ) {
+    menu {
+      id
+      handle
+    }
+    userErrors {
+      field
+      message
+      code
+    }
+  }
+}
+
+
+# ===========================================================================
+# STEP 6 — Footer column: CONNECT
+#
+# ALL FIVE OF THESE ARE PLACEHOLDERS. Replace them in Admin -> Content -> Menus
+# with the real profile URLs, a mailto: address and a wa.me link. They point at
+# the platform home pages rather than at nothing, so the footer is never broken
+# while you gather them, but they are not useful links until you do.
+# ===========================================================================
+mutation Step6_CreateFooterConnect {
+  menuCreate(
+    title: "Footer - Connect"
+    handle: "footer-connect"
+    items: [
+      { title: "Instagram", type: HTTP, url: "https://www.instagram.com/" }
+      { title: "YouTube", type: HTTP, url: "https://www.youtube.com/" }
+      { title: "Facebook", type: HTTP, url: "https://www.facebook.com/" }
+      { title: "Email", type: HTTP, url: "/pages/contact" }
+      { title: "WhatsApp", type: HTTP, url: "/pages/contact" }
+    ]
+  ) {
+    menu {
+      id
+      handle
+    }
+    userErrors {
+      field
+      message
+      code
+    }
+  }
+}
+
+
+# ===========================================================================
+# STEP 7 — Verify
+# ===========================================================================
+query Step7_VerifyMenus {
+  menus(first: 20) {
+    nodes {
+      id
+      handle
+      title
+      itemsCount
+    }
+  }
+}

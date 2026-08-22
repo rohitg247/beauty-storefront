@@ -1,0 +1,214 @@
+{% comment %}
+  Anchored content — one prose section with a stable, hand-written id.
+
+  This exists for one reason: the navigation needs to link to a section, and
+  Dawn's own section ids cannot be linked to. Dawn renders sections as
+  `shopify-section-template--1234567__why-exists`, where the numeric part is the
+  theme id and changes every time the theme is duplicated or reinstalled. That
+  id can never be written into a menu URL in Admin.
+
+  So the merchant sets the anchor themselves. `/pages/why#our-philosophy` works,
+  survives a theme copy, and is readable.
+
+  Used by the WHY EMBRAE and RESULTS pages, and anywhere else a nav sub-item has
+  to land on a specific part of a longer page. The same `anchor` setting is on
+  commitments, stat-band, testimonials and faq-center for the same reason.
+
+  `scroll-margin-top` is what stops the heading landing underneath the sticky
+  header when someone follows the link.
+
+  EMPTY-SAFE: renders nothing when there is no heading and no body.
+{% endcomment %}
+
+{{ 'section-editorial.css' | asset_url | stylesheet_tag }}
+{{ 'section-anchored-content.css' | asset_url | stylesheet_tag }}
+
+{%- liquid
+  assign anchor = section.settings.anchor | handleize
+  assign has_body = false
+  if section.settings.body != blank or section.settings.heading != blank
+    assign has_body = true
+  endif
+-%}
+
+{%- if has_body -%}
+  <div class="color-{{ section.settings.color_scheme }} gradient">
+    <section
+      {% if anchor != blank %}
+        id="{{ anchor }}"
+      {% endif %}
+      class="page-width anchored section-{{ section.id }}-padding anchored--{{ section.settings.image_position }}"
+    >
+      {%- if section.settings.image != blank and section.settings.image_position != 'none' -%}
+        <div class="anchored__media">
+          {{
+            section.settings.image
+            | image_url: width: 1200
+            | image_tag:
+              loading: 'lazy',
+              widths: '300, 400, 600, 800, 1200',
+              sizes: '(min-width: 990px) 40vw, 92vw',
+              class: 'anchored__image'
+          }}
+        </div>
+      {%- endif -%}
+
+      <div class="anchored__body">
+        {%- if section.settings.eyebrow != blank -%}
+          <p class="anchored__eyebrow label">{{ section.settings.eyebrow | escape }}</p>
+        {%- endif -%}
+
+        {%- if section.settings.heading != blank -%}
+          <h2 class="anchored__heading {{ section.settings.heading_size }}">
+            {{ section.settings.heading }}
+          </h2>
+        {%- endif -%}
+
+        {%- if section.settings.body != blank -%}
+          <div class="anchored__text rte">
+            {{ section.settings.body }}
+          </div>
+        {%- endif -%}
+
+        {%- if section.settings.link_label != blank -%}
+          <div class="anchored__footer">
+            <a
+              class="button{% if section.settings.link_style_secondary %} button--secondary{% endif %}"
+              {% if section.settings.link != blank %}
+                href="{{ section.settings.link }}"
+              {% else %}
+                role="link" aria-disabled="true"
+              {% endif %}
+            >
+              {{ section.settings.link_label | escape }}
+            </a>
+          </div>
+        {%- endif -%}
+      </div>
+    </section>
+  </div>
+{%- endif -%}
+
+{%- style -%}
+  .section-{{ section.id }}-padding {
+    padding-top: {{ section.settings.padding_top | times: 0.75 | round: 0 }}px;
+    padding-bottom: {{ section.settings.padding_bottom | times: 0.75 | round: 0 }}px;
+  }
+
+  @media screen and (min-width: 750px) {
+    .section-{{ section.id }}-padding {
+      padding-top: {{ section.settings.padding_top }}px;
+      padding-bottom: {{ section.settings.padding_bottom }}px;
+    }
+  }
+{%- endstyle -%}
+
+{% schema %}
+{
+  "name": "Anchored content",
+  "tag": "section",
+  "class": "section",
+  "settings": [
+    {
+      "type": "text",
+      "id": "anchor",
+      "label": "Anchor id",
+      "info": "Link to this section from a menu as /pages/<page>#<anchor>. Lowercase, hyphens, no spaces. Leave blank if nothing links here."
+    },
+    {
+      "type": "text",
+      "id": "eyebrow",
+      "label": "Eyebrow"
+    },
+    {
+      "type": "inline_richtext",
+      "id": "heading",
+      "label": "Heading"
+    },
+    {
+      "type": "select",
+      "id": "heading_size",
+      "options": [
+        { "value": "h2", "label": "Small" },
+        { "value": "h1", "label": "Medium" },
+        { "value": "h0", "label": "Large" }
+      ],
+      "default": "h1",
+      "label": "Heading size"
+    },
+    {
+      "type": "richtext",
+      "id": "body",
+      "label": "Text"
+    },
+    {
+      "type": "image_picker",
+      "id": "image",
+      "label": "Image"
+    },
+    {
+      "type": "select",
+      "id": "image_position",
+      "options": [
+        { "value": "none", "label": "No image" },
+        { "value": "left", "label": "Image left" },
+        { "value": "right", "label": "Image right" }
+      ],
+      "default": "none",
+      "label": "Image position",
+      "info": "Images always stack above the text below 750px."
+    },
+    {
+      "type": "text",
+      "id": "link_label",
+      "label": "Button label"
+    },
+    {
+      "type": "url",
+      "id": "link",
+      "label": "Button link"
+    },
+    {
+      "type": "checkbox",
+      "id": "link_style_secondary",
+      "label": "Use outline button",
+      "default": true
+    },
+    {
+      "type": "color_scheme",
+      "id": "color_scheme",
+      "label": "t:sections.all.colors.label",
+      "default": "scheme-1"
+    },
+    {
+      "type": "header",
+      "content": "t:sections.all.padding.section_padding_heading"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "label": "t:sections.all.padding.padding_top",
+      "default": 72
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "label": "t:sections.all.padding.padding_bottom",
+      "default": 72
+    }
+  ],
+  "presets": [
+    {
+      "name": "Anchored content"
+    }
+  ]
+}
+{% endschema %}

@@ -1,0 +1,301 @@
+{% comment %}
+  FAQ Center — every `faq` metaobject entry, grouped by category.
+
+  Reads the entries directly rather than taking a picker, so a merchant adding
+  an FAQ in Admin sees it appear without touching the theme. That is the whole
+  point of putting FAQs in a metaobject instead of section blocks.
+
+  Category order is a section setting, not hardcoded, so the merchant controls
+  both the order and which categories appear. Any entry whose category does not
+  match one of them still renders, in a final group, because silently swallowing
+  content someone wrote is worse than an untidy heading.
+
+  Accordion markup and CSS are the theme's existing `component-accordion.css`
+  and the <details>/<summary> pattern from collapsible-content.liquid — not a
+  reimplementation. Native <details> means it works with JS disabled.
+
+  No FAQPage structured data on purpose: it stopped producing rich results for
+  non-health sites in May 2026, and emitting schema that Google ignores is pure
+  page weight.
+
+  EMPTY-SAFE: renders nothing at all when there are no entries.
+{% endcomment %}
+
+{{ 'component-accordion.css' | asset_url | stylesheet_tag }}
+{{ 'section-editorial.css' | asset_url | stylesheet_tag }}
+{{ 'section-faq-center.css' | asset_url | stylesheet_tag }}
+
+{%- liquid
+  assign faq_entries = metaobjects.faq.values
+  if faq_entries == blank
+    assign faq_entries = metaobjects.faq
+  endif
+
+  assign categories = section.settings.categories | split: ','
+-%}
+
+{%- if faq_entries != blank and faq_entries.size > 0 -%}
+  <div class="color-{{ section.settings.color_scheme }} gradient">
+    <div
+      {% if section.settings.anchor != blank %}
+        id="{{ section.settings.anchor | handleize }}"
+      {% endif %}
+      class="page-width anchor-target section-{{ section.id }}-padding"
+    >
+      {%- if section.settings.caption != blank or section.settings.heading != blank -%}
+        <div class="faq-center__header section-header">
+          {%- if section.settings.caption != blank -%}
+            <p class="faq-center__caption label">{{ section.settings.caption | escape }}</p>
+          {%- endif -%}
+
+          {%- if section.settings.heading != blank -%}
+            <h2 class="faq-center__heading {{ section.settings.heading_size }}">
+              {{ section.settings.heading }}
+            </h2>
+          {%- endif -%}
+        </div>
+      {%- endif -%}
+
+      {%- comment -%}
+        Jump nav. Built in the same pass that checks whether a category has any
+        entries, so it never links to an empty anchor.
+      {%- endcomment -%}
+      {%- if section.settings.show_jump_nav -%}
+        {%- capture jump_links -%}
+          {%- for category in categories -%}
+            {%- assign label = category | strip -%}
+            {%- if label == blank -%}{%- continue -%}{%- endif -%}
+            {%- assign group_count = 0 -%}
+            {%- for entry in faq_entries -%}
+              {%- if entry.category.value == label -%}
+                {%- assign group_count = group_count | plus: 1 -%}
+              {%- endif -%}
+            {%- endfor -%}
+            {%- if group_count > 0 -%}
+              <li>
+                <a class="faq-center__jump" href="#faq-{{ label | handleize }}">
+                  {{- label | escape -}}
+                </a>
+              </li>
+            {%- endif -%}
+          {%- endfor -%}
+        {%- endcapture -%}
+
+        {%- if jump_links != blank -%}
+          <nav class="faq-center__nav" aria-label="{{ section.settings.jump_nav_label | escape }}">
+            <ul class="faq-center__jumps list-unstyled" role="list">{{ jump_links }}</ul>
+          </nav>
+        {%- endif -%}
+      {%- endif -%}
+
+      {%- comment -%} Track which entries a category claimed, so leftovers can be found after. {%- endcomment -%}
+      {%- assign claimed = '' -%}
+
+      {%- for category in categories -%}
+        {%- assign label = category | strip -%}
+        {%- if label == blank -%}{%- continue -%}{%- endif -%}
+
+        {%- assign group_count = 0 -%}
+        {%- for entry in faq_entries -%}
+          {%- if entry.category.value == label -%}
+            {%- assign group_count = group_count | plus: 1 -%}
+          {%- endif -%}
+        {%- endfor -%}
+
+        {%- if group_count > 0 -%}
+          {%- assign claimed = claimed | append: '|' | append: label -%}
+          {%- comment -%}
+            The section id is deliberately NOT part of this anchor. These are
+            link targets for the FAQ CENTER column of the main menu
+            (/pages/faq#faq-shipping), and a menu URL in Admin cannot contain a
+            section id, which changes whenever the theme is duplicated. The
+            tradeoff is that two FAQ Center sections on one page would collide —
+            which no template does, and which would be a strange thing to build.
+          {%- endcomment -%}
+          <section class="faq-center__group" id="faq-{{ label | handleize }}">
+            <h3 class="faq-center__group-title h4">{{ label | escape }}</h3>
+
+            {%- for entry in faq_entries -%}
+              {%- if entry.category.value != label -%}{%- continue -%}{%- endif -%}
+              <div class="accordion">
+                <details id="Details-faq-{{ forloop.index }}-{{ label | handleize }}-{{ section.id }}">
+                  <summary id="Summary-faq-{{ forloop.index }}-{{ label | handleize }}-{{ section.id }}">
+                    <h4 class="accordion__title inline-richtext h4">
+                      {{ entry.question.value | escape }}
+                    </h4>
+                    {{- 'icon-caret.svg' | inline_asset_content -}}
+                  </summary>
+                  <div
+                    class="accordion__content rte"
+                    role="region"
+                    aria-labelledby="Summary-faq-{{ forloop.index }}-{{ label | handleize }}-{{ section.id }}"
+                  >
+                    {{ entry.answer | metafield_tag }}
+                  </div>
+                </details>
+              </div>
+            {%- endfor -%}
+          </section>
+        {%- endif -%}
+      {%- endfor -%}
+
+      {%- comment -%}
+        Anything whose category is blank, or is a value not listed above. These
+        would otherwise be invisible to the merchant who wrote them.
+      {%- endcomment -%}
+      {%- assign leftover_count = 0 -%}
+      {%- for entry in faq_entries -%}
+        {%- assign needle = '|' | append: entry.category.value -%}
+        {%- unless entry.category.value != blank and claimed contains needle -%}
+          {%- assign leftover_count = leftover_count | plus: 1 -%}
+        {%- endunless -%}
+      {%- endfor -%}
+
+      {%- if leftover_count > 0 -%}
+        <section class="faq-center__group" id="faq-other-{{ section.id }}">
+          <h3 class="faq-center__group-title h4">{{ section.settings.other_label | escape }}</h3>
+
+          {%- for entry in faq_entries -%}
+            {%- assign needle = '|' | append: entry.category.value -%}
+            {%- if entry.category.value != blank and claimed contains needle -%}{%- continue -%}{%- endif -%}
+            <div class="accordion">
+              <details id="Details-faq-other-{{ forloop.index }}-{{ section.id }}">
+                <summary id="Summary-faq-other-{{ forloop.index }}-{{ section.id }}">
+                  <h4 class="accordion__title inline-richtext h4">
+                    {{ entry.question.value | escape }}
+                  </h4>
+                  {{- 'icon-caret.svg' | inline_asset_content -}}
+                </summary>
+                <div
+                  class="accordion__content rte"
+                  role="region"
+                  aria-labelledby="Summary-faq-other-{{ forloop.index }}-{{ section.id }}"
+                >
+                  {{ entry.answer | metafield_tag }}
+                </div>
+              </details>
+            </div>
+          {%- endfor -%}
+        </section>
+      {%- endif -%}
+    </div>
+  </div>
+{%- endif -%}
+
+{%- style -%}
+  .section-{{ section.id }}-padding {
+    padding-top: {{ section.settings.padding_top | times: 0.75 | round: 0 }}px;
+    padding-bottom: {{ section.settings.padding_bottom | times: 0.75 | round: 0 }}px;
+  }
+
+  @media screen and (min-width: 750px) {
+    .section-{{ section.id }}-padding {
+      padding-top: {{ section.settings.padding_top }}px;
+      padding-bottom: {{ section.settings.padding_bottom }}px;
+    }
+  }
+{%- endstyle -%}
+
+{% schema %}
+{
+  "name": "FAQ center",
+  "tag": "section",
+  "class": "section",
+  "settings": [
+    {
+      "type": "paragraph",
+      "content": "Questions come from Settings > Custom data > Metaobjects > FAQ. Add one there and it appears here automatically."
+    },
+    {
+      "type": "text",
+      "id": "anchor",
+      "label": "Anchor id",
+      "info": "Link straight to this section from a menu as /pages/<page>#<anchor>. Lowercase, hyphens, no spaces. Leave blank if nothing links here."
+    },
+    {
+      "type": "text",
+      "id": "caption",
+      "label": "Eyebrow",
+      "default": "Answers"
+    },
+    {
+      "type": "inline_richtext",
+      "id": "heading",
+      "label": "Heading",
+      "default": "Questions, answered"
+    },
+    {
+      "type": "select",
+      "id": "heading_size",
+      "options": [
+        { "value": "h2", "label": "Small" },
+        { "value": "h1", "label": "Medium" },
+        { "value": "h0", "label": "Large" }
+      ],
+      "default": "h1",
+      "label": "Heading size"
+    },
+    {
+      "type": "text",
+      "id": "categories",
+      "label": "Category order",
+      "default": "Product, Ingredient, Skin type, Usage, Safety, Shipping, Returns, General",
+      "info": "Comma separated. Must match the Category values on the FAQ entries. Empty categories are skipped."
+    },
+    {
+      "type": "text",
+      "id": "other_label",
+      "label": "Heading for uncategorised questions",
+      "default": "Other questions"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_jump_nav",
+      "label": "Show category jump links",
+      "default": true
+    },
+    {
+      "type": "text",
+      "id": "jump_nav_label",
+      "label": "Jump links accessible name",
+      "default": "FAQ categories",
+      "info": "Not shown on screen. Read out by screen readers to describe the link row."
+    },
+    {
+      "type": "color_scheme",
+      "id": "color_scheme",
+      "label": "t:sections.all.colors.label",
+      "default": "scheme-1"
+    },
+    {
+      "type": "header",
+      "content": "t:sections.all.padding.section_padding_heading"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "label": "t:sections.all.padding.padding_top",
+      "default": 64
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "label": "t:sections.all.padding.padding_bottom",
+      "default": 96
+    }
+  ],
+  "presets": [
+    {
+      "name": "FAQ center"
+    }
+  ]
+}
+{% endschema %}

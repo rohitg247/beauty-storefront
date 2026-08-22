@@ -69,14 +69,6 @@
             "content": "<p>Add the complete INCI list here, with each active at the concentration it is dosed at. Customers with sensitivities read this before they buy.</p>"
           }
         },
-        "how_to_use": {
-          "type": "collapsible_tab",
-          "settings": {
-            "heading": "How to use",
-            "icon": "heart",
-            "content": "<p>When in the routine, how much, and how often to start. Note anything it should not be layered with.</p>"
-          }
-        },
         "shipping": {
           "type": "collapsible_tab",
           "settings": {
@@ -102,7 +94,6 @@
         "buy_buttons",
         "complementary",
         "ingredients",
-        "how_to_use",
         "shipping",
         "share"
       ],
@@ -121,6 +112,96 @@
         "enable_video_looping": false,
         "padding_top": 36,
         "padding_bottom": 36
+      }
+    },
+    "why-exists": {
+      "type": "product-story",
+      "settings": {
+        "field": "why_exists",
+        "caption": "The problem",
+        "heading": "Why this exists",
+        "heading_size": "h1",
+        "color_scheme": "scheme-2",
+        "padding_top": 80,
+        "padding_bottom": 80
+      }
+    },
+    "benefits": {
+      "type": "product-story",
+      "settings": {
+        "field": "key_benefits",
+        "caption": "What it does",
+        "heading": "What to expect",
+        "heading_size": "h2",
+        "color_scheme": "scheme-1",
+        "padding_top": 72,
+        "padding_bottom": 40
+      }
+    },
+    "ingredient-story": {
+      "type": "product-ingredients",
+      "settings": {
+        "caption": "What is in it",
+        "heading": "Every active, at the dose it works at",
+        "heading_size": "h2",
+        "show_images": true,
+        "show_links": true,
+        "link_label": "Read the evidence",
+        "color_scheme": "scheme-1",
+        "padding_top": 40,
+        "padding_bottom": 40
+      }
+    },
+    "how-it-works": {
+      "type": "product-story",
+      "settings": {
+        "field": "how_it_works",
+        "caption": "The science",
+        "heading": "How it works",
+        "heading_size": "h2",
+        "color_scheme": "scheme-1",
+        "padding_top": 40,
+        "padding_bottom": 72
+      }
+    },
+    "how-to-use": {
+      "type": "product-story",
+      "settings": {
+        "field": "how_to_use",
+        "caption": "In your routine",
+        "heading": "How to use it",
+        "heading_size": "h2",
+        "color_scheme": "scheme-2",
+        "padding_top": 72,
+        "padding_bottom": 72
+      }
+    },
+    "who-for": {
+      "type": "product-story",
+      "settings": {
+        "field": "who_is_it_for",
+        "caption": "Suitability",
+        "heading": "Who it is for",
+        "heading_size": "h2",
+        "skin_types_label": "Skin types",
+        "concerns_label": "Concerns",
+        "color_scheme": "scheme-1",
+        "padding_top": 72,
+        "padding_bottom": 72
+      }
+    },
+    "product-faqs": {
+      "type": "product-faqs",
+      "settings": {
+        "caption": "Before you buy",
+        "heading": "Questions about this product",
+        "heading_size": "h2",
+        "open_first": false,
+        "link_label": "All questions",
+        "link": "/pages/faq",
+        "color_scheme": "scheme-1",
+        "padding_top": 40,
+        "padding_bottom": 72
       }
     },
     "related-products": {
@@ -147,10 +228,93 @@
         "padding_top": 36,
         "padding_bottom": 0
       }
+    },
+    "timeline": {
+      "type": "product-story",
+      "settings": {
+        "field": "results_timeline",
+        "caption": "",
+        "heading": "",
+        "heading_size": "h2",
+        "color_scheme": "scheme-5",
+        "padding_top": 24,
+        "padding_bottom": 24
+      }
+    },
+    "badges": {
+      "type": "commitments",
+      "blocks": {
+        "derm": {
+          "type": "commitment",
+          "settings": {
+            "icon": "eye",
+            "title": "Dermatologist reviewed",
+            "text": "Patch tested on sensitive and acne-prone skin."
+          }
+        },
+        "cruelty": {
+          "type": "commitment",
+          "settings": {
+            "icon": "paw_print",
+            "title": "Cruelty free",
+            "text": "Verify the certification before publishing this claim."
+          }
+        },
+        "made": {
+          "type": "commitment",
+          "settings": {
+            "icon": "plant",
+            "title": "Made in India",
+            "text": "Formulated and filled in small batches."
+          }
+        },
+        "tested": {
+          "type": "commitment",
+          "settings": {
+            "icon": "check_mark",
+            "title": "Safe and tested",
+            "text": "Every active printed at the strength it is dosed at."
+          }
+        },
+        "secure": {
+          "type": "commitment",
+          "settings": {
+            "icon": "padlock",
+            "title": "Secure payment",
+            "text": "All major cards, UPI and net banking."
+          }
+        }
+      },
+      "block_order": [
+        "derm",
+        "cruelty",
+        "made",
+        "tested",
+        "secure"
+      ],
+      "settings": {
+        "anchor": "",
+        "caption": "",
+        "heading": "",
+        "heading_size": "h2",
+        "columns_desktop": "3",
+        "color_scheme": "scheme-1",
+        "padding_top": 40,
+        "padding_bottom": 40
+      }
     }
   },
   "order": [
     "main",
+    "timeline",
+    "badges",
+    "why-exists",
+    "benefits",
+    "ingredient-story",
+    "how-it-works",
+    "how-to-use",
+    "who-for",
+    "product-faqs",
     "disclosures",
     "related-products"
   ]

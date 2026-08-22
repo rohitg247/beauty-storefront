@@ -61,6 +61,12 @@
     <script src="{{ 'search-form.js' | asset_url }}" defer="defer"></script>
     <script src="{{ 'standard-actions-override.js' | asset_url }}" defer="defer"></script>
     <script src="{{ 'brand.js' | asset_url }}" type="module"></script>
+    {%- comment -%}
+      Adds hover-to-open on the header submenus, desktop and mouse only. It
+      layers on top of details-disclosure.js rather than modifying it, so the
+      nav still opens on click if this never loads.
+    {%- endcomment -%}
+    <script src="{{ 'header-hover.js' | asset_url }}" defer="defer"></script>
 
     {%- if settings.animations_reveal_on_scroll -%}
       <script src="{{ 'animations.js' | asset_url }}" defer="defer"></script>
@@ -302,11 +308,15 @@
       <link rel="preload" as="font" href="{{ settings.type_body_font | font_url }}" type="font/woff2" crossorigin>
       {% comment %}theme-check-enable AssetPreload{% endcomment %}
     {%- endunless -%}
-    {%- unless settings.type_header_font.system? -%}
-      {% comment %}theme-check-disable AssetPreload{% endcomment %}
-      <link rel="preload" as="font" href="{{ settings.type_header_font | font_url }}" type="font/woff2" crossorigin>
-      {% comment %}theme-check-enable AssetPreload{% endcomment %}
-    {%- endunless -%}
+    {%- comment -%}
+      The display face is self-hosted Cormorant Garamond (assets/brand.css), not the
+      theme-settings heading font, so that is what gets preloaded. Playfair Display
+      stays declared via font_face above as the fallback and is only fetched if
+      Cormorant fails to load, so preloading it too would be dead weight.
+    {%- endcomment -%}
+    {% comment %}theme-check-disable AssetPreload{% endcomment %}
+    <link rel="preload" as="font" href="{{ 'cormorant-garamond.woff2' | asset_url }}" type="font/woff2" crossorigin>
+    {% comment %}theme-check-enable AssetPreload{% endcomment %}
 
     {%- if localization.available_countries.size > 1 or localization.available_languages.size > 1 -%}
       {{ 'component-localization-form.css' | asset_url | stylesheet_tag: preload: true }}

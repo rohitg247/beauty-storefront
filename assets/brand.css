@@ -39,15 +39,53 @@
 /* ------------------------------------------------------------------
    2. Typography
 
-   Playfair Display is a high-contrast display serif: it only works
+   Cormorant Garamond is the display face — the closest free match to
+   the EMBRAE wordmark's hairline serifs and wide A. It only works
    large and tight. Jost carries everything functional. The two never
    swap roles.
 
-   Cormorant Garamond was the original intent but is not a valid
-   Shopify font handle, so it fails theme upload. If it is wanted back,
-   it has to be loaded as a webfont here and the picker left on a real
-   Shopify handle.
+   Cormorant is NOT a valid Shopify font handle, so it cannot go in the
+   font picker without failing theme upload. It is self-hosted here
+   instead, and the picker stays on a real Shopify handle
+   (playfair_display_n7) which serves as the fallback.
+
+   Consequence, on purpose: the heading font picker in theme settings
+   no longer changes the display face. The wordmark is a brand
+   constant, not a merchant setting. Changing it means changing the
+   @font-face below.
+
+   One file, not two: Google serves Cormorant Garamond as a variable
+   font, so a single 37KB woff2 covers the whole 300-700 range.
+
+   The src URL is relative on purpose. brand.css and the font are both
+   served out of the theme's assets directory on Shopify's CDN, so a
+   bare filename resolves correctly without needing brand.css to become
+   a .liquid file.
    ------------------------------------------------------------------ */
+
+@font-face {
+  font-family: 'Cormorant Garamond';
+  font-style: normal;
+  font-weight: 300 700;
+  font-display: swap;
+  src: url('cormorant-garamond.woff2') format('woff2');
+  /* latin subset. Includes U+2122 for the trademark mark in EMBRAE(tm).
+     Excludes U+20B9 rupee - prices are body copy, and a missing glyph
+     falls back per-character rather than breaking the line. */
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6,
+    U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122,
+    U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+
+/* Overrides the --font-heading-family Dawn writes inline in theme.liquid.
+   Same specificity, later in the cascade, so this wins. If brand.css is
+   ever removed the store falls back to Playfair Display and stays
+   completely readable - which is the safety contract. */
+:root {
+  --font-heading-family: 'Cormorant Garamond', 'Playfair Display', Georgia,
+    'Times New Roman', serif;
+  --font-heading-weight: 600;
+}
 
 h0,
 .h0,
@@ -319,6 +357,44 @@ body::after {
   letter-spacing: -0.01em;
 }
 
+/*
+  Hover-to-open (assets/header-hover.js).
+
+  The bridge is the point. Dawn's submenu is positioned a few pixels below the
+  label, and that gap is not part of either element — so moving the cursor down
+  towards the panel fires mouseleave and the panel closes before it can be
+  reached. The pseudo-element extends the hoverable area across the gap while
+  the panel is open. The close delay in the script covers the same problem in
+  time; this covers it in space, and both are needed.
+
+  Scoped to hover-capable pointers so it never adds an invisible tap target on
+  touch, and to open menus only so it cannot block clicks on the bar.
+*/
+@media (hover: hover) and (pointer: fine) {
+  header-menu details[open] > summary::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 100%;
+    height: 1.6rem;
+  }
+
+  header-menu details[open] > summary {
+    position: relative;
+  }
+}
+
+/* Nine top-level items is the widest this bar has been. Tighten the tracking
+   through the band where it would otherwise wrap onto a second line. */
+@media screen and (min-width: 990px) and (max-width: 1279px) {
+  .header__menu-item,
+  .header__inline-menu .list-menu__item {
+    font-size: 1.1rem;
+    letter-spacing: 0.1em;
+  }
+}
+
 /* ------------------------------------------------------------------
    8. Hero
 
@@ -417,6 +493,19 @@ body::after {
 
 .multicolumn-card__info h3 {
   font-size: 2.2rem;
+}
+
+/* Anchor targets.
+
+   The navigation links to sections by a hand-written id (/pages/trust#quality-standards)
+   because Dawn's own section ids carry the theme id and change whenever the
+   theme is copied. Without this offset the linked heading lands underneath the
+   sticky header and the section looks like it starts mid-paragraph.
+
+   Set on the section wrapper rather than :target so it also works when the
+   browser restores a hash on reload. */
+.anchor-target {
+  scroll-margin-top: 10rem;
 }
 
 /* ------------------------------------------------------------------

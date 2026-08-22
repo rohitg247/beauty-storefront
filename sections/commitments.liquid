@@ -20,7 +20,12 @@
 {{ 'section-commitments.css' | asset_url | stylesheet_tag }}
 
 <div class="color-{{ section.settings.color_scheme }} gradient">
-  <div class="page-width section-{{ section.id }}-padding">
+  <div
+    {% if section.settings.anchor != blank %}
+      id="{{ section.settings.anchor | handleize }}"
+    {% endif %}
+    class="page-width anchor-target section-{{ section.id }}-padding"
+  >
     {%- if section.settings.caption != blank or section.settings.heading != blank -%}
       <div class="commitments__header section-header">
         {%- if section.settings.caption != blank -%}
@@ -82,6 +87,12 @@
   "tag": "section",
   "class": "section",
   "settings": [
+    {
+      "type": "text",
+      "id": "anchor",
+      "label": "Anchor id",
+      "info": "Link straight to this section from a menu as /pages/<page>#<anchor>. Lowercase, hyphens, no spaces. Leave blank if nothing links here."
+    },
     {
       "type": "text",
       "id": "caption",

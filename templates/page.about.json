@@ -1,0 +1,95 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "banner": {
+      "type": "main-page",
+      "settings": {
+        "padding_top": 64,
+        "padding_bottom": 24
+      }
+    },
+    "founder-story": {
+      "type": "anchored-content",
+      "settings": {
+        "anchor": "founder-story",
+        "eyebrow": "Founder story",
+        "heading": "Why I started this",
+        "heading_size": "h0",
+        "body": "<p>PLACEHOLDER. The founder account, in their own words, with a photograph. This is the one piece of copy on a beauty site that cannot be written by someone else and still work - a ghostwritten founder story reads as a ghostwritten founder story.</p>",
+        "image_position": "right",
+        "link_label": "",
+        "link": "",
+        "link_style_secondary": true,
+        "color_scheme": "scheme-2",
+        "padding_top": 88,
+        "padding_bottom": 88
+      }
+    },
+    "our-mission": {
+      "type": "anchored-content",
+      "settings": {
+        "anchor": "our-mission",
+        "eyebrow": "Our mission",
+        "heading": "What we are actually trying to do",
+        "heading_size": "h1",
+        "body": "<p>PLACEHOLDER. One paragraph. If it could be pasted onto a competitor site without anyone noticing, it is not a mission, it is filler.</p>",
+        "image_position": "none",
+        "link_label": "",
+        "link": "",
+        "link_style_secondary": true,
+        "color_scheme": "scheme-1",
+        "padding_top": 72,
+        "padding_bottom": 72
+      }
+    },
+    "our-values": {
+      "type": "anchored-content",
+      "settings": {
+        "anchor": "our-values",
+        "eyebrow": "Our values",
+        "heading": "What we will not do",
+        "heading_size": "h1",
+        "body": "<p>PLACEHOLDER. Values written as refusals are the only ones readers believe. No unnamed concentrations. No invented figures. No borrowed credibility.</p>",
+        "image_position": "none",
+        "link_label": "",
+        "link": "",
+        "link_style_secondary": true,
+        "color_scheme": "scheme-2",
+        "padding_top": 72,
+        "padding_bottom": 72
+      }
+    },
+    "our-team": {
+      "type": "anchored-content",
+      "settings": {
+        "anchor": "our-team",
+        "eyebrow": "Our team",
+        "heading": "The people behind it",
+        "heading_size": "h1",
+        "body": "<p>PLACEHOLDER. Names, roles and faces. On a brand claiming dermatologist involvement, the dermatologist has to be nameable - do not imply one you do not have.</p>",
+        "image_position": "none",
+        "link_label": "Work with us",
+        "link": "/pages/careers",
+        "link_style_secondary": true,
+        "color_scheme": "scheme-1",
+        "padding_top": 72,
+        "padding_bottom": 96
+      }
+    }
+  },
+  "order": [
+    "banner",
+    "founder-story",
+    "our-mission",
+    "our-values",
+    "our-team"
+  ]
+}

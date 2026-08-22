@@ -1,0 +1,160 @@
+/*
+  section-product-modules.css
+
+  Shared by sections/product-ingredients.liquid and sections/product-faqs.liquid
+  — the two PDP modules that read metaobject lists off the product.
+
+  Colours come from the active Dawn colour scheme. No hex values here, per the
+  theme rules in CLAUDE.md.
+
+  Both modules cap their content at a readable measure and sit inside the normal
+  page width, so they line up with the rest of the product page rather than
+  looking like a bolted-on band.
+*/
+
+.product-module__header {
+  display: block;
+  max-width: 68ch;
+}
+
+.product-module__caption {
+  margin: 0 0 var(--space-2xs);
+  opacity: 0.75;
+}
+
+.product-module__heading {
+  margin: 0;
+}
+
+.product-module__accordions,
+.ingredient-list {
+  max-width: 78ch;
+}
+
+.product-module__footer {
+  margin-top: var(--space-sm);
+}
+
+/* ---- Ingredient list ---- */
+
+.ingredient-list {
+  margin: 0;
+  padding: 0;
+  border-top: var(--rule);
+}
+
+.ingredient-item {
+  display: flex;
+  gap: var(--space-xs);
+  align-items: flex-start;
+  padding: var(--space-sm) 0;
+  border-bottom: var(--rule);
+}
+
+/* Fixed box so the row height does not jump as images load. */
+.ingredient-item__media {
+  flex: 0 0 auto;
+  width: 8.8rem;
+  aspect-ratio: 1;
+  overflow: hidden;
+  background: rgba(var(--color-foreground), 0.04);
+}
+
+@media screen and (min-width: 750px) {
+  .ingredient-item__media {
+    width: 12rem;
+  }
+}
+
+.ingredient-item__image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+/* min-width:0 lets long INCI names wrap instead of forcing the flex row wider
+   than the viewport — the 360px overflow rule in CLAUDE.md. */
+.ingredient-item__body {
+  min-width: 0;
+  flex: 1 1 auto;
+}
+
+.ingredient-item__name {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 0 var(--space-2xs);
+  font-size: 2rem;
+  line-height: 1.2;
+  margin: 0;
+}
+
+/* The dose is the brand's central claim, so it reads as a figure, not a note. */
+.ingredient-item__dose {
+  font-family: var(--font-body-family);
+  font-size: 1.4rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  padding: 0.3rem 0.8rem;
+  border: var(--rule-strong);
+  white-space: nowrap;
+}
+
+.ingredient-item__inci {
+  margin: var(--space-2xs) 0 0;
+  font-size: 1.4rem;
+  opacity: 0.65;
+  overflow-wrap: anywhere;
+}
+
+.ingredient-item__benefit {
+  margin: var(--space-2xs) 0 0;
+}
+
+.ingredient-item__link {
+  display: inline-block;
+  margin-top: var(--space-2xs);
+  /* 44px tap target without visually inflating a text link. */
+  padding: 1rem 0;
+}
+
+/* ---- "Who is it for" ---- */
+
+.product-module__body {
+  max-width: 68ch;
+}
+
+.product-module__audience {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-sm);
+}
+
+@media screen and (min-width: 750px) {
+  .product-module__audience {
+    flex-direction: row;
+    gap: var(--space-md);
+  }
+
+  .product-module__audience-group {
+    flex: 1 1 0;
+    min-width: 0;
+  }
+}
+
+.product-module__audience-title {
+  margin: 0 0 var(--space-2xs);
+  opacity: 0.75;
+}
+
+/* Non-linked chips (skin types) must not look clickable. */
+.product-module__audience span.editorial__chip {
+  cursor: default;
+}
+
+/* ---- Collection copy ---- */
+
+.collection-copy__link {
+  margin: var(--space-xs) 0 0;
+}

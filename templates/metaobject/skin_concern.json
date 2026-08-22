@@ -1,0 +1,21 @@
+{
+  "sections": {
+    "main": {
+      "type": "main-concern",
+      "settings": {
+        "eyebrow": "Skin concern",
+        "symptoms_label": "How to recognise it",
+        "causes_label": "Why it happens",
+        "routine_label": "What to do about it",
+        "ingredients_label": "Ingredients that help",
+        "products_label": "Where to start",
+        "collection_label": "Shop all",
+        "quick_add": "standard",
+        "color_scheme": "scheme-1",
+        "padding_top": 64,
+        "padding_bottom": 96
+      }
+    }
+  },
+  "order": ["main"]
+}

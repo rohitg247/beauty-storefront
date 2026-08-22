@@ -1,0 +1,231 @@
+{% comment %}
+  Product story — one merchant-written product metafield, rendered as a section.
+
+  Covers five of the twelve PDP modules in the architecture diagram with one
+  file, selected by the `field` setting:
+
+    why_exists     module 2  Why this product exists
+    key_benefits   module 3  Key benefits
+    how_it_works   module 5  How it works
+    how_to_use     module 6  How to use
+    who_is_it_for  module 7  Who is it for (skin types + concerns)
+
+  WHY THIS EXISTS RATHER THAN A DYNAMIC SOURCE ON A STOCK rich-text SECTION
+
+  The theme editor can bind a metafield to a `richtext` setting, which would
+  need no code at all. The catch is the JSON: a pre-wired dynamic source is
+  stored as the bare string "{{ product.metafields... }}", and Shopify's upload
+  validator requires every top-level node in a richtext value to be <p>, <ul>,
+  <ol> or <h1>-<h6>. Bare text is rejected. That exact validation has broken
+  this theme's uploads three times (see docs/changes.md, 2026-08-21).
+
+  Reading the metafield in Liquid sidesteps the validator completely, and the
+  merchant still owns every word of the content. The alternative — shipping it
+  unset and asking someone to connect five dynamic sources by hand on every
+  product page — is worse for them and more fragile for us.
+
+  EMPTY-SAFE: renders nothing when the selected metafield is empty.
+{% endcomment %}
+
+{{ 'section-editorial.css' | asset_url | stylesheet_tag }}
+{{ 'section-product-modules.css' | asset_url | stylesheet_tag }}
+
+{%- liquid
+  assign field = section.settings.field
+
+  case field
+    when 'why_exists'
+      assign body = product.metafields.embrae.why_exists
+    when 'key_benefits'
+      assign body = product.metafields.embrae.key_benefits
+    when 'how_it_works'
+      assign body = product.metafields.embrae.how_it_works
+    when 'how_to_use'
+      assign body = product.metafields.embrae.how_to_use
+    when 'results_timeline'
+      assign body = product.metafields.embrae.results_timeline
+  endcase
+
+  assign concerns = product.metafields.embrae.concerns.value
+  assign skin_types = product.metafields.embrae.skin_types.value
+
+  assign has_audience = false
+  if concerns != blank and concerns.size > 0
+    assign has_audience = true
+  endif
+  if skin_types != blank and skin_types.size > 0
+    assign has_audience = true
+  endif
+
+  assign render_section = false
+  if field == 'who_is_it_for'
+    assign render_section = has_audience
+  elsif body != blank and body.value != blank
+    assign render_section = true
+  endif
+-%}
+
+{%- if render_section -%}
+  <div class="color-{{ section.settings.color_scheme }} gradient">
+    <div class="page-width section-{{ section.id }}-padding">
+      {%- if section.settings.caption != blank or section.settings.heading != blank -%}
+        <div class="product-module__header section-header">
+          {%- if section.settings.caption != blank -%}
+            <p class="product-module__caption label">{{ section.settings.caption | escape }}</p>
+          {%- endif -%}
+
+          {%- if section.settings.heading != blank -%}
+            <h2 class="product-module__heading {{ section.settings.heading_size }}">
+              {{ section.settings.heading }}
+            </h2>
+          {%- endif -%}
+        </div>
+      {%- endif -%}
+
+      {%- if field == 'who_is_it_for' -%}
+        <div class="product-module__audience">
+          {%- if skin_types != blank and skin_types.size > 0 -%}
+            <div class="product-module__audience-group">
+              <h3 class="product-module__audience-title label">{{ section.settings.skin_types_label | escape }}</h3>
+              <ul class="editorial__chips list-unstyled" role="list">
+                {%- for skin_type in skin_types -%}
+                  <li><span class="editorial__chip">{{ skin_type | escape }}</span></li>
+                {%- endfor -%}
+              </ul>
+            </div>
+          {%- endif -%}
+
+          {%- if concerns != blank and concerns.size > 0 -%}
+            <div class="product-module__audience-group">
+              <h3 class="product-module__audience-title label">{{ section.settings.concerns_label | escape }}</h3>
+              <ul class="editorial__chips list-unstyled" role="list">
+                {%- for concern in concerns -%}
+                  <li>
+                    <a class="editorial__chip" href="{{ concern.system.url }}">
+                      {{- concern.name.value | escape -}}
+                    </a>
+                  </li>
+                {%- endfor -%}
+              </ul>
+            </div>
+          {%- endif -%}
+        </div>
+      {%- else -%}
+        <div class="product-module__body">
+          {{ body | metafield_tag }}
+        </div>
+      {%- endif -%}
+    </div>
+  </div>
+{%- endif -%}
+
+{%- style -%}
+  .section-{{ section.id }}-padding {
+    padding-top: {{ section.settings.padding_top | times: 0.75 | round: 0 }}px;
+    padding-bottom: {{ section.settings.padding_bottom | times: 0.75 | round: 0 }}px;
+  }
+
+  @media screen and (min-width: 750px) {
+    .section-{{ section.id }}-padding {
+      padding-top: {{ section.settings.padding_top }}px;
+      padding-bottom: {{ section.settings.padding_bottom }}px;
+    }
+  }
+{%- endstyle -%}
+
+{% schema %}
+{
+  "name": "Product story",
+  "tag": "section",
+  "class": "section",
+  "settings": [
+    {
+      "type": "select",
+      "id": "field",
+      "options": [
+        { "value": "why_exists", "label": "Why this product exists" },
+        { "value": "key_benefits", "label": "Key benefits" },
+        { "value": "how_it_works", "label": "How it works" },
+        { "value": "how_to_use", "label": "How to use" },
+        { "value": "who_is_it_for", "label": "Who is it for" },
+        { "value": "results_timeline", "label": "Results timeline" }
+      ],
+      "default": "why_exists",
+      "label": "Show which field",
+      "info": "Content is written per product in Admin, under the product's metafields. This section renders nothing if that field is empty."
+    },
+    {
+      "type": "text",
+      "id": "caption",
+      "label": "Eyebrow"
+    },
+    {
+      "type": "inline_richtext",
+      "id": "heading",
+      "label": "Heading"
+    },
+    {
+      "type": "select",
+      "id": "heading_size",
+      "options": [
+        { "value": "h2", "label": "Small" },
+        { "value": "h1", "label": "Medium" },
+        { "value": "h0", "label": "Large" }
+      ],
+      "default": "h2",
+      "label": "Heading size"
+    },
+    {
+      "type": "header",
+      "content": "\"Who is it for\" labels"
+    },
+    {
+      "type": "text",
+      "id": "skin_types_label",
+      "label": "Skin types label",
+      "default": "Skin types"
+    },
+    {
+      "type": "text",
+      "id": "concerns_label",
+      "label": "Concerns label",
+      "default": "Concerns"
+    },
+    {
+      "type": "color_scheme",
+      "id": "color_scheme",
+      "label": "t:sections.all.colors.label",
+      "default": "scheme-1"
+    },
+    {
+      "type": "header",
+      "content": "t:sections.all.padding.section_padding_heading"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "label": "t:sections.all.padding.padding_top",
+      "default": 64
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "label": "t:sections.all.padding.padding_bottom",
+      "default": 64
+    }
+  ],
+  "presets": [
+    {
+      "name": "Product story"
+    }
+  ]
+}
+{% endschema %}

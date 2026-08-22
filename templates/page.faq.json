@@ -68,8 +68,8 @@
         "shipping"
       ],
       "settings": {
-        "caption": "Questions",
-        "heading": "The things people ask",
+        "caption": "Written before the FAQ entries existed",
+        "heading": "Starter questions",
         "heading_size": "h1",
         "heading_alignment": "left",
         "layout": "none",
@@ -81,10 +81,26 @@
         "padding_top": 36,
         "padding_bottom": 96
       }
+    },
+    "faq-center": {
+      "type": "faq-center",
+      "settings": {
+        "caption": "Answers",
+        "heading": "Questions, answered",
+        "heading_size": "h1",
+        "categories": "Product, Ingredient, Skin type, Usage, Safety, Shipping, Returns, General",
+        "other_label": "Other questions",
+        "show_jump_nav": true,
+        "jump_nav_label": "FAQ categories",
+        "color_scheme": "scheme-1",
+        "padding_top": 64,
+        "padding_bottom": 96
+      }
     }
   },
   "order": [
     "main",
+    "faq-center",
     "faq"
   ]
 }

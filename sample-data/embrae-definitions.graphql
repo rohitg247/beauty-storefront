@@ -1,0 +1,902 @@
+# ---------------------------------------------------------------------------
+# EMBRAE — custom data model
+#
+# Creates the metaobject definitions and metafield definitions that the theme
+# reads. Run this ONCE per store. It is safe to re-run: Shopify rejects a
+# duplicate definition with a TAKEN error rather than creating a second one.
+#
+# HOW TO RUN
+#   1. Admin -> Apps -> "Shopify GraphiQL App" (free, first-party). Install it.
+#      Give it read/write access to Products and Metaobject definitions.
+#   2. Open it, paste this whole file into the left pane.
+#   3. GraphiQL will show a dropdown of the named operations below. Run them in
+#      order, top to bottom. Each one prints userErrors — an empty array means it
+#      worked.
+#
+# WHY THIS EXISTS INSTEAD OF CLICKING THROUGH ADMIN
+#   The theme's Liquid reads these by exact namespace and key. One typo in the
+#   Admin UI and a section silently renders nothing. This file is the source of
+#   truth for those keys, and it is re-runnable on a second store.
+#
+# ORDER MATTERS
+#   Step 1 creates the metaobject definitions. Steps 3 and 4 create metafields
+#   that point AT those definitions by type, so the definitions must exist first.
+#
+# NAMING
+#   Metaobject `type` is the internal handle and drives the theme template
+#   filename: type "ingredient" -> templates/metaobject.ingredient.json.
+#   `urlHandle` is separate and drives the public URL, which is why the types are
+#   singular but the URLs read plural:
+#       /ingredients/niacinamide
+#       /skin-concerns/dehydration
+# ---------------------------------------------------------------------------
+
+
+# ===========================================================================
+# STEP 1a — Ingredient
+# Powers: the Ingredient Library, the PDP ingredient story, the homepage
+# Ingredient Spotlight row, and the ingredient axis of the nav.
+# ===========================================================================
+mutation Step1a_CreateIngredientDefinition {
+  metaobjectDefinitionCreate(
+    definition: {
+      name: "Ingredient"
+      type: "ingredient"
+      description: "One active or botanical, with the evidence for it. Rendered at /ingredients/<handle>."
+      displayNameKey: "name"
+      access: { storefront: PUBLIC_READ }
+      capabilities: {
+        publishable: { enabled: true }
+        onlineStore: {
+          enabled: true
+          data: { urlHandle: "ingredients", createRedirects: true }
+        }
+        renderable: {
+          enabled: true
+          data: { metaTitleKey: "seo_title", metaDescriptionKey: "seo_description" }
+        }
+      }
+      fieldDefinitions: [
+        {
+          key: "name"
+          name: "Name"
+          type: "single_line_text_field"
+          description: "The common name, as a customer would say it. e.g. Niacinamide"
+          required: true
+        }
+        {
+          key: "inci_name"
+          name: "INCI name"
+          type: "single_line_text_field"
+          description: "The name as it appears on the ingredients list. e.g. Niacinamide (Vitamin B3)"
+        }
+        {
+          key: "concentration"
+          name: "Concentration"
+          type: "single_line_text_field"
+          description: "The dose used, if it is a named concentration. e.g. 10%"
+        }
+        {
+          key: "benefit"
+          name: "One-line benefit"
+          type: "single_line_text_field"
+          description: "One sentence, result-focused. Shown on cards and on the PDP."
+        }
+        {
+          key: "how_it_works"
+          name: "How it works"
+          type: "rich_text_field"
+          description: "The mechanism, in plain language."
+        }
+        {
+          key: "evidence"
+          name: "Evidence"
+          type: "rich_text_field"
+          description: "What the research actually says. Keep claims defensible — this is the page that has to hold up."
+        }
+        {
+          key: "image"
+          name: "Image"
+          type: "file_reference"
+          validations: [{ name: "file_type_options", value: "[\"Image\"]" }]
+        }
+        {
+          key: "related_products"
+          name: "Products using this"
+          type: "list.product_reference"
+        }
+        {
+          key: "collection"
+          name: "Shoppable collection"
+          type: "collection_reference"
+          description: "The automated collection for this ingredient. This is the searchable, shoppable surface — metaobjects do not appear in storefront search, collections do."
+        }
+        {
+          key: "seo_title"
+          name: "SEO title"
+          type: "single_line_text_field"
+        }
+        {
+          key: "seo_description"
+          name: "SEO description"
+          type: "multi_line_text_field"
+        }
+      ]
+    }
+  ) {
+    metaobjectDefinition {
+      id
+      type
+      name
+    }
+    userErrors {
+      field
+      message
+      code
+    }
+  }
+}
+
+
+# ===========================================================================
+# STEP 1b — Skin concern
+# Powers: the Skin Concerns Library, the "Which concern matches you?" homepage
+# row, the concern axis of the nav, the concern router page, and PDP "who is
+# it for".
+#
+# Run this AFTER 1a — key_ingredients references the ingredient definition.
+# ===========================================================================
+mutation Step1b_CreateSkinConcernDefinition {
+  metaobjectDefinitionCreate(
+    definition: {
+      name: "Skin concern"
+      type: "skin_concern"
+      description: "One concern a customer would self-identify with. Rendered at /skin-concerns/<handle>."
+      displayNameKey: "name"
+      access: { storefront: PUBLIC_READ }
+      capabilities: {
+        publishable: { enabled: true }
+        onlineStore: {
+          enabled: true
+          data: { urlHandle: "skin-concerns", createRedirects: true }
+        }
+        renderable: {
+          enabled: true
+          data: { metaTitleKey: "seo_title", metaDescriptionKey: "seo_description" }
+        }
+      }
+      fieldDefinitions: [
+        {
+          key: "name"
+          name: "Name"
+          type: "single_line_text_field"
+          description: "How a customer would describe it, not how a dermatologist would. e.g. Dehydration"
+          required: true
+        }
+        {
+          key: "short_description"
+          name: "Short description"
+          type: "single_line_text_field"
+          description: "One line, shown on the concern cards and the router page."
+        }
+        {
+          key: "symptoms"
+          name: "What it looks like"
+          type: "rich_text_field"
+          description: "How someone recognises they have this. Written so they can self-identify."
+        }
+        {
+          key: "causes"
+          name: "What causes it"
+          type: "rich_text_field"
+        }
+        {
+          key: "routine"
+          name: "What to do about it"
+          type: "rich_text_field"
+          description: "The routine. This is the part that earns the page its ranking."
+        }
+        {
+          key: "image"
+          name: "Image"
+          type: "file_reference"
+          validations: [{ name: "file_type_options", value: "[\"Image\"]" }]
+        }
+        {
+          key: "key_ingredients"
+          name: "Key ingredients"
+          type: "list.metaobject_reference"
+          validations: [{ name: "metaobject_definition_type", value: "ingredient" }]
+        }
+        {
+          key: "recommended_products"
+          name: "Recommended products"
+          type: "list.product_reference"
+        }
+        {
+          key: "collection"
+          name: "Shoppable collection"
+          type: "collection_reference"
+          description: "The automated collection for this concern — the surface that appears in storefront search and filtering."
+        }
+        {
+          key: "seo_title"
+          name: "SEO title"
+          type: "single_line_text_field"
+        }
+        {
+          key: "seo_description"
+          name: "SEO description"
+          type: "multi_line_text_field"
+        }
+      ]
+    }
+  ) {
+    metaobjectDefinition {
+      id
+      type
+      name
+    }
+    userErrors {
+      field
+      message
+      code
+    }
+  }
+}
+
+
+# ===========================================================================
+# STEP 1c — FAQ
+# Powers: the FAQ Center (grouped by category) and the PDP FAQ accordion.
+#
+# No online store capability on purpose — a single FAQ does not need its own
+# page, and FAQPage structured data stopped producing rich results for
+# non-health sites in May 2026, so there is nothing to gain from one.
+# ===========================================================================
+mutation Step1c_CreateFaqDefinition {
+  metaobjectDefinitionCreate(
+    definition: {
+      name: "FAQ"
+      type: "faq"
+      description: "One question and answer. Reused by the FAQ Center and by individual product pages."
+      displayNameKey: "question"
+      access: { storefront: PUBLIC_READ }
+      capabilities: { publishable: { enabled: true } }
+      fieldDefinitions: [
+        {
+          key: "question"
+          name: "Question"
+          type: "single_line_text_field"
+          description: "Phrased the way a customer would ask it, not the way support would file it."
+          required: true
+        }
+        {
+          key: "answer"
+          name: "Answer"
+          type: "rich_text_field"
+          required: true
+        }
+        {
+          key: "category"
+          name: "Category"
+          type: "single_line_text_field"
+          description: "Groups the question in the FAQ Center."
+          validations: [
+            {
+              name: "choices"
+              value: "[\"Product\",\"Ingredient\",\"Skin type\",\"Usage\",\"Safety\",\"Shipping\",\"Returns\",\"General\"]"
+            }
+          ]
+        }
+      ]
+    }
+  ) {
+    metaobjectDefinition {
+      id
+      type
+      name
+    }
+    userErrors {
+      field
+      message
+      code
+    }
+  }
+}
+
+
+# ===========================================================================
+# STEP 1d — Routine
+# Powers: the Routine Builder in the Education Hub, and the result panel of the
+# skin quiz. Rendered at /routine-builder/<handle>.
+#
+# Run this AFTER 1b — the concern field references the skin_concern definition.
+# ===========================================================================
+mutation Step1d_CreateRoutineDefinition {
+  metaobjectDefinitionCreate(
+    definition: {
+      name: "Routine"
+      type: "routine"
+      description: "A step-by-step routine for one concern and one time of day. Rendered at /routine-builder/<handle>."
+      displayNameKey: "name"
+      access: { storefront: PUBLIC_READ }
+      capabilities: {
+        publishable: { enabled: true }
+        onlineStore: {
+          enabled: true
+          data: { urlHandle: "routine-builder", createRedirects: true }
+        }
+        renderable: {
+          enabled: true
+          data: { metaTitleKey: "seo_title", metaDescriptionKey: "seo_description" }
+        }
+      }
+      fieldDefinitions: [
+        {
+          key: "name"
+          name: "Name"
+          type: "single_line_text_field"
+          description: "e.g. Morning routine for dehydrated skin"
+          required: true
+        }
+        {
+          key: "time_of_day"
+          name: "Time of day"
+          type: "single_line_text_field"
+          validations: [
+            { name: "choices", value: "[\"Morning\",\"Evening\",\"Morning and evening\"]" }
+          ]
+        }
+        {
+          key: "level"
+          name: "Level"
+          type: "single_line_text_field"
+          validations: [
+            { name: "choices", value: "[\"Beginner\",\"Intermediate\",\"Barrier repair\",\"Sensitive skin\"]" }
+          ]
+        }
+        {
+          key: "summary"
+          name: "Summary"
+          type: "single_line_text_field"
+          description: "One line. Shown on cards and at the top of the routine page."
+        }
+        {
+          key: "concern"
+          name: "Concern"
+          type: "metaobject_reference"
+          validations: [{ name: "metaobject_definition_type", value: "skin_concern" }]
+        }
+        {
+          key: "steps"
+          name: "Steps"
+          type: "rich_text_field"
+          description: "Write as a numbered list. Order matters more than anything else in a routine."
+        }
+        {
+          key: "products"
+          name: "Products"
+          type: "list.product_reference"
+          description: "In the order they are applied."
+        }
+        {
+          key: "image"
+          name: "Image"
+          type: "file_reference"
+          validations: [{ name: "file_type_options", value: "[\"Image\"]" }]
+        }
+        {
+          key: "seo_title"
+          name: "SEO title"
+          type: "single_line_text_field"
+        }
+        {
+          key: "seo_description"
+          name: "SEO description"
+          type: "multi_line_text_field"
+        }
+      ]
+    }
+  ) {
+    metaobjectDefinition {
+      id
+      type
+      name
+    }
+    userErrors {
+      field
+      message
+      code
+    }
+  }
+}
+
+
+# ===========================================================================
+# STEP 1e — Quiz option
+# One selectable answer. Each option names the concerns it points at, which is
+# how the quiz scores.
+#
+# Run AFTER 1b.
+# ===========================================================================
+mutation Step1e_CreateQuizOptionDefinition {
+  metaobjectDefinitionCreate(
+    definition: {
+      name: "Quiz option"
+      type: "quiz_option"
+      description: "One answer a visitor can pick in the skin quiz."
+      displayNameKey: "label"
+      access: { storefront: PUBLIC_READ }
+      capabilities: { publishable: { enabled: true } }
+      fieldDefinitions: [
+        {
+          key: "label"
+          name: "Answer"
+          type: "single_line_text_field"
+          description: "What the visitor sees. Plain language, no jargon."
+          required: true
+        }
+        {
+          key: "image"
+          name: "Image"
+          type: "file_reference"
+          validations: [{ name: "file_type_options", value: "[\"Image\"]" }]
+        }
+        {
+          key: "concerns"
+          name: "Points to concerns"
+          type: "list.metaobject_reference"
+          description: "Picking this answer adds score to these concerns. An answer can point at more than one."
+          validations: [{ name: "metaobject_definition_type", value: "skin_concern" }]
+        }
+        {
+          key: "weight"
+          name: "Weight"
+          type: "number_integer"
+          description: "How strongly this answer counts. Leave at 1 unless one answer should outweigh the others."
+        }
+      ]
+    }
+  ) {
+    metaobjectDefinition {
+      id
+      type
+      name
+    }
+    userErrors {
+      field
+      message
+      code
+    }
+  }
+}
+
+
+# ===========================================================================
+# STEP 1f — Quiz question
+#
+# Run AFTER 1e — the options field references the quiz_option definition.
+#
+# Question order is NOT stored here. It comes from the order you drag the
+# questions into on the quiz section in the theme editor, because metaobject
+# entries have no inherent order and sorting them in Liquid is unreliable.
+# ===========================================================================
+mutation Step1f_CreateQuizQuestionDefinition {
+  metaobjectDefinitionCreate(
+    definition: {
+      name: "Quiz question"
+      type: "quiz_question"
+      description: "One step of the skin quiz."
+      displayNameKey: "question"
+      access: { storefront: PUBLIC_READ }
+      capabilities: { publishable: { enabled: true } }
+      fieldDefinitions: [
+        {
+          key: "question"
+          name: "Question"
+          type: "single_line_text_field"
+          description: "e.g. How does your skin feel by mid-afternoon?"
+          required: true
+        }
+        {
+          key: "step_label"
+          name: "Step label"
+          type: "single_line_text_field"
+          description: "Short label for the progress indicator. e.g. Skin type"
+        }
+        {
+          key: "help_text"
+          name: "Help text"
+          type: "single_line_text_field"
+          description: "Optional one-liner under the question."
+        }
+        {
+          key: "multi_select"
+          name: "Allow more than one answer"
+          type: "boolean"
+        }
+        {
+          key: "options"
+          name: "Answers"
+          type: "list.metaobject_reference"
+          description: "In the order they should appear."
+          required: true
+          validations: [{ name: "metaobject_definition_type", value: "quiz_option" }]
+        }
+      ]
+    }
+  ) {
+    metaobjectDefinition {
+      id
+      type
+      name
+    }
+    userErrors {
+      field
+      message
+      code
+    }
+  }
+}
+
+
+# ===========================================================================
+# STEP 2 — Verify, and get the IDs
+#
+# Run this after step 1. You should see all three definitions.
+#
+# You only need the IDs if steps 3 or 4 fail with an error about
+# `metaobject_definition_type`. If that happens, swap that validation for
+#   { name: "metaobject_definition_id", value: "gid://shopify/MetaobjectDefinition/<id>" }
+# using the ids printed here.
+# ===========================================================================
+query Step2_VerifyDefinitions {
+  metaobjectDefinitions(first: 25) {
+    nodes {
+      id
+      type
+      name
+      fieldDefinitions {
+        key
+        type {
+          name
+        }
+      }
+      capabilities {
+        onlineStore {
+          enabled
+          data {
+            urlHandle
+          }
+        }
+      }
+    }
+  }
+}
+
+
+# ===========================================================================
+# STEP 3 — Product metafields, namespace `embrae`
+#
+# These are the twelve PDP modules in the architecture diagram. Six of them
+# (why_exists, key_benefits, how_it_works, how_to_use, skin_types,
+# results_timeline) need NO theme code at all — they are connected to existing
+# rich-text and collapsible-tab blocks as dynamic sources in the theme editor.
+# Only the three list.metaobject_reference fields need custom sections, because
+# dynamic sources cannot loop.
+#
+# `pin: true` puts them on the product page in Admin instead of behind a menu.
+# ===========================================================================
+mutation Step3_CreateProductMetafields {
+  whyExists: metafieldDefinitionCreate(
+    definition: {
+      name: "Why this product exists"
+      namespace: "embrae"
+      key: "why_exists"
+      description: "The problem, then the solution. PDP module 2."
+      type: "rich_text_field"
+      ownerType: PRODUCT
+      pin: true
+      access: { storefront: PUBLIC_READ }
+    }
+  ) {
+    createdDefinition {
+      id
+      key
+    }
+    userErrors {
+      field
+      message
+      code
+    }
+  }
+
+  keyBenefits: metafieldDefinitionCreate(
+    definition: {
+      name: "Key benefits"
+      namespace: "embrae"
+      key: "key_benefits"
+      description: "Three or four, result-focused. Write as a bullet list. PDP module 3."
+      type: "rich_text_field"
+      ownerType: PRODUCT
+      pin: true
+      access: { storefront: PUBLIC_READ }
+    }
+  ) {
+    createdDefinition {
+      id
+      key
+    }
+    userErrors {
+      field
+      message
+      code
+    }
+  }
+
+  ingredients: metafieldDefinitionCreate(
+    definition: {
+      name: "Ingredients"
+      namespace: "embrae"
+      key: "ingredients"
+      description: "The actives in this product, in the order they should be presented. PDP module 4."
+      type: "list.metaobject_reference"
+      ownerType: PRODUCT
+      pin: true
+      access: { storefront: PUBLIC_READ }
+      validations: [{ name: "metaobject_definition_type", value: "ingredient" }]
+    }
+  ) {
+    createdDefinition {
+      id
+      key
+    }
+    userErrors {
+      field
+      message
+      code
+    }
+  }
+
+  howItWorks: metafieldDefinitionCreate(
+    definition: {
+      name: "How it works"
+      namespace: "embrae"
+      key: "how_it_works"
+      description: "The science behind the formulation. PDP module 5."
+      type: "rich_text_field"
+      ownerType: PRODUCT
+      pin: true
+      access: { storefront: PUBLIC_READ }
+    }
+  ) {
+    createdDefinition {
+      id
+      key
+    }
+    userErrors {
+      field
+      message
+      code
+    }
+  }
+
+  howToUse: metafieldDefinitionCreate(
+    definition: {
+      name: "How to use"
+      namespace: "embrae"
+      key: "how_to_use"
+      description: "When, how much, AM/PM, and where it sits in the routine order. PDP module 6."
+      type: "rich_text_field"
+      ownerType: PRODUCT
+      pin: true
+      access: { storefront: PUBLIC_READ }
+    }
+  ) {
+    createdDefinition {
+      id
+      key
+    }
+    userErrors {
+      field
+      message
+      code
+    }
+  }
+
+  concerns: metafieldDefinitionCreate(
+    definition: {
+      name: "Concerns this addresses"
+      namespace: "embrae"
+      key: "concerns"
+      description: "PDP module 7, and what links a product to its concern pages."
+      type: "list.metaobject_reference"
+      ownerType: PRODUCT
+      pin: true
+      access: { storefront: PUBLIC_READ }
+      validations: [{ name: "metaobject_definition_type", value: "skin_concern" }]
+    }
+  ) {
+    createdDefinition {
+      id
+      key
+    }
+    userErrors {
+      field
+      message
+      code
+    }
+  }
+
+  skinTypes: metafieldDefinitionCreate(
+    definition: {
+      name: "Suitable for skin types"
+      namespace: "embrae"
+      key: "skin_types"
+      description: "e.g. Oily, Dry, Combination, Sensitive. PDP module 7."
+      type: "list.single_line_text_field"
+      ownerType: PRODUCT
+      pin: true
+      access: { storefront: PUBLIC_READ }
+    }
+  ) {
+    createdDefinition {
+      id
+      key
+    }
+    userErrors {
+      field
+      message
+      code
+    }
+  }
+
+  faqs: metafieldDefinitionCreate(
+    definition: {
+      name: "Product FAQs"
+      namespace: "embrae"
+      key: "faqs"
+      description: "Pick from the shared FAQ entries. PDP module 8."
+      type: "list.metaobject_reference"
+      ownerType: PRODUCT
+      pin: true
+      access: { storefront: PUBLIC_READ }
+      validations: [{ name: "metaobject_definition_type", value: "faq" }]
+    }
+  ) {
+    createdDefinition {
+      id
+      key
+    }
+    userErrors {
+      field
+      message
+      code
+    }
+  }
+
+  resultsTimeline: metafieldDefinitionCreate(
+    definition: {
+      name: "Results timeline"
+      namespace: "embrae"
+      key: "results_timeline"
+      description: "e.g. Visible results in 4 weeks. Shown in the above-the-fold summary. Must be defensible."
+      type: "single_line_text_field"
+      ownerType: PRODUCT
+      pin: true
+      access: { storefront: PUBLIC_READ }
+    }
+  ) {
+    createdDefinition {
+      id
+      key
+    }
+    userErrors {
+      field
+      message
+      code
+    }
+  }
+}
+
+
+# ===========================================================================
+# STEP 4 — Collection metafields, namespace `embrae`
+#
+# seo_intro / seo_outro are the 300-500 words above and below the product grid
+# that make the concern and ingredient collections rank. `concern` links a
+# collection back to its editorial page, closing the loop between the
+# shoppable surface and the SEO surface.
+# ===========================================================================
+mutation Step4_CreateCollectionMetafields {
+  seoIntro: metafieldDefinitionCreate(
+    definition: {
+      name: "Intro copy"
+      namespace: "embrae"
+      key: "seo_intro"
+      description: "Shown above the product grid. 150-250 words."
+      type: "rich_text_field"
+      ownerType: COLLECTION
+      pin: true
+      access: { storefront: PUBLIC_READ }
+    }
+  ) {
+    createdDefinition {
+      id
+      key
+    }
+    userErrors {
+      field
+      message
+      code
+    }
+  }
+
+  seoOutro: metafieldDefinitionCreate(
+    definition: {
+      name: "Long-form copy"
+      namespace: "embrae"
+      key: "seo_outro"
+      description: "Shown below the product grid. 150-350 words. This is the half that ranks."
+      type: "rich_text_field"
+      ownerType: COLLECTION
+      pin: true
+      access: { storefront: PUBLIC_READ }
+    }
+  ) {
+    createdDefinition {
+      id
+      key
+    }
+    userErrors {
+      field
+      message
+      code
+    }
+  }
+
+  concern: metafieldDefinitionCreate(
+    definition: {
+      name: "Concern page"
+      namespace: "embrae"
+      key: "concern"
+      description: "The editorial concern page this collection belongs to."
+      type: "metaobject_reference"
+      ownerType: COLLECTION
+      pin: true
+      access: { storefront: PUBLIC_READ }
+      validations: [{ name: "metaobject_definition_type", value: "skin_concern" }]
+    }
+  ) {
+    createdDefinition {
+      id
+      key
+    }
+    userErrors {
+      field
+      message
+      code
+    }
+  }
+}
+
+
+# ---------------------------------------------------------------------------
+# NOT CREATED HERE, ON PURPOSE
+#
+# - Ingredient -> concern back-reference. The concern -> ingredient direction is
+#   the one the PDP and the concern pages need. If you later want the reverse on
+#   the ingredient page, add it in Admin: Settings -> Custom data -> Metaobjects
+#   -> Ingredient -> Add field -> Metaobject reference (list) -> Skin concern.
+#   One click, no reason to complicate this file for it.
+#
+# - Trust badges, clinical stats, testimonials and press. These are already
+#   merchant-editable section blocks in the theme (commitments.liquid,
+#   stat-band.liquid, testimonials.liquid). A metaobject would be a second place
+#   to edit the same thing.
+#
+# - Myth vs Fact, Climate & Skin, Skin School, Blog. These are articles, so they
+#   are Shopify blogs. You get authoring, pagination, RSS and Article structured
+#   data for free, none of which a metaobject gives you.
+# ---------------------------------------------------------------------------

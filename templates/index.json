@@ -29,16 +29,20 @@
         "buttons": {
           "type": "buttons",
           "settings": {
-            "button_label_1": "Shop skincare",
-            "button_link_1": "shopify://collections/skincare",
+            "button_label_1": "Take the skin quiz",
+            "button_link_1": "/pages/quiz",
             "button_style_secondary_1": false,
-            "button_label_2": "See every formula",
+            "button_label_2": "Shop all",
             "button_link_2": "shopify://collections/all",
             "button_style_secondary_2": true
           }
         }
       },
-      "block_order": ["heading", "text", "buttons"],
+      "block_order": [
+        "heading",
+        "text",
+        "buttons"
+      ],
       "settings": {
         "enable_webgl_hero": true,
         "image_overlay_opacity": 30,
@@ -58,18 +62,28 @@
       "blocks": {
         "skincare": {
           "type": "featured_collection",
-          "settings": { "collection": "skincare" }
+          "settings": {
+            "collection": "skincare"
+          }
         },
         "haircare": {
           "type": "featured_collection",
-          "settings": { "collection": "haircare" }
+          "settings": {
+            "collection": "haircare"
+          }
         },
         "lip": {
           "type": "featured_collection",
-          "settings": { "collection": "lip-care" }
+          "settings": {
+            "collection": "lip-care"
+          }
         }
       },
-      "block_order": ["skincare", "haircare", "lip"],
+      "block_order": [
+        "skincare",
+        "haircare",
+        "lip"
+      ],
       "settings": {
         "title": "Start here",
         "heading_size": "h1",
@@ -140,12 +154,17 @@
           "type": "button",
           "settings": {
             "button_label": "Read the ingredient policy",
-            "button_link": "",
+            "button_link": "/pages/trust#ingredient-transparency",
             "button_style_secondary": true
           }
         }
       },
-      "block_order": ["caption", "heading", "text", "button"],
+      "block_order": [
+        "caption",
+        "heading",
+        "text",
+        "button"
+      ],
       "settings": {
         "height": "large",
         "desktop_image_width": "medium",
@@ -186,7 +205,11 @@
           }
         }
       },
-      "block_order": ["hydration", "tone", "texture"],
+      "block_order": [
+        "hydration",
+        "tone",
+        "texture"
+      ],
       "settings": {
         "caption": "Measured, not asserted",
         "heading": "What the panel reported",
@@ -249,7 +272,14 @@
           }
         }
       },
-      "block_order": ["formulas", "cruelty", "tested", "batches", "packaging", "shipping"],
+      "block_order": [
+        "formulas",
+        "cruelty",
+        "tested",
+        "batches",
+        "packaging",
+        "shipping"
+      ],
       "settings": {
         "caption": "What we hold ourselves to",
         "heading": "Every claim, in writing",
@@ -269,7 +299,7 @@
             "quote": "<p>Six weeks in and the texture on my cheeks has evened out completely. First serum I have actually finished the bottle of.</p>",
             "rating": 5,
             "author": "Ananya R.",
-            "author_detail": "Verified buyer — Verdant Glow Vitamin C Serum"
+            "author_detail": "Verified buyer — Radiant Glow Vitamin C Serum"
           }
         },
         "two": {
@@ -291,7 +321,11 @@
           }
         }
       },
-      "block_order": ["one", "two", "three"],
+      "block_order": [
+        "one",
+        "two",
+        "three"
+      ],
       "settings": {
         "eyebrow": "In their words",
         "heading": "What customers tell us",
@@ -324,9 +358,329 @@
           "settings": {}
         }
       },
-      "block_order": ["heading", "paragraph", "email_form"],
+      "block_order": [
+        "heading",
+        "paragraph",
+        "email_form"
+      ],
       "settings": {
         "color_scheme": "scheme-4",
+        "full_width": true,
+        "padding_top": 96,
+        "padding_bottom": 96
+      }
+    },
+    "problem": {
+      "type": "image-with-text",
+      "blocks": {
+        "caption": {
+          "type": "caption",
+          "settings": {
+            "caption": "The problem",
+            "text_style": "caption-with-letter-spacing",
+            "text_size": "medium"
+          }
+        },
+        "heading": {
+          "type": "heading",
+          "settings": {
+            "heading": "Indian skin is not under-treated. It is under-protected.",
+            "heading_size": "h1"
+          }
+        },
+        "text": {
+          "type": "text",
+          "settings": {
+            "text": "<p>Heat, humidity, monsoon damp, dry winter air-conditioning and particulate pollution all act on the skin barrier within the same year. Most formulas are developed for one stable climate. Ours are not.</p>",
+            "text_style": "body"
+          }
+        }
+      },
+      "block_order": [
+        "caption",
+        "heading",
+        "text"
+      ],
+      "settings": {
+        "height": "medium",
+        "desktop_image_width": "medium",
+        "layout": "image_first",
+        "image_behavior": "none",
+        "content_layout": "no-overlap",
+        "desktop_content_position": "middle",
+        "desktop_content_alignment": "left",
+        "mobile_content_alignment": "left",
+        "section_color_scheme": "scheme-1",
+        "color_scheme": "scheme-1",
+        "padding_top": 88,
+        "padding_bottom": 88
+      }
+    },
+    "science": {
+      "type": "multicolumn",
+      "blocks": {
+        "hydrate": {
+          "type": "column",
+          "settings": {
+            "title": "Hydrate",
+            "text": "<p>Humectants that hold water in the skin rather than pulling it up from deeper down. Squalane, glycerin, Pentavitin.</p>"
+          }
+        },
+        "strengthen": {
+          "type": "column",
+          "settings": {
+            "title": "Strengthen",
+            "text": "<p>Ceramides and niacinamide to rebuild the barrier, so skin stops losing what you put into it.</p>"
+          }
+        },
+        "protect": {
+          "type": "column",
+          "settings": {
+            "title": "Protect",
+            "text": "<p>Antioxidants against the particulate and UV load a city day actually delivers. Ectoin, vitamin C, ferulic acid.</p>"
+          }
+        }
+      },
+      "block_order": [
+        "hydrate",
+        "strengthen",
+        "protect"
+      ],
+      "settings": {
+        "title": "Three things, done properly",
+        "heading_size": "h1",
+        "image_width": "third",
+        "image_ratio": "circle",
+        "columns_desktop": 3,
+        "column_alignment": "left",
+        "background_style": "none",
+        "color_scheme": "scheme-1",
+        "columns_mobile": "1",
+        "swipe_on_mobile": false,
+        "padding_top": 88,
+        "padding_bottom": 88
+      }
+    },
+    "ingredient-spotlight": {
+      "type": "reference-row",
+      "settings": {
+        "source": "ingredient",
+        "caption": "The actives",
+        "heading": "Named, and printed at the dose",
+        "heading_size": "h1",
+        "columns_desktop": "4",
+        "link_label": "The full ingredient library",
+        "link": "/pages/education#ingredient-library",
+        "color_scheme": "scheme-2",
+        "padding_top": 96,
+        "padding_bottom": 96
+      }
+    },
+    "concern-router": {
+      "type": "reference-row",
+      "settings": {
+        "source": "concern",
+        "caption": "Start here",
+        "heading": "What is your skin actually doing?",
+        "heading_size": "h1",
+        "columns_desktop": "3",
+        "link_label": "All skin concerns",
+        "link": "/pages/education#skin-concerns",
+        "color_scheme": "scheme-1",
+        "padding_top": 96,
+        "padding_bottom": 96
+      }
+    },
+    "routine": {
+      "type": "multicolumn",
+      "blocks": {
+        "morning": {
+          "type": "column",
+          "settings": {
+            "title": "Morning",
+            "text": "<p>Cleanse, treat, moisturise, protect. Four steps, under three minutes, built around the day ahead of you.</p>",
+            "link_label": "Build a morning routine",
+            "link": "/pages/education#routine-builder"
+          }
+        },
+        "evening": {
+          "type": "column",
+          "settings": {
+            "title": "Evening",
+            "text": "<p>Remove the day, then repair overnight. Actives go on at night because that is when skin does the work.</p>",
+            "link_label": "Build an evening routine",
+            "link": "/pages/education#routine-builder"
+          }
+        }
+      },
+      "block_order": [
+        "morning",
+        "evening"
+      ],
+      "settings": {
+        "title": "A routine you will actually keep",
+        "heading_size": "h1",
+        "image_width": "full",
+        "image_ratio": "square",
+        "columns_desktop": 2,
+        "column_alignment": "left",
+        "background_style": "primary",
+        "color_scheme": "scheme-2",
+        "columns_mobile": "1",
+        "swipe_on_mobile": false,
+        "padding_top": 88,
+        "padding_bottom": 88
+      }
+    },
+    "founder": {
+      "type": "image-with-text",
+      "blocks": {
+        "caption": {
+          "type": "caption",
+          "settings": {
+            "caption": "Founder",
+            "text_style": "caption-with-letter-spacing",
+            "text_size": "medium"
+          }
+        },
+        "heading": {
+          "type": "heading",
+          "settings": {
+            "heading": "Why I started this",
+            "heading_size": "h1"
+          }
+        },
+        "text": {
+          "type": "text",
+          "settings": {
+            "text": "<p>PLACEHOLDER. Replace this with the founder account, in their own words, and add a photograph. A founder story is the one piece of copy on a beauty site that cannot be written by someone else and still work.</p>",
+            "text_style": "body"
+          }
+        },
+        "button": {
+          "type": "button",
+          "settings": {
+            "button_label": "Read our story",
+            "button_link": "/pages/about#founder-story",
+            "button_style_secondary": true
+          }
+        }
+      },
+      "block_order": [
+        "caption",
+        "heading",
+        "text",
+        "button"
+      ],
+      "settings": {
+        "height": "large",
+        "desktop_image_width": "medium",
+        "layout": "text_first",
+        "image_behavior": "none",
+        "content_layout": "no-overlap",
+        "desktop_content_position": "middle",
+        "desktop_content_alignment": "left",
+        "mobile_content_alignment": "left",
+        "section_color_scheme": "scheme-1",
+        "color_scheme": "scheme-1",
+        "padding_top": 96,
+        "padding_bottom": 96
+      }
+    },
+    "faq-preview": {
+      "type": "collapsible-content",
+      "blocks": {
+        "start": {
+          "type": "collapsible_row",
+          "settings": {
+            "heading": "Which product should I start with?",
+            "icon": "question_mark",
+            "row_content": "<p>Start with the concern, not the product. Pick what is bothering you most and the concern page will tell you what to use, and in what order.</p>"
+          }
+        },
+        "results": {
+          "type": "collapsible_row",
+          "settings": {
+            "heading": "How long until I see results?",
+            "icon": "stopwatch",
+            "row_content": "<p>Hydration changes within days. Barrier repair takes about four weeks. Pigmentation and fine lines take eight to twelve. Anything promising faster than that is not describing skin.</p>"
+          }
+        },
+        "sensitive": {
+          "type": "collapsible_row",
+          "settings": {
+            "heading": "Is this suitable for sensitive skin?",
+            "icon": "heart",
+            "row_content": "<p>Every formula is patch tested on sensitive and acne-prone skin. Introduce one active at a time and leave a week between additions.</p>"
+          }
+        },
+        "layering": {
+          "type": "collapsible_row",
+          "settings": {
+            "heading": "Can I use these alongside other skincare?",
+            "icon": "check_mark",
+            "row_content": "<p>Yes. Each product page lists what it should not be layered with, which is the part most routines get wrong.</p>"
+          }
+        }
+      },
+      "block_order": [
+        "start",
+        "results",
+        "sensitive",
+        "layering"
+      ],
+      "settings": {
+        "caption": "Common questions",
+        "heading": "Before you buy",
+        "heading_size": "h1",
+        "heading_alignment": "left",
+        "layout": "row",
+        "container_color_scheme": "scheme-1",
+        "color_scheme": "scheme-1",
+        "open_first_collapsible_row": true,
+        "image_ratio": "adapt",
+        "desktop_layout": "image_second",
+        "padding_top": 88,
+        "padding_bottom": 88
+      }
+    },
+    "cta": {
+      "type": "rich-text",
+      "blocks": {
+        "heading": {
+          "type": "heading",
+          "settings": {
+            "heading": "Start with the concern, not the product",
+            "heading_size": "h1"
+          }
+        },
+        "text": {
+          "type": "text",
+          "settings": {
+            "text": "<p>Tell us what your skin is doing and we will tell you what to use, in what order, and why.</p>"
+          }
+        },
+        "button": {
+          "type": "button",
+          "settings": {
+            "button_label": "Take the skin quiz",
+            "button_link": "/pages/quiz",
+            "button_style_secondary": false,
+            "button_label_2": "Shop all",
+            "button_link_2": "shopify://collections/all",
+            "button_style_secondary_2": true
+          }
+        }
+      },
+      "block_order": [
+        "heading",
+        "text",
+        "button"
+      ],
+      "settings": {
+        "desktop_content_position": "center",
+        "content_alignment": "center",
+        "color_scheme": "scheme-3",
         "full_width": true,
         "padding_top": 96,
         "padding_bottom": 96
@@ -335,12 +689,20 @@
   },
   "order": [
     "hero",
+    "problem",
+    "promises",
+    "story",
+    "science",
+    "ingredient-spotlight",
+    "concern-router",
     "categories",
     "bestsellers",
-    "story",
+    "routine",
     "results",
-    "promises",
     "testimonials",
+    "founder",
+    "faq-preview",
+    "cta",
     "newsletter"
   ]
 }

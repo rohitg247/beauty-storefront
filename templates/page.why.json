@@ -1,0 +1,95 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "banner": {
+      "type": "main-page",
+      "settings": {
+        "padding_top": 64,
+        "padding_bottom": 24
+      }
+    },
+    "why-we-exist": {
+      "type": "anchored-content",
+      "settings": {
+        "anchor": "why-we-exist",
+        "eyebrow": "Why we exist",
+        "heading": "Skincare built for the climate it is worn in",
+        "heading_size": "h0",
+        "body": "<p>PLACEHOLDER. Set out the gap you actually saw: formulas developed for one stable climate, sold into a country that runs through heat, monsoon damp, dry air-conditioning and particulate load inside the same year. Say what that does to a skin barrier and why the usual answer does not hold.</p>",
+        "image_position": "none",
+        "link_label": "",
+        "link": "",
+        "link_style_secondary": true,
+        "color_scheme": "scheme-2",
+        "padding_top": 88,
+        "padding_bottom": 88
+      }
+    },
+    "our-philosophy": {
+      "type": "anchored-content",
+      "settings": {
+        "anchor": "our-philosophy",
+        "eyebrow": "Our philosophy",
+        "heading": "Named concentrations, or it does not go on the box",
+        "heading_size": "h1",
+        "body": "<p>PLACEHOLDER. The three or four rules you will not break. Every active printed at the dose it is used at, no proprietary blends hiding a token amount, no claim published without the panel size behind it.</p>",
+        "image_position": "none",
+        "link_label": "",
+        "link": "",
+        "link_style_secondary": true,
+        "color_scheme": "scheme-1",
+        "padding_top": 72,
+        "padding_bottom": 72
+      }
+    },
+    "our-difference": {
+      "type": "anchored-content",
+      "settings": {
+        "anchor": "our-difference",
+        "eyebrow": "Our difference",
+        "heading": "What we do that the shelf next to us does not",
+        "heading_size": "h1",
+        "body": "<p>PLACEHOLDER. Be specific and comparative. Vague differentiation reads as no differentiation, and this is the page where a sceptical reader decides whether to keep going.</p>",
+        "image_position": "none",
+        "link_label": "",
+        "link": "",
+        "link_style_secondary": true,
+        "color_scheme": "scheme-2",
+        "padding_top": 72,
+        "padding_bottom": 72
+      }
+    },
+    "our-promise": {
+      "type": "anchored-content",
+      "settings": {
+        "anchor": "our-promise",
+        "eyebrow": "Our promise",
+        "heading": "If it does not work for your skin, send it back",
+        "heading_size": "h1",
+        "body": "<p>PLACEHOLDER. The commitment you are prepared to be held to, in plain terms. Every batch dated on the box. Thirty days, unopened, no reason required.</p>",
+        "image_position": "none",
+        "link_label": "Read the Trust Center",
+        "link": "/pages/trust",
+        "link_style_secondary": true,
+        "color_scheme": "scheme-1",
+        "padding_top": 72,
+        "padding_bottom": 96
+      }
+    }
+  },
+  "order": [
+    "banner",
+    "why-we-exist",
+    "our-philosophy",
+    "our-difference",
+    "our-promise"
+  ]
+}

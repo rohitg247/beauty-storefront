@@ -1,0 +1,152 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "banner": {
+      "type": "main-page",
+      "settings": {
+        "padding_top": 64,
+        "padding_bottom": 24
+      }
+    },
+    "real-results": {
+      "type": "stat-band",
+      "blocks": {
+        "one": {
+          "type": "stat",
+          "settings": {
+            "figure": "--",
+            "claim": "Add a real measured result"
+          }
+        },
+        "two": {
+          "type": "stat",
+          "settings": {
+            "figure": "--",
+            "claim": "Add a real measured result"
+          }
+        },
+        "three": {
+          "type": "stat",
+          "settings": {
+            "figure": "--",
+            "claim": "Add a real measured result"
+          }
+        }
+      },
+      "block_order": [
+        "one",
+        "two",
+        "three"
+      ],
+      "settings": {
+        "anchor": "real-results",
+        "caption": "Measured, not asserted",
+        "heading": "What the panel reported",
+        "heading_size": "h1",
+        "footnote": "PLACEHOLDER. Replace with the real study basis - panel size, duration, and whether the figures are instrumented or self-assessed. A percentage without its denominator is not evidence.",
+        "color_scheme": "scheme-2",
+        "padding_top": 88,
+        "padding_bottom": 88
+      }
+    },
+    "before-after": {
+      "type": "anchored-content",
+      "settings": {
+        "anchor": "before-after",
+        "eyebrow": "Before and after",
+        "heading": "The same skin, the same light, weeks apart",
+        "heading_size": "h1",
+        "body": "<p>PLACEHOLDER. Before-and-after images only carry weight when the lighting, distance and time of day match. Say how yours were taken, and how long apart. Unretouched, or do not run them.</p>",
+        "image_position": "right",
+        "link_label": "",
+        "link": "",
+        "link_style_secondary": true,
+        "color_scheme": "scheme-1",
+        "padding_top": 72,
+        "padding_bottom": 72
+      }
+    },
+    "customer-stories": {
+      "type": "testimonials",
+      "settings": {
+        "anchor": "customer-stories",
+        "eyebrow": "In their words",
+        "heading": "Customer stories",
+        "heading_size": "h1",
+        "columns_desktop": 3,
+        "enable_mobile_scroll": true,
+        "color_scheme": "scheme-1",
+        "padding_top": 72,
+        "padding_bottom": 72
+      }
+    },
+    "reviews": {
+      "type": "anchored-content",
+      "settings": {
+        "anchor": "reviews",
+        "eyebrow": "Reviews",
+        "heading": "Every review, unfiltered",
+        "heading_size": "h1",
+        "body": "<p>PLACEHOLDER. This section becomes the Judge.me review widget once the app is installed. Until then it explains that reviews are collected from verified purchasers only and are never edited or removed for being negative.</p>",
+        "image_position": "none",
+        "link_label": "",
+        "link": "",
+        "link_style_secondary": true,
+        "color_scheme": "scheme-2",
+        "padding_top": 72,
+        "padding_bottom": 72
+      }
+    },
+    "video-testimonials": {
+      "type": "anchored-content",
+      "settings": {
+        "anchor": "video-testimonials",
+        "eyebrow": "On camera",
+        "heading": "Video testimonials",
+        "heading_size": "h1",
+        "body": "<p>PLACEHOLDER. Video converts harder than text because it is harder to fake. Add them once you have them, and do not script them.</p>",
+        "image_position": "none",
+        "link_label": "",
+        "link": "",
+        "link_style_secondary": true,
+        "color_scheme": "scheme-1",
+        "padding_top": 72,
+        "padding_bottom": 72
+      }
+    },
+    "media-mentions": {
+      "type": "anchored-content",
+      "settings": {
+        "anchor": "media-mentions",
+        "eyebrow": "In the press",
+        "heading": "Media mentions",
+        "heading_size": "h1",
+        "body": "<p>PLACEHOLDER. Only real coverage goes here. A press row with logos you have not earned is worse than no press row, and it is the first thing a sceptical reader checks.</p>",
+        "image_position": "none",
+        "link_label": "",
+        "link": "",
+        "link_style_secondary": true,
+        "color_scheme": "scheme-1",
+        "padding_top": 72,
+        "padding_bottom": 96
+      }
+    }
+  },
+  "order": [
+    "banner",
+    "real-results",
+    "before-after",
+    "customer-stories",
+    "reviews",
+    "video-testimonials",
+    "media-mentions"
+  ]
+}

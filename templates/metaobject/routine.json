@@ -1,0 +1,17 @@
+{
+  "sections": {
+    "main": {
+      "type": "main-routine",
+      "settings": {
+        "steps_label": "The order that matters",
+        "products_label": "What you need",
+        "concern_label": "More about",
+        "quick_add": "standard",
+        "color_scheme": "scheme-1",
+        "padding_top": 64,
+        "padding_bottom": 96
+      }
+    }
+  },
+  "order": ["main"]
+}

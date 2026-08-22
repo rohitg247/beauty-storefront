@@ -23,7 +23,12 @@
 {%- endstyle -%}
 
 <div class="color-{{ section.settings.color_scheme }} gradient">
-  <div class="page-width section-{{ section.id }}-padding isolate">
+  <div
+    {% if section.settings.anchor != blank %}
+      id="{{ section.settings.anchor | handleize }}"
+    {% endif %}
+    class="page-width anchor-target section-{{ section.id }}-padding isolate"
+  >
     {%- unless section.settings.heading == blank and section.settings.eyebrow == blank -%}
       <div class="title-wrapper-with-link title-wrapper--self-padded-tablet-down">
         <div>
@@ -110,6 +115,12 @@
     "groups": ["header", "footer"]
   },
   "settings": [
+    {
+      "type": "text",
+      "id": "anchor",
+      "label": "Anchor id",
+      "info": "Link straight to this section from a menu as /pages/<page>#<anchor>. Lowercase, hyphens, no spaces. Leave blank if nothing links here."
+    },
     {
       "type": "text",
       "id": "eyebrow",

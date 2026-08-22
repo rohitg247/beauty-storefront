@@ -1,6 +1,12 @@
-# Beauty Storefront — Claude Code working rules
+# EMBRAE — Claude Code working rules
 
-Shopify Online Store 2.0 theme, derived from **Sense** (Dawn family). Branch `shopify-theme`.
+**EMBRAE is a custom Shopify Online Store 2.0 theme.** It is ours, not a marketplace theme, and
+it identifies itself as EMBRAE in `config/settings_schema.json`.
+
+Its **commerce layer is inherited from Shopify Sense 16.0.0** (Dawn family). That lineage is
+recorded here on purpose: it is the only way a future session can tell which files are upstream
+code that must not be rewritten, and the only way an upstream Dawn security or compatibility
+patch can ever be diffed in. Branch `shopify-theme`.
 
 ## When I paste an error, read the files it names
 
@@ -40,10 +46,35 @@ Keep `docs/admin-tasks.md` current whenever new admin-only work is discovered.
   There are five schemes; see `docs/plan.md` for what each one is for.
 - **Layout belongs in JSON templates and section blocks**, not hardcoded Liquid. If a merchant
   should be able to move, remove or retitle it, it is a block.
-- **Do not rewrite Dawn/Sense commerce code.** The cart drawer, facets, variant picker, predictive
-  search, media gallery and product card all work. Restyle them; do not reimplement them.
+- **Do not rewrite the inherited commerce code.** The cart drawer, facets, variant picker,
+  predictive search, media gallery and product card come from Sense 16 / Dawn, and they all work.
+  Restyle them; do not reimplement them. Renaming the theme to EMBRAE did not make this code ours
+  to rewrite — it is still upstream, and it is still the part that takes the money.
 - **Do not edit vendored files**: `assets/three.module.js`, `assets/motion.min.js`. They are
   upstream builds pinned at a version. Replace wholesale or leave alone.
+
+## Never point the theme at Admin data that does not exist yet (mandatory)
+
+A `link_list`, `collection`, `blog`, `page` or `metaobject_list` setting that names a handle
+with nothing behind it **renders empty, silently.** There is no error anywhere — not in
+`shopify theme check`, not in `tools/preflight.py`, not in the upload, not in the browser
+console. The store just looks broken and the cause is invisible.
+
+This has already cost a full round trip. On 2026-08-23 the header was pointed at `embrae-nav`
+and the footer at five `footer-*` handles, none of which existed yet, which turned a
+working-but-sparse navbar and footer into completely empty ones.
+
+So, whenever a change makes the theme depend on Admin data:
+
+- **Create the data first, then point the theme at it.** Not the other way round.
+- If the data cannot be created yet, **leave the setting on a handle that already exists**
+  (`main-menu`, `footer`) and switch it over as the final step.
+- If neither is possible, say so explicitly in the handoff and in the response — "the navbar
+  will be empty until X is run" — rather than letting the merchant discover it.
+
+`sunscreen` and `gift-sets` in the SHOP menu are a live example of the softer version of this:
+the collections can be created, but no product carries those tags, so they resolve to empty
+pages.
 
 ## The safety contract (custom layer)
 
@@ -67,7 +98,8 @@ Beauty traffic is 70–80% mobile, so mobile is the primary surface and desktop 
 secondary one. **Nothing is "done" until it is verified at every width below.** This applies
 to every section, snippet and CSS change, with no exception for "it's only a small change".
 
-Dawn/Sense breaks at **750px** and **990px**; `--page-width` caps at 1400px. Four bands:
+The inherited Dawn/Sense grid breaks at **750px** and **990px**; `--page-width` caps at 1400px.
+Four bands:
 
 | Band | Width | Note |
 |---|---|---|

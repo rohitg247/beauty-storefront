@@ -17,36 +17,52 @@
         "shop": {
           "type": "link_list",
           "settings": {
-            "heading": "Shop",
-            "menu": "main-menu"
+            "heading": "SHOP",
+            "menu": "footer-shop"
           }
         },
-        "help": {
+        "education": {
           "type": "link_list",
           "settings": {
-            "heading": "Help",
-            "menu": "footer"
+            "heading": "EDUCATION",
+            "menu": "footer-education"
           }
         },
-        "promise": {
-          "type": "text",
+        "about": {
+          "type": "link_list",
           "settings": {
-            "heading": "Our promise",
-            "subtext": "<p>Every batch is dated on the box. If a formula does not work for your skin, send it back unopened within 30 days and we will refund it.</p>"
+            "heading": "ABOUT",
+            "menu": "footer-about"
+          }
+        },
+        "support": {
+          "type": "link_list",
+          "settings": {
+            "heading": "SUPPORT",
+            "menu": "footer-support"
+          }
+        },
+        "connect": {
+          "type": "link_list",
+          "settings": {
+            "heading": "CONNECT",
+            "menu": "footer-connect"
           }
         }
       },
       "block_order": [
         "shop",
-        "help",
-        "promise"
+        "education",
+        "about",
+        "support",
+        "connect"
       ],
       "settings": {
         "color_scheme": "scheme-3",
         "newsletter_enable": true,
         "newsletter_heading": "Get the restock note",
         "enable_follow_on_shop": true,
-        "show_social": true,
+        "show_social": false,
         "enable_country_selector": false,
         "enable_language_selector": false,
         "payment_enable": true,

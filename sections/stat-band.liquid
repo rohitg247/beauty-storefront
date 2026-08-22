@@ -2,7 +2,8 @@
   Stat band — clinical or consumer-panel results.
 
   LaCélie's "91% / 84% / 71%, 8-week study, n=35" is the single strongest proof
-  element found in the competitive audit, and nothing in Sense does it.
+  element found in the competitive audit, and nothing in the inherited Sense 16
+  commerce layer does it.
 
   Every field is merchant editable on purpose. These are efficacy claims and
   they have to be correctable without a deploy. The footnote block exists so the
@@ -17,7 +18,12 @@
 {{ 'section-stat-band.css' | asset_url | stylesheet_tag }}
 
 <div class="color-{{ section.settings.color_scheme }} gradient">
-  <div class="page-width section-{{ section.id }}-padding">
+  <div
+    {% if section.settings.anchor != blank %}
+      id="{{ section.settings.anchor | handleize }}"
+    {% endif %}
+    class="page-width anchor-target section-{{ section.id }}-padding"
+  >
     {%- if section.settings.caption != blank or section.settings.heading != blank -%}
       <div class="stat-band__header section-header">
         {%- if section.settings.caption != blank -%}
@@ -74,6 +80,12 @@
   "tag": "section",
   "class": "section",
   "settings": [
+    {
+      "type": "text",
+      "id": "anchor",
+      "label": "Anchor id",
+      "info": "Link straight to this section from a menu as /pages/<page>#<anchor>. Lowercase, hyphens, no spaces. Leave blank if nothing links here."
+    },
     {
       "type": "text",
       "id": "caption",

@@ -1,0 +1,90 @@
+/*
+  section-faq-center.css
+
+  Loaded only by sections/faq-center.liquid. The accordion itself is styled by
+  the theme's existing component-accordion.css — this file only adds the group
+  headings and the jump nav.
+
+  Colours come from the active Dawn colour scheme. No hex values here, per the
+  theme rules in CLAUDE.md.
+*/
+
+.faq-center__header {
+  display: block;
+}
+
+.faq-center__caption {
+  margin: 0 0 var(--space-2xs);
+  opacity: 0.75;
+}
+
+.faq-center__heading {
+  margin: 0;
+}
+
+/* Jump nav. A wrapping row on desktop; on mobile it scrolls sideways rather
+   than stacking eight categories into a tall block above the content. */
+.faq-center__nav {
+  margin-bottom: var(--space-sm);
+}
+
+.faq-center__jumps {
+  display: flex;
+  gap: var(--space-2xs);
+  margin: 0;
+  padding: 0 0 var(--space-2xs);
+  overflow-x: auto;
+  overscroll-behavior-x: contain;
+  -webkit-overflow-scrolling: touch;
+}
+
+@media screen and (min-width: 750px) {
+  .faq-center__jumps {
+    flex-wrap: wrap;
+    overflow-x: visible;
+  }
+}
+
+/* 44px minimum tap target with real separation, per the responsive contract. */
+.faq-center__jump {
+  display: inline-flex;
+  align-items: center;
+  white-space: nowrap;
+  min-height: 4.4rem;
+  padding: 0.8rem 1.6rem;
+  border: var(--rule-strong);
+  text-decoration: none;
+  color: inherit;
+  transition: background-color var(--dur-fast) var(--ease-out-quart);
+}
+
+.faq-center__jump:hover,
+.faq-center__jump:focus-visible {
+  background-color: rgba(var(--color-foreground), 0.07);
+}
+
+.faq-center__group {
+  margin-bottom: var(--space-md);
+  /* Anchor targets must clear the sticky header when jumped to. */
+  scroll-margin-top: 10rem;
+}
+
+.faq-center__group:last-child {
+  margin-bottom: 0;
+}
+
+.faq-center__group-title {
+  margin: 0 0 var(--space-xs);
+  padding-bottom: var(--space-2xs);
+  border-bottom: var(--rule);
+}
+
+.faq-center__group .accordion:first-of-type {
+  border-top: none;
+}
+
+@media screen and (prefers-reduced-motion: reduce) {
+  .faq-center__jump {
+    transition: none;
+  }
+}
