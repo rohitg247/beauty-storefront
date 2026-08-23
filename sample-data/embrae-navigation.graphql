@@ -31,8 +31,9 @@
 #   just the pointer.
 #
 # LABELS
-#   Taken verbatim from the architecture diagram, including "Moisturizer".
-#   Note the rest of the site copy uses British spelling ("moisturiser"). Change
+#   Taken from the architecture diagram, but with British spelling throughout:
+#   Nav labels use "Moisturizer" per the architecture diagram and merchant decision.
+#   Note the rest of the site copy uses British spelling ("moisturizer"). Change
 #   the label in Admin if you would rather be consistent — it is a 5-second edit
 #   and I have not overridden your spec.
 # ---------------------------------------------------------------------------
@@ -65,7 +66,7 @@ mutation Step1_CreateMainNavigation {
         items: [
           { title: "All Products", type: HTTP, url: "/collections/all" }
           { title: "Serum", type: HTTP, url: "/collections/serums" }
-          { title: "Moisturizer", type: HTTP, url: "/collections/moisturisers" }
+          { title: "Moisturizer", type: HTTP, url: "/collections/moisturizers" }
           { title: "Cleanser", type: HTTP, url: "/collections/cleansers" }
           { title: "Sunscreen", type: HTTP, url: "/collections/sunscreen" }
           { title: "Bundles & Kits", type: HTTP, url: "/collections/bundles" }
@@ -204,7 +205,7 @@ mutation Step2_CreateFooterShop {
     items: [
       { title: "All Products", type: HTTP, url: "/collections/all" }
       { title: "Serum", type: HTTP, url: "/collections/serums" }
-      { title: "Moisturizer", type: HTTP, url: "/collections/moisturisers" }
+      { title: "Moisturizer", type: HTTP, url: "/collections/moisturizers" }
       { title: "Cleanser", type: HTTP, url: "/collections/cleansers" }
       { title: "Sunscreen", type: HTTP, url: "/collections/sunscreen" }
       { title: "Bundles", type: HTTP, url: "/collections/bundles" }

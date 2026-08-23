@@ -16,6 +16,15 @@
   - Exactly one active filter: left indexable on purpose. Single-facet pages
     like "serums" or "vitamin C" are genuine landing pages for a beauty store
     and are the whole point of the concern/ingredient collections.
+  - Unwritten stub pages: noindex until they have real content. Careers, Press,
+    Store Locator and Track Order ship as placeholders, and an indexed empty
+    page is a site-quality signal rather than a neutral one. Remove a handle
+    from this list the moment that page is written.
+
+  Note on robots.txt: crawl control here is deliberately done with meta robots
+  rather than Disallow rules. A Disallow stops Google fetching the page at all,
+  which means it never sees the canonical or the noindex above — and it would
+  also block the single-facet pages we want indexed. Meta wins on this store.
 
   `follow` in every case, so link equity still flows to the products.
 
@@ -28,7 +37,11 @@
 {%- liquid
   assign robots_value = ''
 
+  assign stub_pages = 'careers,press,store-locator,track-order' | split: ','
+
   if request.page_type == 'search'
+    assign robots_value = 'noindex,follow'
+  elsif request.page_type == 'page' and stub_pages contains page.handle
     assign robots_value = 'noindex,follow'
   elsif collection != blank
     assign active_filters = 0

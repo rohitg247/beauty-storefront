@@ -1,7 +1,7 @@
 # Runs one named operation from a .graphql file against the store's Admin API.
 #
-#   .\tools\admin-run.ps1 -File sample-data\embrae-catalogue.graphql -Operation Step1_Collections
-#   .\tools\admin-run.ps1 -File sample-data\embrae-catalogue.graphql -Operation Step4_Verify -Raw
+#   .\tools\admin-run.ps1 -File sample-data\embrae-catalog.graphql -Operation Step1_Collections
+#   .\tools\admin-run.ps1 -File sample-data\embrae-catalog.graphql -Operation Step4_Verify -Raw
 #
 # Reads credentials from .env so the token never appears in a command line or in
 # shell history. Prints one line per aliased mutation: ok + handle, or FAIL + the

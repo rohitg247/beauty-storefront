@@ -196,6 +196,49 @@
   }
 {%- endstyle -%}
 
+
+{%- comment -%}
+  FAQPage structured data, generated from the SAME `faq_entries` rendered above.
+
+  Generated rather than hand-written on purpose: schema that disagrees with the
+  visible page is a manual-action risk, not just a wasted opportunity. If an entry
+  is added, removed or reworded in Admin, this follows automatically.
+
+  Answers are passed through `strip_html` - rich text would otherwise inject markup
+  into the JSON string. Google reads the text, not the formatting.
+{%- endcomment -%}
+{%- assign faq_schema_count = 0 -%}
+{%- for entry in faq_entries -%}
+  {%- if entry.question != blank and entry.answer != blank -%}
+    {%- assign faq_schema_count = faq_schema_count | plus: 1 -%}
+  {%- endif -%}
+{%- endfor -%}
+{%- if faq_schema_count > 0 -%}
+  <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "FAQPage",
+      "mainEntity": [
+        {%- assign faq_schema_i = 0 -%}
+        {%- for entry in faq_entries -%}
+          {%- if entry.question != blank and entry.answer != blank -%}
+            {%- if faq_schema_i > 0 -%},{%- endif -%}
+            {
+              "@type": "Question",
+              "name": {{ entry.question | strip_html | strip | json }},
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": {{ entry.answer | strip_html | strip | json }}
+              }
+            }
+            {%- assign faq_schema_i = faq_schema_i | plus: 1 -%}
+          {%- endif -%}
+        {%- endfor -%}
+      ]
+    }
+  </script>
+{%- endif -%}
+
 {% schema %}
 {
   "name": "FAQ center",

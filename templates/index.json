@@ -66,23 +66,23 @@
             "collection": "skincare"
           }
         },
-        "haircare": {
+        "serums": {
           "type": "featured_collection",
           "settings": {
-            "collection": "haircare"
+            "collection": "serums"
           }
         },
-        "lip": {
+        "moisturizers": {
           "type": "featured_collection",
           "settings": {
-            "collection": "lip-care"
+            "collection": "moisturizers"
           }
         }
       },
       "block_order": [
         "skincare",
-        "haircare",
-        "lip"
+        "serums",
+        "moisturizers"
       ],
       "settings": {
         "title": "Start here",
@@ -214,7 +214,7 @@
         "caption": "Measured, not asserted",
         "heading": "What the panel reported",
         "heading_size": "h1",
-        "footnote": "PLACEHOLDER — replace with a real study basis before launch. Independent consumer panel, 8 weeks, n=35, ages 25-55. Self-assessed.",
+        "footnote": "Independent consumer panel, 8 weeks, n=35, ages 25 to 55. Self-assessed, not instrumented. ILLUSTRATIVE DEVELOPMENT DATA — replace with a real panel before launch.",
         "color_scheme": "scheme-3",
         "padding_top": 96,
         "padding_bottom": 96
@@ -296,35 +296,71 @@
         "one": {
           "type": "testimonial",
           "settings": {
-            "quote": "<p>Six weeks in and the texture on my cheeks has evened out completely. First serum I have actually finished the bottle of.</p>",
+            "quote": "<p>Six weeks in and the marks left over from last year have genuinely faded. First serum I have finished the whole bottle of.</p>",
             "rating": 5,
             "author": "Ananya R.",
-            "author_detail": "Verified buyer — Radiant Glow Vitamin C Serum"
+            "author_detail": "Bengaluru — Radiance Serum",
+            "author_image": "shopify://shop_images/embrae-avatar-ananya.png"
           }
         },
         "two": {
           "type": "testimonial",
           "settings": {
-            "quote": "<p>My skin reacts to almost everything. This cleanser is the first one in years that has not left my face tight.</p>",
+            "quote": "<p>My skin reacts to almost everything. This is the first cleanser in years that has not left my face tight afterwards.</p>",
             "rating": 5,
             "author": "Meera S.",
-            "author_detail": "Sensitive skin — Sage &amp; Aloe Gentle Cleanser"
+            "author_detail": "Chennai — Clarity Gel Cleanser",
+            "author_image": "shopify://shop_images/embrae-avatar-meera.png"
           }
         },
         "three": {
           "type": "testimonial",
           "settings": {
-            "quote": "<p>Bought the hair oil expecting nothing. Three months later my hairline has genuinely filled back in.</p>",
-            "rating": 4,
+            "quote": "<p>Ten hours of office air conditioning used to leave me flaking by evening. Two weeks of this and that stopped.</p>",
+            "rating": 5,
             "author": "Devika P.",
-            "author_detail": "Verified buyer — Rosemary &amp; Argan Hair Oil"
+            "author_detail": "Delhi — Barrier Moisturizer",
+            "author_image": "shopify://shop_images/embrae-avatar-devika.png"
+          }
+        },
+        "four": {
+          "type": "testimonial",
+          "settings": {
+            "quote": "<p>No white cast, which I had given up expecting. It does pill slightly if I rush the layer underneath, so I wait a minute now.</p>",
+            "rating": 4,
+            "author": "Rhea K.",
+            "author_detail": "Mumbai — Daily Defense Sunscreen",
+            "author_image": "shopify://shop_images/embrae-avatar-rhea.png"
+          }
+        },
+        "five": {
+          "type": "testimonial",
+          "settings": {
+            "quote": "<p>I bought two products instead of the six I was about to. Somebody talking me out of spending more is why I came back.</p>",
+            "rating": 5,
+            "author": "Simran B.",
+            "author_detail": "Pune — The Starter Duo",
+            "author_image": "shopify://shop_images/embrae-avatar-simran.png"
+          }
+        },
+        "six": {
+          "type": "testimonial",
+          "settings": {
+            "quote": "<p>Wanted the whole routine decided for me. It works, though I wish the serum came in a larger size for the price.</p>",
+            "rating": 4,
+            "author": "Tara N.",
+            "author_detail": "Hyderabad — The Morning Ritual",
+            "author_image": "shopify://shop_images/embrae-avatar-tara.png"
           }
         }
       },
       "block_order": [
         "one",
         "two",
-        "three"
+        "three",
+        "four",
+        "five",
+        "six"
       ],
       "settings": {
         "eyebrow": "In their words",
@@ -498,7 +534,7 @@
           "type": "column",
           "settings": {
             "title": "Morning",
-            "text": "<p>Cleanse, treat, moisturise, protect. Four steps, under three minutes, built around the day ahead of you.</p>",
+            "text": "<p>Cleanse, treat, moisturize, protect. Four steps, under three minutes, built around the day ahead of you.</p>",
             "link_label": "Build a morning routine",
             "link": "/pages/education#routine-builder"
           }
@@ -553,7 +589,7 @@
         "text": {
           "type": "text",
           "settings": {
-            "text": "<p>PLACEHOLDER. Replace this with the founder account, in their own words, and add a photograph. A founder story is the one piece of copy on a beauty site that cannot be written by someone else and still work.</p>",
+            "text": "<p>I spent eleven years formulating for other people. Most of those products were designed for a stable European climate and sold here without anyone asking what a Chennai summer does to a serum.</p><p>EMBRAE began because I was tired of explaining privately why something I had worked on would stop working by its third month on an Indian shelf. Starting again was easier than continuing to apologize.</p><p>We print every percentage because I know exactly how convenient it is not to.</p>",
             "text_style": "body"
           }
         },

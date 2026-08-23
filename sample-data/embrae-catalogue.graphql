@@ -1,4 +1,4 @@
-# EMBRAE catalogue bootstrap
+# EMBRAE catalog bootstrap
 # 21 automated collections, 12 pages, 4 blogs.
 #
 # HOW TO RUN
@@ -36,15 +36,15 @@ mutation Step1_Collections {
     ruleSet: { appliedDisjunctively: false, rules: [{ column: TAG, relation: EQUALS, condition: "serums" }] }
   }) { collection { id handle } userErrors { field message } }
 
-  moisturisers: collectionCreate(input: {
-    title: "Moisturisers", handle: "moisturisers", sortOrder: BEST_SELLING
+  moisturizers: collectionCreate(input: {
+    title: "Moisturizers", handle: "moisturizers", sortOrder: BEST_SELLING
     descriptionHtml: "<p>Barrier repair for air conditioning, hard water and actives. Fragrance free throughout.</p>"
-    ruleSet: { appliedDisjunctively: false, rules: [{ column: TAG, relation: EQUALS, condition: "moisturisers" }] }
+    ruleSet: { appliedDisjunctively: false, rules: [{ column: TAG, relation: EQUALS, condition: "moisturizers" }] }
   }) { collection { id handle } userErrors { field message } }
 
   cleansers: collectionCreate(input: {
     title: "Cleansers", handle: "cleansers", sortOrder: BEST_SELLING
-    descriptionHtml: "<p>Removes sunscreen and city grime without stripping. Low foam, pH balanced, sulphate free.</p>"
+    descriptionHtml: "<p>Removes sunscreen and city grime without stripping. Low foam, pH balanced, sulfate free.</p>"
     ruleSet: { appliedDisjunctively: false, rules: [{ column: TAG, relation: EQUALS, condition: "cleansers" }] }
   }) { collection { id handle } userErrors { field message } }
 
@@ -82,7 +82,7 @@ mutation Step1_Collections {
   # --- Concern (6) -- the CONCERNS column, and the quiz landing pages ---
   dullness: collectionCreate(input: {
     title: "Dullness", handle: "dullness", sortOrder: BEST_SELLING
-    descriptionHtml: "<p>Skin that looks flat and grey rather than lit. Usually build-up, uneven turnover, or sun damage reading as greyness.</p>"
+    descriptionHtml: "<p>Skin that looks flat and gray rather than lit. Usually build-up, uneven turnover, or sun damage reading as grayness.</p>"
     ruleSet: { appliedDisjunctively: false, rules: [{ column: TAG, relation: EQUALS, condition: "dullness" }] }
   }) { collection { id handle } userErrors { field message } }
 
@@ -259,7 +259,7 @@ mutation Step3_Blogs {
 # Read the output against the handles above. Anything missing here is a link
 # that will 404 in the navigation.
 #
-# productsCount of 0 on a collection means the tag is absent from the catalogue,
+# productsCount of 0 on a collection means the tag is absent from the catalog,
 # not that the collection failed. Check the CSV import first.
 # ---------------------------------------------------------------------------
 

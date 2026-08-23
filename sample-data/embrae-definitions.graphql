@@ -183,7 +183,7 @@ mutation Step1b_CreateSkinConcernDefinition {
           key: "symptoms"
           name: "What it looks like"
           type: "rich_text_field"
-          description: "How someone recognises they have this. Written so they can self-identify."
+          description: "How someone recognizes they have this. Written so they can self-identify."
         }
         {
           key: "causes"

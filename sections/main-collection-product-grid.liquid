@@ -201,6 +201,37 @@
   </div>
 </collection-component>
 
+
+{%- comment -%}
+  ItemList structured data for the collection grid.
+
+  Deliberately URLs only, not embedded Product objects. The product page already
+  emits its own Product block (see main-product.liquid), and two blocks of the same
+  type describing the same item suppress rich results entirely - which is worse
+  than having none.
+{%- endcomment -%}
+{%- if collection.products.size > 0 -%}
+  <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "ItemList",
+      "name": {{ collection.title | strip_html | json }},
+      "numberOfItems": {{ collection.products_count }},
+      "itemListElement": [
+        {%- for product in collection.products limit: 30 -%}
+          {%- unless forloop.first -%},{%- endunless -%}
+          {
+            "@type": "ListItem",
+            "position": {{ forloop.index }},
+            "url": {{ request.origin | append: product.url | json }},
+            "name": {{ product.title | strip_html | json }}
+          }
+        {%- endfor -%}
+      ]
+    }
+  </script>
+{%- endif -%}
+
 {% schema %}
 {
   "name": "t:sections.main-collection-product-grid.name",

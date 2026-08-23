@@ -24,21 +24,21 @@ $pageSeo = @{
 }
 
 $blogSeo = @{
-  "skin-school"  = @{ t="Skin School - Skincare Basics Explained | EMBRAE"; d="How skin actually works. The barrier, layering order, realistic timelines, and the mistakes that undo a good routine." }
+  "skin-school"  = @{ t="Skin School - Skincare Basics Explained | EMBRAE"; d="How skin actually works. The barrier, layering order, realiztic timelines, and the mistakes that undo a good routine." }
   "climate-skin" = @{ t="Climate and Skin - Monsoon, AC, Pollution | EMBRAE"; d="Indian weather changes what your skin needs. Monsoon congestion, air-conditioned offices, city air, and what to change each season." }
-  "myth-vs-fact" = @{ t="Myth vs Fact - Skincare Claims Examined | EMBRAE"; d="Ingredient conflicts, moisturiser myths and SPF advice, checked against the actual evidence rather than repeated." }
+  "myth-vs-fact" = @{ t="Myth vs Fact - Skincare Claims Examined | EMBRAE"; d="Ingredient conflicts, moisturizer myths and SPF advice, checked against the actual evidence rather than repeated." }
   "journal"      = @{ t="The EMBRAE Journal - Formulation and Decisions"; d="How and why we formulate the way we do. Transparency decisions, Indian climate constraints, and the trade-offs we made." }
 }
 
 $articleSeo = @{
-  "what-is-the-skin-barrier"     = @{ t="What Is the Skin Barrier? Damage and Repair | EMBRAE"; d="The skin barrier is a real physical layer, not a metaphor. What strips it, how to recognise damage, and a routine that repairs it in two weeks." }
+  "what-is-the-skin-barrier"     = @{ t="What Is the Skin Barrier? Damage and Repair | EMBRAE"; d="The skin barrier is a real physical layer, not a metaphor. What strips it, how to recognize damage, and a routine that repairs it in two weeks." }
   "how-to-layer-skincare"        = @{ t="What Order to Apply Skincare - A Simple Rule | EMBRAE"; d="Thinnest to thickest covers most of it. The one exception that matters, and the ingredient-conflict advice you can safely ignore." }
   "how-long-skincare-takes"      = @{ t="How Long Does Skincare Take to Work? | EMBRAE"; d="Barrier repair in two weeks, breakouts in six, pigmentation in twelve. Honest timelines by concern, and what never works at all." }
   "monsoon-skincare"             = @{ t="Monsoon Skincare in India - Humidity and Breakouts | EMBRAE"; d="Why humidity causes congestion rather than hydration, what to change in July, and the step almost everyone drops when it is overcast." }
   "air-conditioning-and-skin"    = @{ t="Air Conditioning and Dry Skin - What Helps | EMBRAE"; d="An office at 22 degrees is drier than most deserts. Why facial mists make it worse, and what actually holds water in through the day." }
   "pollution-and-skin"           = @{ t="Pollution and Skin - Dullness and Cleansing | EMBRAE"; d="What settles on your face during a day in an Indian city, why the evening cleanse matters more, and why scrubbing makes it worse." }
   "niacinamide-vitamin-c-myth"   = @{ t="Can You Use Niacinamide With Vitamin C? | EMBRAE"; d="The supposed conflict comes from a 1960s study run at temperatures no bathroom reaches. What is actually true, and what to watch instead." }
-  "oily-skin-moisturiser-myth"   = @{ t="Does Oily Skin Need Moisturiser? Yes | EMBRAE"; d="Skipping moisturiser makes oily skin oilier. The rebound-oil cycle explained, and what texture to use instead of skipping the step." }
+  "oily-skin-moisturizer-myth"   = @{ t="Does Oily Skin Need Moisturizer? Yes | EMBRAE"; d="Skipping moisturizer makes oily skin oilier. The rebound-oil cycle explained, and what texture to use instead of skipping the step." }
   "spf-indoors-myth"             = @{ t="Do You Need Sunscreen Indoors? An Honest Answer | EMBRAE"; d="UVA passes through window glass, UVB mostly does not. Why the answer depends on your desk, and what screens actually emit." }
   "why-we-print-percentages"     = @{ t="Why We Print Active Percentages on the Carton | EMBRAE"; d="An ingredient name without a dose is not information. Why we publish every percentage, and what that decision costs us." }
   "built-for-indian-weather"     = @{ t="Skincare Formulated for Indian Climate | EMBRAE"; d="Why a serum that works in a European winter fails by week three in Chennai, and the one problem we cannot formulate around." }
