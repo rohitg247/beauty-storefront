@@ -15,15 +15,46 @@
       <link rel="preconnect" href="https://fonts.shopifycdn.com" crossorigin>
     {%- endunless -%}
 
+    {%- comment -%}
+      Metaobject pages - ingredient, skin_concern, routine - carry their own
+      `seo_title` and `seo_description` fields. Shopify does NOT wire those into
+      `page_title` or `page_description` automatically.
+
+      Without this block those fields are stored in Admin and never rendered: every
+      ingredient and concern page would ship with a fallback title and no meta
+      description, and the dual-axis SEO architecture would be inert. It fails
+      silently - nothing errors, the pages just quietly do not compete.
+
+      The shop-name comparison is case-folded because the store is "Embrae" while
+      the SEO titles end "| EMBRAE"; Liquid's `contains` is case-sensitive, so
+      without this the suffix would be appended twice.
+    {%- endcomment -%}
+    {%- liquid
+      assign seo_title = page_title
+      assign seo_description = page_description
+
+      if metaobject != blank
+        if metaobject.seo_title.value != blank
+          assign seo_title = metaobject.seo_title.value
+        endif
+        if metaobject.seo_description.value != blank
+          assign seo_description = metaobject.seo_description.value
+        endif
+      endif
+
+      assign seo_title_folded = seo_title | downcase
+      assign shop_name_folded = shop.name | downcase
+    -%}
+
     <title>
-      {{ page_title }}
+      {{ seo_title }}
       {%- if current_tags %} &ndash; tagged "{{ current_tags | join: ', ' }}"{% endif -%}
       {%- if current_page != 1 %} &ndash; Page {{ current_page }}{% endif -%}
-      {%- unless page_title contains shop.name %} &ndash; {{ shop.name }}{% endunless -%}
+      {%- unless seo_title_folded contains shop_name_folded %} &ndash; {{ shop.name }}{% endunless -%}
     </title>
 
-    {% if page_description %}
-      <meta name="description" content="{{ page_description | escape }}">
+    {% if seo_description != blank %}
+      <meta name="description" content="{{ seo_description | escape }}">
     {% endif %}
 
     {% render 'meta-tags' %}
