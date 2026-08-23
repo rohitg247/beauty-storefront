@@ -1,0 +1,276 @@
+# EMBRAE catalogue bootstrap
+# 21 automated collections, 12 pages, 4 blogs.
+#
+# HOW TO RUN
+#   Admin -> Apps -> "Shopify GraphiQL App" -> Install.
+#   Grant: write_products, write_content (read_products, read_content come with them).
+#   Open the app, paste this whole file in, then run the operations from the
+#   dropdown TOP TO BOTTOM. Each returns userErrors -- an empty array [] means it worked.
+#
+# ORDER MATTERS: Step1 before Step2 before Step3 is not required, but Step4 must be last.
+#
+# RE-RUNNING: handles are unique. Running a step twice fails on the duplicate handle
+# rather than creating a second copy. That is safe -- read the userErrors and move on.
+#
+# TAGS come from sample-data/embrae-products.csv. Import the CSV FIRST or every
+# collection here is created correctly but returns zero products.
+#
+# NOT INCLUDED ON PURPOSE:
+#   haircare, lip-care  -- no product in the CSV carries those tags
+#   retinol, rosemary   -- same
+#   Building a collection with nothing behind it makes an empty page, not an empty shelf.
+
+
+# ---------------------------------------------------------------------------
+# Step 1 -- 21 automated collections
+# 6 category, 2 base, 6 concern, 7 ingredient.
+# All are TAG EQUALS rules, appliedDisjunctively: false (single rule, so it is moot).
+# ---------------------------------------------------------------------------
+
+mutation Step1_Collections {
+
+  # --- Category (6) -- the SHOP column ---
+  serums: collectionCreate(input: {
+    title: "Serums", handle: "serums", sortOrder: BEST_SELLING
+    descriptionHtml: "<p>Concentrated actives in the smallest effective dose. Each serum names its percentage on the carton.</p>"
+    ruleSet: { appliedDisjunctively: false, rules: [{ column: TAG, relation: EQUALS, condition: "serums" }] }
+  }) { collection { id handle } userErrors { field message } }
+
+  moisturisers: collectionCreate(input: {
+    title: "Moisturisers", handle: "moisturisers", sortOrder: BEST_SELLING
+    descriptionHtml: "<p>Barrier repair for air conditioning, hard water and actives. Fragrance free throughout.</p>"
+    ruleSet: { appliedDisjunctively: false, rules: [{ column: TAG, relation: EQUALS, condition: "moisturisers" }] }
+  }) { collection { id handle } userErrors { field message } }
+
+  cleansers: collectionCreate(input: {
+    title: "Cleansers", handle: "cleansers", sortOrder: BEST_SELLING
+    descriptionHtml: "<p>Removes sunscreen and city grime without stripping. Low foam, pH balanced, sulphate free.</p>"
+    ruleSet: { appliedDisjunctively: false, rules: [{ column: TAG, relation: EQUALS, condition: "cleansers" }] }
+  }) { collection { id handle } userErrors { field message } }
+
+  sunscreen: collectionCreate(input: {
+    title: "Sunscreen", handle: "sunscreen", sortOrder: BEST_SELLING
+    descriptionHtml: "<p>Broad spectrum protection with no white cast. The one step that changes how skin ages.</p>"
+    ruleSet: { appliedDisjunctively: false, rules: [{ column: TAG, relation: EQUALS, condition: "sunscreen" }] }
+  }) { collection { id handle } userErrors { field message } }
+
+  bundles: collectionCreate(input: {
+    title: "Bundles", handle: "bundles", sortOrder: PRICE_DESC
+    descriptionHtml: "<p>Complete routines in the order they are applied. Priced below the sum of their parts.</p>"
+    ruleSet: { appliedDisjunctively: false, rules: [{ column: TAG, relation: EQUALS, condition: "bundles" }] }
+  }) { collection { id handle } userErrors { field message } }
+
+  giftSets: collectionCreate(input: {
+    title: "Gift Sets", handle: "gift-sets", sortOrder: BEST_SELLING
+    descriptionHtml: "<p>Travel sizes and gifting formats.</p>"
+    ruleSet: { appliedDisjunctively: false, rules: [{ column: TAG, relation: EQUALS, condition: "gift-sets" }] }
+  }) { collection { id handle } userErrors { field message } }
+
+  # --- Base (2) -- referenced by the homepage rows ---
+  skincare: collectionCreate(input: {
+    title: "Skincare", handle: "skincare", sortOrder: BEST_SELLING
+    descriptionHtml: "<p>The full EMBRAE range.</p>"
+    ruleSet: { appliedDisjunctively: false, rules: [{ column: TAG, relation: EQUALS, condition: "skincare" }] }
+  }) { collection { id handle } userErrors { field message } }
+
+  bestsellers: collectionCreate(input: {
+    title: "Bestsellers", handle: "bestsellers", sortOrder: BEST_SELLING
+    descriptionHtml: "<p>What people reorder.</p>"
+    ruleSet: { appliedDisjunctively: false, rules: [{ column: TAG, relation: EQUALS, condition: "bestseller" }] }
+  }) { collection { id handle } userErrors { field message } }
+
+  # --- Concern (6) -- the CONCERNS column, and the quiz landing pages ---
+  dullness: collectionCreate(input: {
+    title: "Dullness", handle: "dullness", sortOrder: BEST_SELLING
+    descriptionHtml: "<p>Skin that looks flat and grey rather than lit. Usually build-up, uneven turnover, or sun damage reading as greyness.</p>"
+    ruleSet: { appliedDisjunctively: false, rules: [{ column: TAG, relation: EQUALS, condition: "dullness" }] }
+  }) { collection { id handle } userErrors { field message } }
+
+  dryness: collectionCreate(input: {
+    title: "Dryness", handle: "dryness", sortOrder: BEST_SELLING
+    descriptionHtml: "<p>Tight, flaky, rough to the touch. A barrier problem more often than a water problem.</p>"
+    ruleSet: { appliedDisjunctively: false, rules: [{ column: TAG, relation: EQUALS, condition: "dryness" }] }
+  }) { collection { id handle } userErrors { field message } }
+
+  breakouts: collectionCreate(input: {
+    title: "Breakouts", handle: "breakouts", sortOrder: BEST_SELLING
+    descriptionHtml: "<p>Congestion, closed comedones and inflamed spots. Treated by keeping pores clear without stripping.</p>"
+    ruleSet: { appliedDisjunctively: false, rules: [{ column: TAG, relation: EQUALS, condition: "breakouts" }] }
+  }) { collection { id handle } userErrors { field message } }
+
+  pigmentation: collectionCreate(input: {
+    title: "Pigmentation", handle: "pigmentation", sortOrder: BEST_SELLING
+    descriptionHtml: "<p>Dark marks that outstay the spot, and patches that deepen in sunlight. Sunscreen is the treatment, not the aftercare.</p>"
+    ruleSet: { appliedDisjunctively: false, rules: [{ column: TAG, relation: EQUALS, condition: "pigmentation" }] }
+  }) { collection { id handle } userErrors { field message } }
+
+  fineLines: collectionCreate(input: {
+    title: "Fine Lines", handle: "fine-lines", sortOrder: BEST_SELLING
+    descriptionHtml: "<p>Early texture change around the eyes and mouth. Barrier support and daily SPF do most of the work.</p>"
+    ruleSet: { appliedDisjunctively: false, rules: [{ column: TAG, relation: EQUALS, condition: "fine-lines" }] }
+  }) { collection { id handle } userErrors { field message } }
+
+  sensitivity: collectionCreate(input: {
+    title: "Sensitivity", handle: "sensitivity", sortOrder: BEST_SELLING
+    descriptionHtml: "<p>Skin that stings, flushes or reacts to new products. Fragrance free, low irritant, patch test first.</p>"
+    ruleSet: { appliedDisjunctively: false, rules: [{ column: TAG, relation: EQUALS, condition: "sensitivity" }] }
+  }) { collection { id handle } userErrors { field message } }
+
+  # --- Ingredient (7) -- the INGREDIENTS column ---
+  # These exist because Shopify storefront search cannot return metaobjects.
+  # A collection is the searchable, shoppable surface for each ingredient.
+  vitaminC: collectionCreate(input: {
+    title: "Vitamin C", handle: "vitamin-c", sortOrder: BEST_SELLING
+    descriptionHtml: "<p>Ethyl ascorbic acid, stabilised. Evens tone and fades post-acne marks.</p>"
+    ruleSet: { appliedDisjunctively: false, rules: [{ column: TAG, relation: EQUALS, condition: "vitamin-c" }] }
+  }) { collection { id handle } userErrors { field message } }
+
+  niacinamide: collectionCreate(input: {
+    title: "Niacinamide", handle: "niacinamide", sortOrder: BEST_SELLING
+    descriptionHtml: "<p>Vitamin B3. Calms flushing, regulates oil, supports the barrier.</p>"
+    ruleSet: { appliedDisjunctively: false, rules: [{ column: TAG, relation: EQUALS, condition: "niacinamide" }] }
+  }) { collection { id handle } userErrors { field message } }
+
+  hyaluronicAcid: collectionCreate(input: {
+    title: "Hyaluronic Acid", handle: "hyaluronic-acid", sortOrder: BEST_SELLING
+    descriptionHtml: "<p>Low molecular weight, so it holds water inside the skin rather than on it.</p>"
+    ruleSet: { appliedDisjunctively: false, rules: [{ column: TAG, relation: EQUALS, condition: "hyaluronic-acid" }] }
+  }) { collection { id handle } userErrors { field message } }
+
+  salicylicAcid: collectionCreate(input: {
+    title: "Salicylic Acid", handle: "salicylic-acid", sortOrder: BEST_SELLING
+    descriptionHtml: "<p>Oil soluble, so it works inside the pore. Buffered to stay usable daily.</p>"
+    ruleSet: { appliedDisjunctively: false, rules: [{ column: TAG, relation: EQUALS, condition: "salicylic-acid" }] }
+  }) { collection { id handle } userErrors { field message } }
+
+  squalane: collectionCreate(input: {
+    title: "Squalane", handle: "squalane", sortOrder: BEST_SELLING
+    descriptionHtml: "<p>Plant derived, non comedogenic. Restores the lipid layer without occlusion.</p>"
+    ruleSet: { appliedDisjunctively: false, rules: [{ column: TAG, relation: EQUALS, condition: "squalane" }] }
+  }) { collection { id handle } userErrors { field message } }
+
+  ceramides: collectionCreate(input: {
+    title: "Ceramides", handle: "ceramides", sortOrder: BEST_SELLING
+    descriptionHtml: "<p>NP, AP and EOP together. The mortar between skin cells, replaced when it has been stripped.</p>"
+    ruleSet: { appliedDisjunctively: false, rules: [{ column: TAG, relation: EQUALS, condition: "ceramides" }] }
+  }) { collection { id handle } userErrors { field message } }
+
+  zincOxide: collectionCreate(input: {
+    title: "Zinc Oxide", handle: "zinc-oxide", sortOrder: BEST_SELLING
+    descriptionHtml: "<p>Non-nano mineral filter. Broad spectrum, and tolerated by reactive skin.</p>"
+    ruleSet: { appliedDisjunctively: false, rules: [{ column: TAG, relation: EQUALS, condition: "zinc-oxide" }] }
+  }) { collection { id handle } userErrors { field message } }
+}
+
+
+# ---------------------------------------------------------------------------
+# Step 2 -- 12 pages
+# body is left empty on purpose: the content lives in the theme templates.
+# templateSuffix is what binds the page to templates/page.<suffix>.json.
+# The four with templateSuffix: null use the default page template.
+# ---------------------------------------------------------------------------
+
+mutation Step2_Pages {
+
+  why: pageCreate(page: {
+    title: "Why EMBRAE", handle: "why", templateSuffix: "why", isPublished: true, body: ""
+  }) { page { id handle templateSuffix } userErrors { field message } }
+
+  results: pageCreate(page: {
+    title: "Results", handle: "results", templateSuffix: "results", isPublished: true, body: ""
+  }) { page { id handle templateSuffix } userErrors { field message } }
+
+  trust: pageCreate(page: {
+    title: "Trust Center", handle: "trust", templateSuffix: "trust", isPublished: true, body: ""
+  }) { page { id handle templateSuffix } userErrors { field message } }
+
+  about: pageCreate(page: {
+    title: "About", handle: "about", templateSuffix: "about", isPublished: true, body: ""
+  }) { page { id handle templateSuffix } userErrors { field message } }
+
+  education: pageCreate(page: {
+    title: "Education", handle: "education", templateSuffix: "education", isPublished: true, body: ""
+  }) { page { id handle templateSuffix } userErrors { field message } }
+
+  quiz: pageCreate(page: {
+    title: "Skin Quiz", handle: "quiz", templateSuffix: "quiz", isPublished: true, body: ""
+  }) { page { id handle templateSuffix } userErrors { field message } }
+
+  faq: pageCreate(page: {
+    title: "FAQ", handle: "faq", templateSuffix: "faq", isPublished: true, body: ""
+  }) { page { id handle templateSuffix } userErrors { field message } }
+
+  contact: pageCreate(page: {
+    title: "Contact", handle: "contact", templateSuffix: "contact", isPublished: true, body: ""
+  }) { page { id handle templateSuffix } userErrors { field message } }
+
+  # --- default template, real copy needed before launch ---
+  careers: pageCreate(page: {
+    title: "Careers", handle: "careers", isPublished: true
+    body: "<p>PLACEHOLDER. Open roles, how to apply, and what it is like to work here.</p>"
+  }) { page { id handle } userErrors { field message } }
+
+  press: pageCreate(page: {
+    title: "Press & Media", handle: "press", isPublished: true
+    body: "<p>PLACEHOLDER. Press contact, brand assets, and coverage. Do not list coverage that does not exist.</p>"
+  }) { page { id handle } userErrors { field message } }
+
+  storeLocator: pageCreate(page: {
+    title: "Store Locator", handle: "store-locator", isPublished: true
+    body: "<p>PLACEHOLDER. Stockists and counters, by city.</p>"
+  }) { page { id handle } userErrors { field message } }
+
+  trackOrder: pageCreate(page: {
+    title: "Track Order", handle: "track-order", isPublished: true
+    body: "<p>PLACEHOLDER. Tracking link, or embed your courier lookup here.</p>"
+  }) { page { id handle } userErrors { field message } }
+}
+
+
+# ---------------------------------------------------------------------------
+# Step 3 -- 4 blogs
+# Handles must match exactly; the Education Hub links to them by handle.
+# Article URLs land at /blogs/<handle>/<article>. Shopify does not allow an
+# /education/... prefix -- this is the closest structure it supports.
+# ---------------------------------------------------------------------------
+
+mutation Step3_Blogs {
+
+  skinSchool: blogCreate(blog: {
+    title: "Skin School", handle: "skin-school", commentPolicy: CLOSED
+  }) { blog { id handle } userErrors { field message } }
+
+  climateSkin: blogCreate(blog: {
+    title: "Climate & Skin", handle: "climate-skin", commentPolicy: CLOSED
+  }) { blog { id handle } userErrors { field message } }
+
+  mythVsFact: blogCreate(blog: {
+    title: "Myth vs Fact", handle: "myth-vs-fact", commentPolicy: CLOSED
+  }) { blog { id handle } userErrors { field message } }
+
+  journal: blogCreate(blog: {
+    title: "Journal", handle: "journal", commentPolicy: CLOSED
+  }) { blog { id handle } userErrors { field message } }
+}
+
+
+# ---------------------------------------------------------------------------
+# Step 4 -- verify. Run this LAST.
+# Read the output against the handles above. Anything missing here is a link
+# that will 404 in the navigation.
+#
+# productsCount of 0 on a collection means the tag is absent from the catalogue,
+# not that the collection failed. Check the CSV import first.
+# ---------------------------------------------------------------------------
+
+query Step4_Verify {
+  collections(first: 30, sortKey: TITLE) {
+    nodes { handle title productsCount { count } }
+  }
+  pages(first: 30) {
+    nodes { handle title templateSuffix }
+  }
+  blogs(first: 20) {
+    nodes { handle title }
+  }
+}

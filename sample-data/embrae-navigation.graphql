@@ -356,7 +356,13 @@ query Step7_VerifyMenus {
       id
       handle
       title
-      itemsCount
+      # `itemsCount` does not exist on Menu in API 2026-07 and its presence here
+      # failed validation for the WHOLE document, silently blocking all six
+      # mutations above. Count the returned items instead.
+      items {
+        title
+        items { title }
+      }
     }
   }
 }

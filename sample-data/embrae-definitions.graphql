@@ -206,7 +206,7 @@ mutation Step1b_CreateSkinConcernDefinition {
           key: "key_ingredients"
           name: "Key ingredients"
           type: "list.metaobject_reference"
-          validations: [{ name: "metaobject_definition_type", value: "ingredient" }]
+          validations: [{ name: "metaobject_definition_id", value: "gid://shopify/MetaobjectDefinition/18209931377" }]
         }
         {
           key: "recommended_products"
@@ -366,7 +366,7 @@ mutation Step1d_CreateRoutineDefinition {
           key: "concern"
           name: "Concern"
           type: "metaobject_reference"
-          validations: [{ name: "metaobject_definition_type", value: "skin_concern" }]
+          validations: [{ name: "metaobject_definition_id", value: "gid://shopify/MetaobjectDefinition/18210127985" }]
         }
         {
           key: "steps"
@@ -448,7 +448,7 @@ mutation Step1e_CreateQuizOptionDefinition {
           name: "Points to concerns"
           type: "list.metaobject_reference"
           description: "Picking this answer adds score to these concerns. An answer can point at more than one."
-          validations: [{ name: "metaobject_definition_type", value: "skin_concern" }]
+          validations: [{ name: "metaobject_definition_id", value: "gid://shopify/MetaobjectDefinition/18210127985" }]
         }
         {
           key: "weight"
@@ -522,7 +522,7 @@ mutation Step1f_CreateQuizQuestionDefinition {
           type: "list.metaobject_reference"
           description: "In the order they should appear."
           required: true
-          validations: [{ name: "metaobject_definition_type", value: "quiz_option" }]
+          validations: [{ name: "metaobject_definition_id", value: "gid://shopify/MetaobjectDefinition/18210193521" }]
         }
       ]
     }
@@ -645,7 +645,7 @@ mutation Step3_CreateProductMetafields {
       ownerType: PRODUCT
       pin: true
       access: { storefront: PUBLIC_READ }
-      validations: [{ name: "metaobject_definition_type", value: "ingredient" }]
+      validations: [{ name: "metaobject_definition_id", value: "gid://shopify/MetaobjectDefinition/18209931377" }]
     }
   ) {
     createdDefinition {
@@ -715,7 +715,7 @@ mutation Step3_CreateProductMetafields {
       ownerType: PRODUCT
       pin: true
       access: { storefront: PUBLIC_READ }
-      validations: [{ name: "metaobject_definition_type", value: "skin_concern" }]
+      validations: [{ name: "metaobject_definition_id", value: "gid://shopify/MetaobjectDefinition/18210127985" }]
     }
   ) {
     createdDefinition {
@@ -762,7 +762,7 @@ mutation Step3_CreateProductMetafields {
       ownerType: PRODUCT
       pin: true
       access: { storefront: PUBLIC_READ }
-      validations: [{ name: "metaobject_definition_type", value: "faq" }]
+      validations: [{ name: "metaobject_definition_id", value: "gid://shopify/MetaobjectDefinition/18209996913" }]
     }
   ) {
     createdDefinition {
@@ -866,7 +866,7 @@ mutation Step4_CreateCollectionMetafields {
       ownerType: COLLECTION
       pin: true
       access: { storefront: PUBLIC_READ }
-      validations: [{ name: "metaobject_definition_type", value: "skin_concern" }]
+      validations: [{ name: "metaobject_definition_id", value: "gid://shopify/MetaobjectDefinition/18210127985" }]
     }
   ) {
     createdDefinition {

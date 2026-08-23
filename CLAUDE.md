@@ -31,13 +31,25 @@ At the start of **every** session, read all four files in `docs/` before making 
 
 ## Write before you finish
 
-At the **end of every session**, append a new timestamped entry to both:
+There are **two** triggers for writing, not one. Both are mandatory.
+
+**Trigger 1 — whenever a plan is approved.** Immediately append the approved scope to
+`docs/plan.md`, dated. Do this *before* building any of it, not after. `docs/plan.md` is the
+record of everything that has been agreed, not only of what was agreed first — if it only ever
+gets read and never written, it silently goes stale and a future session plans against a
+scope that no longer exists.
+
+**Trigger 2 — at the end of every session.** Append a new timestamped entry to all three
+running logs:
 
 - `docs/changes.md` — every file created or modified, and why.
+- `docs/plan.md` — scope agreed or changed this session.
 - `docs/session-handoff.md` — what this session covered, current state, next steps.
 
-**Append. Never overwrite.** Both files are running logs. New entries go at the bottom.
+**Append. Never overwrite.** All three are running logs. New entries go at the bottom.
 Keep `docs/admin-tasks.md` current whenever new admin-only work is discovered.
+
+A session that ends without these being written is not finished, however complete the code is.
 
 ## Theme rules
 
