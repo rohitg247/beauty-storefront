@@ -1,0 +1,17 @@
+# Files the Shopify CLI must never upload.
+#
+# Editors write atomically: content goes to `<file>.tmp.<pid>.<hash>` and is then
+# renamed over the target. A running `shopify theme dev` watcher can catch that
+# temp file mid-write and try to upload it, which Shopify rejects with
+# "Must have a .liquid file extension". Harmless, but it looks like a real failure.
+*.tmp
+*.tmp.*
+*.orig
+*.rej
+*~
+
+# Repo tooling and source data - not theme files
+tools/
+sample-data/
+docs/
+.env

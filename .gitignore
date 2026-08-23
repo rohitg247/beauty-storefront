@@ -27,3 +27,10 @@ desktop.ini
 
 # Local-only documentation (never pushed)
 docs/
+
+# Editor atomic-write temp files. A running `shopify theme dev` watcher can catch
+# these mid-write and try to upload them, which Shopify rejects.
+*.tmp
+*.tmp.*
+*.orig
+*.rej
