@@ -46,7 +46,7 @@
           "type": "text",
           "settings": {
             "heading": "CONTACT US",
-            "subtext": "<p>For any product information or complaint, contact:</p><p><a href=\"tel:+918600411991\">+91 8600411991</a></p><p><a href=\"mailto:care@embraecare.com\">care@embraecare.com</a></p>"
+            "subtext": "<p><a href=\"tel:+918600411991\">+91 8600411991</a></p><p><a href=\"mailto:care@embraecare.com\">care@embraecare.com</a></p>"
           }
         }
       },

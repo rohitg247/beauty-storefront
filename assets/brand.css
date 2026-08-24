@@ -1406,12 +1406,21 @@ button > .embrae-chip,
 }
 
 /* The contact block is information, not navigation — so it reads as a block of
-   detail rather than a list of links, while its two real links stay tappable. */
+   detail rather than a list of links, while its two real links stay tappable.
+
+   The icons are CSS masks rather than inline SVG because the block is a
+   richtext setting, and Shopify's richtext allows only p / ul / ol / h1-h6 /
+   a / strong / em — an <svg> in there is stripped on save. mask-image with
+   background-color: currentColor is what keeps them following the footer's
+   colour scheme; a background-image data URI would be a fixed colour and
+   would go invisible if the scheme changes. The phone number and the address
+   stay editable in the theme editor either way. */
 .footer-block__details-content a[href^='tel:'],
 .footer-block__details-content a[href^='mailto:'] {
-  display: inline-block;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.8rem;
   min-height: 4.4rem;
-  line-height: 4.4rem;
   text-decoration: none;
   border-bottom: 0.1rem solid rgba(var(--color-foreground), 0.35);
 }
@@ -1419,4 +1428,55 @@ button > .embrae-chip,
 .footer-block__details-content a[href^='tel:']:hover,
 .footer-block__details-content a[href^='mailto:']:hover {
   border-bottom-color: rgb(var(--color-foreground));
+}
+
+.footer-block__details-content a[href^='tel:']::before,
+.footer-block__details-content a[href^='mailto:']::before {
+  content: '';
+  flex: 0 0 auto;
+  width: 1.6rem;
+  height: 1.6rem;
+  background-color: currentColor;
+  -webkit-mask-position: center;
+  mask-position: center;
+  -webkit-mask-repeat: no-repeat;
+  mask-repeat: no-repeat;
+  -webkit-mask-size: contain;
+  mask-size: contain;
+}
+
+.footer-block__details-content a[href^='tel:']::before {
+  -webkit-mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 20'%3E%3Cpath d='M6.6 2.3a1.4 1.4 0 0 0-1.9-.2L3.3 3.2A2.6 2.6 0 0 0 2.5 6a15.7 15.7 0 0 0 11.5 11.5 2.6 2.6 0 0 0 2.8-.8l1.1-1.4a1.4 1.4 0 0 0-.2-1.9l-2.5-1.9a1.4 1.4 0 0 0-1.8.1l-1 .9a11.3 11.3 0 0 1-5.4-5.4l.9-1a1.4 1.4 0 0 0 .1-1.8z'/%3E%3C/svg%3E");
+  mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 20'%3E%3Cpath d='M6.6 2.3a1.4 1.4 0 0 0-1.9-.2L3.3 3.2A2.6 2.6 0 0 0 2.5 6a15.7 15.7 0 0 0 11.5 11.5 2.6 2.6 0 0 0 2.8-.8l1.1-1.4a1.4 1.4 0 0 0-.2-1.9l-2.5-1.9a1.4 1.4 0 0 0-1.8.1l-1 .9a11.3 11.3 0 0 1-5.4-5.4l.9-1a1.4 1.4 0 0 0 .1-1.8z'/%3E%3C/svg%3E");
+}
+
+.footer-block__details-content a[href^='mailto:']::before {
+  -webkit-mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 20'%3E%3Cpath d='M2.5 5.6c0-.9.7-1.6 1.6-1.6h11.8c.9 0 1.6.7 1.6 1.6v8.8c0 .9-.7 1.6-1.6 1.6H4.1a1.6 1.6 0 0 1-1.6-1.6zm2.1-.1L10 10.2l5.4-4.7z'/%3E%3C/svg%3E");
+  mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 20'%3E%3Cpath d='M2.5 5.6c0-.9.7-1.6 1.6-1.6h11.8c.9 0 1.6.7 1.6 1.6v8.8c0 .9-.7 1.6-1.6 1.6H4.1a1.6 1.6 0 0 1-1.6-1.6zm2.1-.1L10 10.2l5.4-4.7z'/%3E%3C/svg%3E");
+}
+
+/* ==========================================================================
+   Desktop navigation submenus — one line per link, panel sized to content
+   ==========================================================================
+
+   component-list-menu.css:5-10 sets .list-menu--disclosure to a fixed
+   width: 20rem (200px). Anything longer than that wraps onto a second line,
+   which is what makes "Ingredient Library" and "Product Recommendations"
+   break. min-width: 100% is kept from Dawn so a panel is never narrower than
+   the top-level item it hangs from.
+
+   Desktop only. Below 990px the mobile drawer is full width and already fine.
+*/
+
+@media screen and (min-width: 990px) {
+  .header__submenu.list-menu--disclosure {
+    width: max-content;
+    /* Safety net only — no current menu item comes near 40rem. It exists so a
+       future long label cannot push the panel past the viewport edge. */
+    max-width: min(40rem, calc(100vw - 4rem));
+  }
+
+  .header__submenu .header__menu-item {
+    white-space: nowrap;
+  }
 }
