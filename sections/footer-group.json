@@ -21,18 +21,11 @@
             "menu": "footer-shop"
           }
         },
-        "education": {
+        "discover": {
           "type": "link_list",
           "settings": {
-            "heading": "SKIN SCIENCE",
-            "menu": "footer-education"
-          }
-        },
-        "about": {
-          "type": "link_list",
-          "settings": {
-            "heading": "WHY EMBRAE",
-            "menu": "footer-about"
+            "heading": "DISCOVER",
+            "menu": "footer-discover"
           }
         },
         "support": {
@@ -42,42 +35,42 @@
             "menu": "footer-support"
           }
         },
-        "connect": {
+        "policy": {
           "type": "link_list",
           "settings": {
-            "heading": "CONNECT",
-            "menu": "footer-connect"
+            "heading": "POLICY",
+            "menu": "footer-policy"
           }
         },
-        "results": {
-          "type": "link_list",
+        "contact": {
+          "type": "text",
           "settings": {
-            "heading": "RESULTS",
-            "menu": "footer-results"
+            "heading": "CONTACT US",
+            "subtext": "<p>For any product information or complaint, contact:</p><p><a href=\"tel:+918600411991\">+91 8600411991</a></p><p><a href=\"mailto:care@embraecare.com\">care@embraecare.com</a></p>"
           }
         }
       },
       "block_order": [
         "shop",
-        "about",
-        "education",
-        "results",
+        "discover",
         "support",
-        "connect"
+        "policy",
+        "contact"
       ],
       "settings": {
         "color_scheme": "scheme-3",
         "newsletter_enable": true,
-        "newsletter_heading": "Get the restock note",
-        "enable_follow_on_shop": true,
+        "newsletter_heading": "Subscribe to our newsletter",
+        "enable_follow_on_shop": false,
         "show_social": true,
         "enable_country_selector": false,
         "enable_language_selector": false,
         "payment_enable": true,
-        "show_policy": true,
+        "show_policy": false,
         "margin_top": 0,
         "padding_top": 96,
-        "padding_bottom": 48
+        "padding_bottom": 48,
+        "follow_heading": "Follow us on"
       }
     },
     "trust-strip": {
@@ -88,7 +81,7 @@
           "settings": {
             "icon": "truck",
             "title": "Free shipping",
-            "text": "On orders over ₹1,499"
+            "text": "On orders over ₹599"
           }
         },
         "trust-2": {
@@ -111,8 +104,8 @@
           "type": "commitment",
           "settings": {
             "icon": "return",
-            "title": "Easy returns",
-            "text": "30 days on unopened orders"
+            "title": "Damaged or wrong?",
+            "text": "Replaced free within 48 hours"
           }
         }
       },

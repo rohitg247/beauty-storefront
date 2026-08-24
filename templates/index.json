@@ -73,7 +73,7 @@
             "image": "shopify://shop_images/embrae-complete-routine-set-pack.png",
             "heading": "The complete routine",
             "heading_size": "h1",
-            "subheading": "All four steps together, with free shipping over ₹1,499.",
+            "subheading": "All four steps together, with free shipping over ₹599.",
             "button_label": "Shop bundles",
             "link": "/collections/bundles",
             "button_style_secondary": false,
@@ -313,7 +313,7 @@
           "type": "commitment",
           "settings": {
             "icon": "truck",
-            "title": "Free over ₹1,499",
+            "title": "Free over ₹599",
             "text": "Dispatched within 24 hours."
           }
         }

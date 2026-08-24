@@ -14,16 +14,32 @@
     "announcement-bar": {
       "type": "announcement-bar",
       "blocks": {
-        "announcement-bar-0": {
+        "offer-prepaid": {
           "type": "announcement",
           "settings": {
-            "text": "Free shipping over ₹1,499",
-            "link": ""
+            "link": "",
+            "text": "Extra 5% off on prepaid orders"
+          }
+        },
+        "offer-firstbuy": {
+          "type": "announcement",
+          "settings": {
+            "link": "",
+            "text": "₹100 off your first order above ₹999"
+          }
+        },
+        "offer-shipping": {
+          "type": "announcement",
+          "settings": {
+            "link": "",
+            "text": "Free shipping on orders over ₹599"
           }
         }
       },
       "block_order": [
-        "announcement-bar-0"
+        "offer-prepaid",
+        "offer-firstbuy",
+        "offer-shipping"
       ],
       "settings": {
         "auto_rotate": true,

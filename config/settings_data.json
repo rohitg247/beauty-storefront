@@ -108,9 +108,9 @@
     "brand_headline": "Beauty, grown not manufactured",
     "brand_description": "<p>Cold-pressed botanicals, clinically dosed actives, and nothing you would not want on your skin. Formulated in small batches.</p>",
     "brand_image_width": 100,
-    "social_facebook_link": "",
-    "social_instagram_link": "",
-    "social_youtube_link": "",
+    "social_facebook_link": "https://www.facebook.com/",
+    "social_instagram_link": "https://www.instagram.com/",
+    "social_youtube_link": "https://www.youtube.com/",
     "social_tiktok_link": "",
     "social_twitter_link": "",
     "social_snapchat_link": "",
@@ -124,7 +124,7 @@
     "cart_type": "drawer",
     "show_vendor": false,
     "show_cart_note": true,
-    "free_shipping_threshold": 1499,
+    "free_shipping_threshold": 599,
     "cart_drawer_collection": "bestsellers",
     "cart_color_scheme": "scheme-1",
     "sections": {
@@ -197,7 +197,8 @@
           "shadow": "#034638"
         }
       }
-    }
+    },
+    "social_linkedin_link": "https://www.linkedin.com/"
   },
   "presets": {
     "EMBRAE": {
@@ -358,13 +359,13 @@
       "brand_description": "<p>Cold-pressed botanicals, clinically dosed actives, and nothing you would not want on your skin. Formulated in small batches.</p>",
       "brand_image_width": 100,
       "social_twitter_link": "",
-      "social_facebook_link": "",
+      "social_facebook_link": "https://www.facebook.com/",
       "social_pinterest_link": "",
-      "social_instagram_link": "",
+      "social_instagram_link": "https://www.instagram.com/",
       "social_tiktok_link": "",
       "social_tumblr_link": "",
       "social_snapchat_link": "",
-      "social_youtube_link": "",
+      "social_youtube_link": "https://www.youtube.com/",
       "social_vimeo_link": "",
       "predictive_search_enabled": true,
       "predictive_search_show_vendor": false,
@@ -373,7 +374,7 @@
       "cart_type": "drawer",
       "show_vendor": false,
       "show_cart_note": true,
-      "free_shipping_threshold": 1499,
+      "free_shipping_threshold": 599,
       "cart_drawer_collection": "bestsellers",
       "cart_color_scheme": "scheme-1",
       "sections": {
@@ -389,7 +390,8 @@
             "color_scheme": "scheme-3"
           }
         }
-      }
+      },
+      "social_linkedin_link": "https://www.linkedin.com/"
     }
   }
 }

@@ -1323,6 +1323,12 @@
       },
       {
         "type": "text",
+        "id": "social_linkedin_link",
+        "label": "LinkedIn",
+        "placeholder": "https://www.linkedin.com/company/shopname"
+      },
+      {
+        "type": "text",
         "id": "social_tiktok_link",
         "label": "t:settings_schema.social-media.settings.social_tiktok_link.label",
         "placeholder": "t:settings_schema.social-media.settings.social_tiktok_link.info"
@@ -1453,7 +1459,7 @@
         "id": "free_shipping_threshold",
         "label": "Free shipping threshold",
         "info": "In store currency, whole numbers only. Set to 0 to hide the progress bar in the cart and cart drawer.",
-        "default": 1499
+        "default": 599
       },
       {
         "type": "header",

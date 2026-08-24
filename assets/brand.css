@@ -1310,3 +1310,113 @@ button > .embrae-chip,
     transition: none;
   }
 }
+
+/* ==========================================================================
+   Footer — newsletter row above the columns, five-column layout
+   ==========================================================================
+
+   The requested structure is a REORDER of what Dawn already builds, not a
+   rebuild. section-footer.css sets .footer__content-top to display:block, so
+   the column grid renders first and .footer-block--newsletter renders below
+   it — and that newsletter block already holds the form and the social icons
+   side by side. Making the wrapper a flex column and giving the newsletter
+   order:-1 lifts it to the top. Deleting this block restores Dawn exactly.
+*/
+
+.footer__content-top {
+  display: flex;
+  flex-direction: column;
+}
+
+.footer-block--newsletter {
+  order: -1;
+  margin-top: 0;
+  margin-bottom: var(--space-md, 3rem);
+  padding-bottom: var(--space-md, 3rem);
+  border-bottom: 0.1rem solid rgba(var(--color-foreground), 0.08);
+}
+
+@media screen and (min-width: 750px) {
+  /* Newsletter left, "Follow us on" right. Dawn centres this row; the spec
+     wants it spread across the full width. */
+  .footer-block--newsletter {
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: var(--space-md, 3rem);
+  }
+
+  .footer-block__newsletter,
+  .footer-block__social {
+    flex: 0 1 auto;
+  }
+
+  .footer-block__social {
+    text-align: right;
+  }
+
+  .footer-block__social .list-social {
+    justify-content: flex-end;
+  }
+}
+
+@media screen and (max-width: 749px) {
+  /* Stacked and centred, matching how Dawn already treats this row on mobile. */
+  .footer-block__social {
+    text-align: center;
+  }
+
+  .footer-block__social .list-social {
+    justify-content: center;
+  }
+}
+
+/*
+   Five footer blocks — four link lists plus the CONTACT US text block.
+
+   sections/footer.liquid:56-62 picks grid--3-col-tablet for five blocks, which
+   is three across and two orphaned. The responsive contract forbids an orphan
+   column, so both bands are set explicitly instead of inherited.
+*/
+
+@media screen and (min-width: 990px) {
+  .footer__content-top .footer__blocks-wrapper.grid {
+    display: grid;
+    grid-template-columns: repeat(5, minmax(0, 1fr));
+  }
+}
+
+@media screen and (min-width: 750px) and (max-width: 989px) {
+  /* Four nav columns at ~170px each, and the contact block spans the full
+     width beneath as a deliberate final row rather than a stranded fifth. */
+  .footer__content-top .footer__blocks-wrapper.grid {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+  }
+
+  .footer__content-top .footer__blocks-wrapper.grid > .footer-block:last-child {
+    grid-column: 1 / -1;
+  }
+}
+
+@media screen and (min-width: 750px) {
+  .footer__content-top .footer__blocks-wrapper.grid > .footer-block {
+    max-width: none;
+    width: auto;
+  }
+}
+
+/* The contact block is information, not navigation — so it reads as a block of
+   detail rather than a list of links, while its two real links stay tappable. */
+.footer-block__details-content a[href^='tel:'],
+.footer-block__details-content a[href^='mailto:'] {
+  display: inline-block;
+  min-height: 4.4rem;
+  line-height: 4.4rem;
+  text-decoration: none;
+  border-bottom: 0.1rem solid rgba(var(--color-foreground), 0.35);
+}
+
+.footer-block__details-content a[href^='tel:']:hover,
+.footer-block__details-content a[href^='mailto:']:hover {
+  border-bottom-color: rgb(var(--color-foreground));
+}
