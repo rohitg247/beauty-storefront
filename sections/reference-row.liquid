@@ -32,14 +32,33 @@
 {{ 'section-reference-row.css' | asset_url | stylesheet_tag }}
 
 {%- liquid
+  # Picker first, then every entry of the type. Same reason as skin-quiz: the
+  # section is wrapped in a size guard, so an unresolved picker renders an
+  # empty band with no error anywhere.
   case section.settings.source
     when 'concern'
       assign entries = section.settings.concerns
+      assign fallback = metaobjects.skin_concern.values
+      if fallback == blank
+        assign fallback = metaobjects.skin_concern
+      endif
     when 'routine'
       assign entries = section.settings.routines
+      assign fallback = metaobjects.routine.values
+      if fallback == blank
+        assign fallback = metaobjects.routine
+      endif
     else
       assign entries = section.settings.ingredients
+      assign fallback = metaobjects.ingredient.values
+      if fallback == blank
+        assign fallback = metaobjects.ingredient
+      endif
   endcase
+
+  if entries == blank or entries.size == 0
+    assign entries = fallback
+  endif
 -%}
 
 {%- if entries != blank and entries.size > 0 -%}

@@ -37,8 +37,29 @@
 <script src="{{ 'skin-quiz.js' | asset_url }}" defer="defer"></script>
 
 {%- liquid
+  # The metaobject_list pickers are the merchant's way to curate and reorder.
+  # When one is empty the section falls back to every entry of that type, the
+  # same way sections/faq-center.liquid does - which is the one metaobject
+  # section on this store that has always rendered.
+  #
+  # This matters because the whole section is wrapped in a size guard: an
+  # unresolved picker rendered NOTHING, not even the heading, which is exactly
+  # how it looked broken.
   assign questions = section.settings.questions
+  if questions == blank or questions.size == 0
+    assign questions = metaobjects.quiz_question.values
+    if questions == blank
+      assign questions = metaobjects.quiz_question
+    endif
+  endif
+
   assign concerns = section.settings.concerns
+  if concerns == blank or concerns.size == 0
+    assign concerns = metaobjects.skin_concern.values
+    if concerns == blank
+      assign concerns = metaobjects.skin_concern
+    endif
+  endif
 -%}
 
 {%- if questions != blank and questions.size > 0 -%}
