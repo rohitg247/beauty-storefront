@@ -39,7 +39,7 @@ $copy = @(
   # --- base ---
   @{ h="skincare"; t="Shop All EMBRAE Skincare" ; d="The full EMBRAE range - cleansers, serums, moisturizers, sunscreen and routine bundles. Built for Indian skin and Indian weather."
      i="Nine products. Not ninety - we would rather make a small number of things that earn their place."
-     o="Every formula is fragrance free, every active has its percentage on the carton, and every carton carries a blend date as well as an expiry.||If you are starting from scratch, the Starter Duo or the skin quiz are the two shortest routes in." }
+     o="Every formula is fragrance free, every active has its percentage on the carton, and every carton carries a blend date as well as an expiry.||If you are starting from scratch, the Barrier Support Duo or the skin quiz are the two shortest routes in." }
   @{ h="bestsellers"; t="Bestselling Skincare | EMBRAE"; d="What people reorder. The cleanser, serum, moisturizer and SPF that make up most repeat orders, plus the bundles built from them."
      i="Reorders are the only review that cannot be gamed. These are the products people come back for."
      o="Popularity is not a recommendation for your skin specifically. If you have a concern in mind, the concern pages or the quiz will get you somewhere better than a bestseller list will." }

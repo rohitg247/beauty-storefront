@@ -42,7 +42,7 @@ function ToStrList([string[]]$vals) { '["' + (($vals | ForEach-Object { $_.Repla
 
 # --- content ----------------------------------------------------------------
 $content = @(
-  @{ h="clarity-cleanser"
+  @{ h="barrier-reset-cleanser"
      why="Most cleansers solve one problem and cause another. They take the sunscreen off and take the barrier with it, so skin feels squeaky for ten minutes and tight for the rest of the evening.||This one is built to remove a full day - sunscreen, sweat, and whatever Indian city air has settled on your face - and stop there."
      ben=@("Removes sunscreen and grime in one wash, no double cleanse needed","Buffered salicylic acid keeps pores clear without stripping","Niacinamide settles the flush that acids usually cause","pH 5.5 and sulfate free, so the barrier stays intact")
      how="Salicylic acid is oil soluble, so it travels into the pore rather than working only on the surface. At 0.5% in a rinse-off format it has enough contact time to loosen a plug of oil and dead skin without the irritation a leave-on would cause.||Niacinamide runs alongside it to keep inflammation down, which is why this does not leave the tightness most acid cleansers do."
@@ -51,10 +51,10 @@ $content = @(
      skin=@("Oily","Combination","Normal","Congestion-prone")
      faqs=@("order-of-application","oily-skin","patch-test","batch-freshness")
      time="Congestion softens in 2 to 3 weeks. Breakouts take 4 to 6."
-     seoT="Clarity Gel Cleanser - Salicylic Acid Face Wash 100 ml | EMBRAE"
+     seoT="Barrier Reset Cleanser - Salicylic Acid Face Wash 100 ml | EMBRAE"
      seoD="A low-foam gel cleanser with 0.5% buffered salicylic acid and 2% niacinamide. Removes sunscreen and city grime without stripping the barrier." }
 
-  @{ h="radiance-serum"
+  @{ h="urban-defense-serum"
      why="Vitamin C is the most oversold ingredient in skincare and one of the few that genuinely earns its place - if the form survives the climate it is sold into.||Most L-ascorbic acid serums oxidize into a brown, useless liquid within weeks of arriving in an Indian bathroom. This one is built around a form that does not."
      ben=@("Evens tone and fades post-acne marks over 8 to 12 weeks","10% ethyl ascorbic acid, stable in heat and humidity","Layers under sunscreen without pilling","Niacinamide alongside it, which the old advice said was impossible")
      how="Vitamin C interrupts the step where skin makes pigment. Less new pigment, and the marks already there fade sooner.||We use 3-O-ethyl ascorbic acid rather than L-ascorbic acid because it stays stable at Indian room temperature. A less-studied form that still works in month three beats the best-studied form that died in week two."
@@ -63,10 +63,10 @@ $content = @(
      skin=@("All skin types","Dull","Uneven tone","Pigmentation-prone")
      faqs=@("vitamin-c-form","how-long-results","storage","order-of-application")
      time="Brightness at 4 weeks. Marks fade over 8 to 12."
-     seoT="Radiance Serum - 10% Vitamin C for Indian Skin 30 ml | EMBRAE"
+     seoT="Urban Defense Serum - 10% Vitamin C for Indian Skin 30 ml | EMBRAE"
      seoD="Stabilised 10% ethyl ascorbic acid with niacinamide. Fades post-acne marks and evens tone without oxidizing in Indian heat." }
 
-  @{ h="barrier-moisturizer"
+  @{ h="climate-adapt-moisturizer"
      why="Almost every skin problem people bring us turns out to be a barrier problem wearing a different name. Dryness, sensitivity, rebound oiliness, stinging - all of it traces back to a barrier that has been stripped.||This exists to rebuild that, and to be light enough that people actually use it in July."
      ben=@("Visible barrier repair in 10 to 14 days","Three ceramide types in the ratio skin uses them","Squalane restores lipids without an oily film","Fragrance free, so it suits reactive skin")
      how="Ceramides are the mortar between skin cells. Strip them and water escapes while irritants get in.||We use Ceramide NP, AP and EOP together rather than one, because a single ceramide on a label is a marketing choice. Squalane and hyaluronic acid handle the lipid and water sides of the same problem."
@@ -75,10 +75,10 @@ $content = @(
      skin=@("Dry","Sensitive","Compromised barrier","All skin types")
      faqs=@("sensitive-skin","oily-skin","order-of-application","fragrance")
      time="Tightness eases within days. Barrier repair in 10 to 14."
-     seoT="Barrier Moisturizer - Ceramide and Squalane Cream 50 ml | EMBRAE"
+     seoT="Climate Adapt Moisturizer - Ceramide and Squalane Cream 50 ml | EMBRAE"
      seoD="Fragrance-free ceramide and squalane cream for barriers stripped by air conditioning, hard water and actives. Visible repair in two weeks." }
 
-  @{ h="daily-defense-sunscreen"
+  @{ h="daily-shield-spf50"
      why="Sunscreen is the single highest-return step in any routine and the one most people skip, because most sunscreens sting, leave a gray cast, or pill under makeup.||The formulation brief here was simple: make one people will actually wear every day. Nothing else about a sunscreen matters if it stays in the drawer."
      ben=@("Broad spectrum SPF 50 PA++++","Non-nano zinc oxide, no white cast on Indian skin tones","Niacinamide to keep it from stinging","Sits under makeup without pilling")
      how="Zinc oxide is a mineral filter - it works from the moment it is on, and it covers UVA and UVB in one ingredient.||Non-nano particles in a fluid base avoid the chalky finish mineral sunscreens are known for. Niacinamide handles the irritation that pushes people off sunscreen entirely."
@@ -87,10 +87,10 @@ $content = @(
      skin=@("All skin types","Sensitive","Pigmentation-prone","Daily use")
      faqs=@("how-much-sunscreen","sunscreen-indoors","pregnancy-safe","order-of-application")
      time="Protection is immediate. Pigmentation benefit shows over months."
-     seoT="Daily Defense Sunscreen SPF 50 PA++++ No White Cast 50 ml | EMBRAE"
+     seoT="Daily Shield SPF 50 PA++++ No White Cast 50 ml | EMBRAE"
      seoD="Mineral-led broad spectrum SPF 50 PA++++ with non-nano zinc oxide and niacinamide. No white cast, no sting, wears under makeup." }
 
-  @{ h="starter-duo-set"
+  @{ h="barrier-support-duo"
      why="Most people starting a routine buy six things and abandon four. The two that actually matter on day one are a cleanser that does not strip and a moisturizer that rebuilds.||This is those two, and deliberately nothing else."
      ben=@("The two steps a barrier needs before anything else","Cheaper than buying the pair separately","No actives to react to while your skin settles","A complete routine on its own, not a starter for a bigger one")
      how="Cleansing removes the day without damaging the barrier. The moisturizer puts back the ceramides and lipids that cleansing, hard water and air conditioning take out.||Get these two right and most people find they need far less than they expected."
@@ -99,10 +99,10 @@ $content = @(
      skin=@("Beginners","Sensitive","Dry","All skin types")
      faqs=@("which-product-first","sensitive-skin","how-long-results","return-policy")
      time="Barrier improvement in 10 to 14 days."
-     seoT="The Starter Duo - Cleanser and Moisturizer Set | EMBRAE"
-     seoD="The two steps that matter on day one: Clarity Gel Cleanser and Barrier Moisturizer. A complete routine, not a starter for a bigger one." }
+     seoT="Barrier Support Duo - Cleanser and Moisturizer Set | EMBRAE"
+     seoD="The two steps that matter on day one: Barrier Reset Cleanser and Climate Adapt Moisturizer. A complete routine, not a starter for a bigger one." }
 
-  @{ h="morning-ritual-set"
+  @{ h="am-defense-routine"
      why="The daylight routine is where tone and pigmentation are won or lost, and the order matters more than most people realize.||Cleanse, brighten, protect - in that sequence, every morning. This is those three steps in one box."
      ben=@("A full morning routine in the order it is applied","Vitamin C and SPF work together, and neither works alone","Saves against buying the three separately","Enough for roughly two months")
      how="Vitamin C reduces new pigment. Sunscreen stops the sun making more. Doing one without the other is the most common reason a brightening routine disappoints.||The cleanser prepares the skin without stripping it, so the serum absorbs instead of sitting."
@@ -111,10 +111,10 @@ $content = @(
      skin=@("All skin types","Dull","Uneven tone","Pigmentation-prone")
      faqs=@("order-of-application","how-much-sunscreen","how-long-results","which-product-first")
      time="Brightness at 4 weeks, tone over 8 to 12."
-     seoT="The Morning Ritual - Cleanser, Vitamin C and SPF 50 Set | EMBRAE"
+     seoT="AM Defense Routine - Cleanser, Vitamin C and SPF 50 Set | EMBRAE"
      seoD="Cleanse, brighten, protect. A full morning routine where the vitamin C and the sunscreen do the work together rather than separately." }
 
-  @{ h="evening-ritual-set"
+  @{ h="pm-recovery-routine"
      why="Skin repairs overnight, and the evening routine is what it has to work with.||Cleanse, treat, seal - three steps that take under two minutes and do more than any single product can."
      ben=@("A complete evening routine in application order","Treats and repairs in the same session","Saves against buying the three separately","Suits most skin types without adjustment")
      how="The cleanser takes off the day. The serum works on tone while skin is in its repair window. The moisturizer seals both in and rebuilds the barrier overnight.||Hyaluronic acid without something over it makes skin drier, which is why the moisturizer is not optional here."
@@ -123,22 +123,22 @@ $content = @(
      skin=@("All skin types","Dry","Dull","Fine lines")
      faqs=@("order-of-application","how-long-results","mixing-brands","storage")
      time="Texture in 2 weeks, tone over 8 to 12."
-     seoT="The Evening Ritual - Night Routine Set | EMBRAE"
+     seoT="PM Recovery Routine - Night Routine Set | EMBRAE"
      seoD="Cleanse, treat, seal. Three steps for the window when skin actually repairs, in the order they should be applied." }
 
-  @{ h="complete-routine-set"
+  @{ h="daily-urban-defense-routine"
      why="Everything we make, morning and night, with nothing left to work out.||Bought separately these four require a decision about order, timing and combination. Bought together they do not."
      ben=@("All four steps, morning and evening covered","The largest saving in the range","No decisions about what goes with what","Roughly two months of a full routine")
      how="Morning is cleanse, vitamin C, sunscreen - tone and protection. Evening is cleanse, serum, moisturizer - repair.||The same cleanser serves both. That is deliberate, not a shortcut."
-     use="Morning: cleanser, Radiance Serum, sunscreen.||Evening: cleanser, Radiance Serum, Barrier Moisturizer.||If your skin is reactive, start with the cleanser and moisturizer only and add the serum in week three."
+     use="Morning: cleanser, Urban Defense Serum, sunscreen.||Evening: cleanser, Urban Defense Serum, Climate Adapt Moisturizer.||If your skin is reactive, start with the cleanser and moisturizer only and add the serum in week three."
      ings=@("vitamin-c","niacinamide","ceramides","zinc-oxide"); cons=@("dullness","dryness","pigmentation")
      skin=@("All skin types","Complete routine","Gifting")
      faqs=@("which-product-first","order-of-application","how-long-results","return-policy")
      time="Barrier in 2 weeks, breakouts in 4 to 6, tone in 8 to 12."
-     seoT="The Complete Routine - Full Four-Step Skincare Set | EMBRAE"
+     seoT="Daily Urban Defense Routine - Full Four-Step Skincare Set | EMBRAE"
      seoD="All four EMBRAE products for morning and night in one box. Cleanser, serum, moisturizer and SPF 50, with nothing left to work out." }
 
-  @{ h="travel-barrier-moisturizer"
+  @{ h="travel-essentials-pouch"
      why="The 50 ml jar does not clear cabin-bag rules and does not survive being packed loose.||This is the same formula in a size that travels, and the one we add to qualifying orders so people can try it before committing to the full size."
      ben=@("Identical formula to the 50 ml","Cabin-bag compliant at 15 ml","Enough for roughly three weeks","Useful as a patch-test size for reactive skin")
      how="Ceramide NP, AP and EOP with squalane and hyaluronic acid - the same barrier repair as the full size, in a smaller jar.||Nothing is reformulated or diluted for the travel size."
@@ -147,8 +147,8 @@ $content = @(
      skin=@("Dry","Sensitive","Travel","Trial size")
      faqs=@("travel-size","sensitive-skin","patch-test","storage")
      time="Same as the full size - barrier repair in 10 to 14 days."
-     seoT="Barrier Moisturizer Travel Size 15 ml | EMBRAE"
-     seoD="The 15 ml cabin-bag size of the ceramide and squalane Barrier Moisturizer. Same formula, smaller jar." }
+     seoT="Travel Essentials Pouch 15 ml | EMBRAE"
+     seoD="The 15 ml cabin-bag size of the ceramide and squalane Climate Adapt Moisturizer. Same formula, smaller jar." }
 )
 
 # --- write ------------------------------------------------------------------

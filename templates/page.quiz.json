@@ -19,6 +19,22 @@
     "quiz": {
       "type": "skin-quiz",
       "settings": {
+        "questions": [
+          "gid://shopify/Metaobject/349957161073",
+          "gid://shopify/Metaobject/349957193841",
+          "gid://shopify/Metaobject/349957226609",
+          "gid://shopify/Metaobject/349957259377",
+          "gid://shopify/Metaobject/349957292145",
+          "gid://shopify/Metaobject/349957324913"
+        ],
+        "concerns": [
+          "gid://shopify/Metaobject/349953392753",
+          "gid://shopify/Metaobject/349953425521",
+          "gid://shopify/Metaobject/349953458289",
+          "gid://shopify/Metaobject/349953491057",
+          "gid://shopify/Metaobject/349953523825",
+          "gid://shopify/Metaobject/349953556593"
+        ],
         "caption": "Two minutes",
         "heading": "Find out what your skin actually needs",
         "heading_size": "h0",
@@ -52,7 +68,15 @@
         "link": "",
         "color_scheme": "scheme-2",
         "padding_top": 88,
-        "padding_bottom": 88
+        "padding_bottom": 88,
+        "concerns": [
+          "gid://shopify/Metaobject/349953392753",
+          "gid://shopify/Metaobject/349953425521",
+          "gid://shopify/Metaobject/349953458289",
+          "gid://shopify/Metaobject/349953491057",
+          "gid://shopify/Metaobject/349953523825",
+          "gid://shopify/Metaobject/349953556593"
+        ]
       }
     },
     "help": {

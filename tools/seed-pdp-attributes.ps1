@@ -21,8 +21,8 @@
 # product data, so they are safe as placeholder copy. They still need brand
 # sign-off before launch.
 #
-# NOTE ON NAMES: the catalogue uses Clarity Cleanser, Radiance Serum, Barrier
-# Moisturizer and Daily Defense Sunscreen. The Build Brief and the prototype
+# NOTE ON NAMES: the catalogue uses Barrier Reset Cleanser, Urban Defense Serum, Barrier
+# Moisturizer and Daily Shield. The Build Brief and the prototype
 # boards use Barrier Reset Cleanser, Urban Defense Serum, Climate Adapt
 # Moisturizer and Daily Shield SPF50 PA++++. That is an open discrepancy for the
 # merchant - renaming changes handles and needs urlRedirects - so this script
@@ -36,31 +36,31 @@ $ErrorActionPreference = "Stop"
 . (Join-Path $PSScriptRoot "gql.ps1")
 
 $Data = @(
-  @{ handle = "clarity-cleanser"
+  @{ handle = "barrier-reset-cleanser"
      benefit = "Clears the day off your skin without stripping the barrier."
      attrs = @("Lightweight", "Fragrance-free", "Non-comedogenic", "Dermatologist tested") }
-  @{ handle = "radiance-serum"
+  @{ handle = "urban-defense-serum"
      benefit = "Strengthens the barrier and helps skin defend against daily urban stress."
      attrs = @("Fast absorbing", "Fragrance-free", "Non-comedogenic", "Dermatologist tested") }
-  @{ handle = "barrier-moisturizer"
+  @{ handle = "climate-adapt-moisturizer"
      benefit = "Replenishes hydration and helps skin adapt to changing conditions."
      attrs = @("Lightweight", "Fragrance-free", "Non-comedogenic", "Dermatologist tested") }
-  @{ handle = "daily-defense-sunscreen"
+  @{ handle = "daily-shield-spf50"
      benefit = "High UV protection that stays comfortable enough to wear every day."
      attrs = @("No white cast", "Fragrance-free", "Non-comedogenic", "Dermatologist tested") }
-  @{ handle = "starter-duo-set"
+  @{ handle = "barrier-support-duo"
      benefit = "Two steps to start with, chosen to work together."
      attrs = @("Two full-size products", "Fragrance-free") }
-  @{ handle = "morning-ritual-set"
+  @{ handle = "am-defense-routine"
      benefit = "The morning sequence, in the order it should be used."
      attrs = @("Three full-size products", "Fragrance-free") }
-  @{ handle = "evening-ritual-set"
+  @{ handle = "pm-recovery-routine"
      benefit = "The evening sequence, for when skin does its repair work."
      attrs = @("Three full-size products", "Fragrance-free") }
-  @{ handle = "complete-routine-set"
+  @{ handle = "daily-urban-defense-routine"
      benefit = "All four routine steps together: reset, defend, adapt, protect."
      attrs = @("Four full-size products", "Fragrance-free") }
-  @{ handle = "travel-barrier-moisturizer"
+  @{ handle = "travel-essentials-pouch"
      benefit = "The same barrier support, sized for cabin baggage."
      attrs = @("Travel size", "Fragrance-free", "Non-comedogenic") }
 )

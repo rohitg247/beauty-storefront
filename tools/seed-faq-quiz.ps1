@@ -39,7 +39,7 @@ $faqs = @(
   @{ h="what-is-embrae"; cat="General"; q="What is EMBRAE?"
      a="EMBRAE is a skincare range built for Indian skin and Indian weather - heat, humidity, monsoon, hard water and air conditioning.||We publish the percentage of every active on the carton, not just the ingredient name, because a name without a number tells you nothing about whether it will work." }
   @{ h="which-product-first"; cat="General"; q="Which product should I start with?"
-     a="If you are unsure, take the skin quiz - six questions, about a minute, and it recommends based on your concern and your city rather than on what we would most like to sell.||If you would rather not, the Starter Duo is the honest default: a cleanser and a moisturizer. Almost nobody needs more than that on day one." }
+     a="If you are unsure, take the skin quiz - six questions, about a minute, and it recommends based on your concern and your city rather than on what we would most like to sell.||If you would rather not, the Barrier Support Duo is the honest default: a cleanser and a moisturizer. Almost nobody needs more than that on day one." }
   @{ h="how-long-results"; cat="General"; q="How long before I see results?"
      a="It depends entirely on the concern. Barrier repair and hydration show in ten to fourteen days. Breakouts take four to six weeks. Tone and pigmentation take eight to twelve, and marks fade rather than disappear.||Anyone promising faster than that is describing an exfoliant or a filter." }
   @{ h="are-products-tested"; cat="Safety"; q="Do you test on animals?"
@@ -85,7 +85,7 @@ $faqs = @(
   @{ h="storage"; cat="Product"; q="How should I store these?"
      a="Somewhere cool, dry and out of direct sunlight. A bathroom cabinet is fine; a windowsill is not.||The vitamin C serum in particular will last longer away from heat." }
   @{ h="travel-size"; cat="Product"; q="Do you make travel sizes?"
-     a="The Barrier Moisturizer comes in a 15 ml cabin-bag size. More sizes will follow if there is demand for them." }
+     a="The Climate Adapt Moisturizer comes in a 15 ml cabin-bag size. More sizes will follow if there is demand for them." }
 )
 
 Write-Output "--- FAQs ---"
@@ -170,28 +170,28 @@ foreach ($q in $questions) {
 $routines = @(
   @{ h="morning-dullness"; name="Morning routine for dull skin"; tod="Morning"; lvl="Beginner"; con="dullness"
      sum="Three steps, under two minutes, aimed at tone."
-     steps="1. Cleanse with lukewarm water to take off the night.||2. Radiance Serum on slightly damp skin. Two or three drops is enough for the whole face.||3. Daily Defense Sunscreen, two finger-lengths. This step is what makes step 2 worth doing."
-     prods=@("clarity-cleanser","radiance-serum","daily-defense-sunscreen") }
+     steps="1. Cleanse with lukewarm water to take off the night.||2. Urban Defense Serum on slightly damp skin. Two or three drops is enough for the whole face.||3. Daily Shield, two finger-lengths. This step is what makes step 2 worth doing."
+     prods=@("barrier-reset-cleanser","urban-defense-serum","daily-shield-spf50") }
   @{ h="evening-dryness"; name="Evening routine for dry skin"; tod="Evening"; lvl="Barrier repair"; con="dryness"
      sum="Stop the stripping, then rebuild. Two weeks to a visible difference."
-     steps="1. Cleanse once, gently, with lukewarm water. Not hot.||2. Barrier Moisturizer while the skin is still slightly damp - it seals the water in rather than sitting on dry skin.||3. Nothing else. No acids, no retinol, for at least a fortnight."
-     prods=@("clarity-cleanser","barrier-moisturizer") }
+     steps="1. Cleanse once, gently, with lukewarm water. Not hot.||2. Climate Adapt Moisturizer while the skin is still slightly damp - it seals the water in rather than sitting on dry skin.||3. Nothing else. No acids, no retinol, for at least a fortnight."
+     prods=@("barrier-reset-cleanser","climate-adapt-moisturizer") }
   @{ h="evening-breakouts"; name="Evening routine for breakouts"; tod="Evening"; lvl="Intermediate"; con="breakouts"
      sum="Clear the pore without stripping the skin around it."
-     steps="1. Clarity Gel Cleanser, forty seconds of contact. Do not scrub - the salicylic acid does the work.||2. Barrier Moisturizer, lightly. Skipping this is what causes rebound oil.||3. Give it four to six weeks before deciding it has not worked."
-     prods=@("clarity-cleanser","barrier-moisturizer") }
+     steps="1. Barrier Reset Cleanser, forty seconds of contact. Do not scrub - the salicylic acid does the work.||2. Climate Adapt Moisturizer, lightly. Skipping this is what causes rebound oil.||3. Give it four to six weeks before deciding it has not worked."
+     prods=@("barrier-reset-cleanser","climate-adapt-moisturizer") }
   @{ h="morning-pigmentation"; name="Morning routine for pigmentation"; tod="Morning"; lvl="Intermediate"; con="pigmentation"
      sum="Sunscreen is the treatment here, not the aftercare."
-     steps="1. Cleanse.||2. Radiance Serum for tone and to slow pigment transfer.||3. Daily Defense Sunscreen, generously, and reapply if you are outdoors. Without this step the serum is wasted effort."
-     prods=@("clarity-cleanser","radiance-serum","daily-defense-sunscreen") }
+     steps="1. Cleanse.||2. Urban Defense Serum for tone and to slow pigment transfer.||3. Daily Shield, generously, and reapply if you are outdoors. Without this step the serum is wasted effort."
+     prods=@("barrier-reset-cleanser","urban-defense-serum","daily-shield-spf50") }
   @{ h="evening-sensitivity"; name="Reset routine for sensitive skin"; tod="Morning and evening"; lvl="Sensitive skin"; con="sensitivity"
      sum="Three weeks of doing less, then reintroduce slowly."
-     steps="1. Lukewarm water and the gentlest cleanse you can manage.||2. Barrier Moisturizer, morning and night.||3. Sunscreen in the morning only.||4. Nothing else for three weeks. Then add one product per fortnight, patch tested first."
-     prods=@("barrier-moisturizer","daily-defense-sunscreen","starter-duo-set") }
+     steps="1. Lukewarm water and the gentlest cleanse you can manage.||2. Climate Adapt Moisturizer, morning and night.||3. Sunscreen in the morning only.||4. Nothing else for three weeks. Then add one product per fortnight, patch tested first."
+     prods=@("climate-adapt-moisturizer","daily-shield-spf50","barrier-support-duo") }
   @{ h="evening-fine-lines"; name="Evening routine for fine lines"; tod="Evening"; lvl="Intermediate"; con="fine-lines"
      sum="Hydration softens the look immediately. Prevention does the rest."
-     steps="1. Cleanse.||2. Radiance Serum on damp skin.||3. Barrier Moisturizer over the top to hold the water in - hyaluronic acid without a seal makes lines look worse, not better."
-     prods=@("clarity-cleanser","radiance-serum","barrier-moisturizer") }
+     steps="1. Cleanse.||2. Urban Defense Serum on damp skin.||3. Climate Adapt Moisturizer over the top to hold the water in - hyaluronic acid without a seal makes lines look worse, not better."
+     prods=@("barrier-reset-cleanser","urban-defense-serum","climate-adapt-moisturizer") }
 )
 
 Write-Output ""

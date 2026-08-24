@@ -1,15 +1,15 @@
 # Creates the two discounts the storefront copy already promises:
 #   1. WELCOME10  - 10% off a first order, one use per customer
-#   2. Automatic  - spend Rs2,499, get the travel-size Barrier Moisturizer free
+#   2. Automatic  - spend Rs2,499, get the travel-size Climate Adapt Moisturizer free
 #
 # MOCK THRESHOLDS. Rs1,499 free shipping and Rs2,499 for the gift are assumed, not
 # confirmed by the merchant. Confirm before launch - the homepage advertises them.
 
 . (Join-Path $PSScriptRoot "gql.ps1")
 
-$r = Send-GQL 'query { products(first: 30, query: "handle:travel-barrier-moisturizer") { nodes { id handle variants(first: 1) { nodes { id } } } } collections(first: 40, query: "handle:skincare") { nodes { id handle } } }'
+$r = Send-GQL 'query { products(first: 30, query: "handle:travel-essentials-pouch") { nodes { id handle variants(first: 1) { nodes { id } } } } collections(first: 40, query: "handle:skincare") { nodes { id handle } } }'
 $gift = $r.data.products.nodes | Select-Object -First 1
-if (-not $gift) { Write-Host "FAIL - travel-barrier-moisturizer not found"; exit 1 }
+if (-not $gift) { Write-Host "FAIL - travel-essentials-pouch not found"; exit 1 }
 # BXGY rejects `items: { all: true }` on customerBuys with "Items in 'customer buys' must be
 # defined" - it needs explicit products or collections. The `skincare` collection holds all
 # nine products, so it stands in for "anything in the catalog".

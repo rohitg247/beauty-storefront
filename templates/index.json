@@ -53,7 +53,7 @@
           "type": "slide",
           "settings": {
             "image": "shopify://shop_images/embrae-radiance-serum.jpg",
-            "heading": "Radiance Serum",
+            "heading": "Urban Defense Serum",
             "heading_size": "h1",
             "subheading": "A lightweight daily serum that supports the skin barrier against everyday urban stress.",
             "button_label": "Shop the serum",
@@ -345,7 +345,7 @@
             "quote": "<p>Six weeks in and the marks left over from last year have genuinely faded. First serum I have finished the whole bottle of.</p>",
             "rating": 5,
             "author": "Ananya R.",
-            "author_detail": "Bengaluru — Radiance Serum",
+            "author_detail": "Bengaluru — Urban Defense Serum",
             "author_image": "shopify://shop_images/embrae-avatar-ananya.png"
           }
         },
@@ -355,7 +355,7 @@
             "quote": "<p>My skin reacts to almost everything. This is the first cleanser in years that has not left my face tight afterwards.</p>",
             "rating": 5,
             "author": "Meera S.",
-            "author_detail": "Chennai — Clarity Gel Cleanser",
+            "author_detail": "Chennai — Barrier Reset Cleanser",
             "author_image": "shopify://shop_images/embrae-avatar-meera.png"
           }
         },
@@ -365,7 +365,7 @@
             "quote": "<p>Ten hours of office air conditioning used to leave me flaking by evening. Two weeks of this and that stopped.</p>",
             "rating": 5,
             "author": "Devika P.",
-            "author_detail": "Delhi — Barrier Moisturizer",
+            "author_detail": "Delhi — Climate Adapt Moisturizer",
             "author_image": "shopify://shop_images/embrae-avatar-devika.png"
           }
         },
@@ -375,7 +375,7 @@
             "quote": "<p>No white cast, which I had given up expecting. It does pill slightly if I rush the layer underneath, so I wait a minute now.</p>",
             "rating": 4,
             "author": "Rhea K.",
-            "author_detail": "Mumbai — Daily Defense Sunscreen",
+            "author_detail": "Mumbai — Daily Shield",
             "author_image": "shopify://shop_images/embrae-avatar-rhea.png"
           }
         },
@@ -385,7 +385,7 @@
             "quote": "<p>I bought two products instead of the six I was about to. Somebody talking me out of spending more is why I came back.</p>",
             "rating": 5,
             "author": "Simran B.",
-            "author_detail": "Pune — The Starter Duo",
+            "author_detail": "Pune — Barrier Support Duo",
             "author_image": "shopify://shop_images/embrae-avatar-simran.png"
           }
         },
@@ -395,7 +395,7 @@
             "quote": "<p>Wanted the whole routine decided for me. It works, though I wish the serum came in a larger size for the price.</p>",
             "rating": 4,
             "author": "Tara N.",
-            "author_detail": "Hyderabad — The Morning Ritual",
+            "author_detail": "Hyderabad — AM Defense Routine",
             "author_image": "shopify://shop_images/embrae-avatar-tara.png"
           }
         }
@@ -556,7 +556,15 @@
         "link": "/pages/education#ingredient-library",
         "color_scheme": "scheme-2",
         "padding_top": 96,
-        "padding_bottom": 96
+        "padding_bottom": 96,
+        "ingredients": [
+          "gid://shopify/Metaobject/349952934001",
+          "gid://shopify/Metaobject/349953228913",
+          "gid://shopify/Metaobject/349953261681",
+          "gid://shopify/Metaobject/349953294449",
+          "gid://shopify/Metaobject/349953327217",
+          "gid://shopify/Metaobject/349953359985"
+        ]
       }
     },
     "concern-router": {
@@ -571,7 +579,15 @@
         "link": "/pages/education#skin-concerns",
         "color_scheme": "scheme-1",
         "padding_top": 96,
-        "padding_bottom": 96
+        "padding_bottom": 96,
+        "concerns": [
+          "gid://shopify/Metaobject/349953392753",
+          "gid://shopify/Metaobject/349953425521",
+          "gid://shopify/Metaobject/349953458289",
+          "gid://shopify/Metaobject/349953491057",
+          "gid://shopify/Metaobject/349953523825",
+          "gid://shopify/Metaobject/349953556593"
+        ]
       }
     },
     "founder": {

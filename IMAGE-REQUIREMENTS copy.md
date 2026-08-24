@@ -113,14 +113,14 @@ or delivery note.
 | 2 | **Urban Defense Serum** | Dropper bottle, amber or frosted glass | 30 ml |
 | 3 | **Climate Adapt Moisturizer** | Wide jar with lid | 50 ml |
 | 4 | **Daily Shield SPF 50 PA++++** | Squeeze tube | 50 ml |
-| 5 | **Barrier Support Duo** | Cleanser + Moisturizer, with the outer box | 2-product set |
-| 6 | **AM Defense Routine** | Cleanser + Serum + SPF | 3-product set |
-| 7 | **PM Recovery Routine** | Cleanser + Serum + Moisturizer | 3-product set |
-| 8 | **Daily Urban Defense Routine** | All four above, together, with the outer box | 4-product set |
+| 5 | **Urban Defense Routine** | All four above, together, with the outer box | 4-product set |
+| 6 | **The Morning Ritual** | Cleanser + Serum + SPF | 3-product set |
+| 7 | **The Evening Repair Kit** | Cleanser + Serum + Moisturizer | 3-product set |
+| 8 | **Travel Essentials Kit** | Travel-size minis of all four | 4-mini set |
 
 Plus one item that is never sold:
 
-| — | **Travel Essentials Pouch** | The empty branded pouch, free with the Daily Urban Defense Routine | gift |
+| — | **Travel Essentials Pouch** | The empty branded pouch, free with the Urban Defense Routine | gift |
 
 ---
 
@@ -198,7 +198,7 @@ square and 2:1 depending on the handset, so keep the product inside the middle 8
 | `embrae-hero-routine-mobile.jpg` | 2 — mobile | The same four, but tighter — two rows of two, or a closer row. Four across does not read at 360 px. |
 | `embrae-hero-urban-defense-serum.jpg` | 3 — the serum | Right side: **the Urban Defense Serum alone**, three-quarter angle, dropper visible. This is the flagship product shot. Ground: cream. |
 | `embrae-hero-urban-defense-serum-mobile.jpg` | 3 — mobile | The serum, centred, larger in frame. |
-| `embrae-hero-bundle-offer.jpg` | 4 — the bundle offer | ⚠️ **This slide runs on the deep green `#034638` ground.** Shoot the Daily Urban Defense Routine box and contents **on deep green**, lit so the packaging separates from it. Peach `#F3CFB3` text is drawn over the left side, so keep that area dark and even. |
+| `embrae-hero-bundle-offer.jpg` | 4 — the bundle offer | ⚠️ **This slide runs on the deep green `#034638` ground.** Shoot the Urban Defense Routine box and contents **on deep green**, lit so the packaging separates from it. Peach `#F3CFB3` text is drawn over the left side, so keep that area dark and even. |
 | `embrae-hero-bundle-offer-mobile.jpg` | 4 — mobile | Same green ground, box centred. |
 
 ---
@@ -237,16 +237,16 @@ bottle, or the product held in hand. Same ground, same light.
 | `embrae-climate-adapt-moisturizer-alt.jpg` | Climate Adapt Moisturizer | Lid off, cream surface visible |
 | `embrae-daily-shield-spf50.jpg` | Daily Shield SPF 50 PA++++ | Front, cap up, SPF marking legible |
 | `embrae-daily-shield-spf50-alt.jpg` | Daily Shield SPF 50 PA++++ | Angled, with carton |
-| `embrae-daily-urban-defense-routine.jpg` | Daily Urban Defense Routine | All four products **plus the box**. This is a ₹3,000+ purchase — it must look like a considered object. |
-| `embrae-daily-urban-defense-routine-alt.jpg` | Daily Urban Defense Routine | Box open, contents arranged |
-| `embrae-am-defense-routine.jpg` | AM Defense Routine | Cleanser, serum, SPF — in that order left to right |
-| `embrae-am-defense-routine-alt.jpg` | AM Defense Routine | Angled group |
-| `embrae-pm-recovery-routine.jpg` | PM Recovery Routine | Cleanser, serum, moisturizer, left to right |
-| `embrae-pm-recovery-routine-alt.jpg` | PM Recovery Routine | Angled group, warmer light |
-| `embrae-barrier-support-duo.jpg` | Barrier Support Duo | Cleanser and moisturizer together, with the box |
-| `embrae-barrier-support-duo-alt.jpg` | Barrier Support Duo | Angled pair, box open |
+| `embrae-urban-defense-routine.jpg` | Urban Defense Routine | All four products **plus the box**. This is a ₹3,000+ purchase — it must look like a considered object. |
+| `embrae-urban-defense-routine-alt.jpg` | Urban Defense Routine | Box open, contents arranged |
+| `embrae-morning-ritual.jpg` | The Morning Ritual | Cleanser, serum, SPF — in that order left to right |
+| `embrae-morning-ritual-alt.jpg` | The Morning Ritual | Angled group |
+| `embrae-evening-repair-kit.jpg` | The Evening Repair Kit | Cleanser, serum, moisturizer, left to right |
+| `embrae-evening-repair-kit-alt.jpg` | The Evening Repair Kit | Angled group, warmer light |
+| `embrae-travel-essentials-kit.jpg` | Travel Essentials Kit | Four minis, with the pouch behind |
+| `embrae-travel-essentials-kit-alt.jpg` | Travel Essentials Kit | Minis inside the pouch, packed |
 | `embrae-travel-essentials-pouch.jpg` | Travel Essentials Pouch | The empty pouch alone, branding visible |
-| `embrae-travel-essentials-pouch-alt.jpg` | Travel Essentials Pouch | Pouch held, or shown beside the Daily Urban Defense Routine it comes free with |
+| `embrae-travel-essentials-pouch-alt.jpg` | Travel Essentials Pouch | Pouch held, or shown with the bundle it comes free with |
 
 ---
 
@@ -371,7 +371,7 @@ need their own.
 | `embrae-collection-cleansers.jpg` | Cleansers | The cleanser, tall crop |
 | `embrae-collection-sunscreen.jpg` | Sunscreen | The SPF tube, brighter light |
 | `embrae-collection-bundles.jpg` | Bundles | Two or three boxes stacked |
-| `embrae-collection-gift-sets.jpg` | Gift sets | The pouch and the Barrier Support Duo |
+| `embrae-collection-gift-sets.jpg` | Gift sets | The travel kit and pouch |
 | `embrae-collection-bestsellers.jpg` | Bestsellers | The three strongest sellers together |
 
 ---
