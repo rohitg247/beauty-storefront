@@ -124,7 +124,7 @@
         "text": {
           "type": "text",
           "settings": {
-            "text": "<p>Skin isn't static. Neither is the environment around it. Heat, humidity, pollution, air conditioning and seasonal shifts constantly change the conditions your skin faces. EMBRAE is built for that reality supporting the skin barrier with hydration and daily defense to help skin stay balanced, comfortable and resilient through modern urban life.<br/><br/><br/></p>",
+            "text": "<p>Skin isn't static. Neither is the environment around it. Heat, humidity, pollution, air conditioning and seasonal shifts constantly change the conditions your skin faces. EMBRAE is built for that reality, supporting the skin barrier with hydration and daily defense to help skin stay balanced, comfortable and resilient through modern urban life<br/><br/><br/><br/><br/></p>",
             "text_style": "body"
           }
         }
