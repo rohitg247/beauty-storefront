@@ -93,6 +93,12 @@
     <script src="{{ 'standard-actions-override.js' | asset_url }}" defer="defer"></script>
     <script src="{{ 'brand.js' | asset_url }}" type="module"></script>
     {%- comment -%}
+      EMBRAE funnel instrumentation. Separate file from brand.js so a thrown
+      error in either cannot reach the other, and deferred because nothing it
+      measures happens before first paint.
+    {%- endcomment -%}
+    <script src="{{ 'embrae-analytics.js' | asset_url }}" defer="defer"></script>
+    {%- comment -%}
       Adds hover-to-open on the header submenus, desktop and mouse only. It
       layers on top of details-disclosure.js rather than modifying it, so the
       nav still opens on click if this never loads.
@@ -334,19 +340,20 @@
       {{ 'component-discounts.css' | asset_url | stylesheet_tag }}
     {%- endif -%}
 
-    {%- unless settings.type_body_font.system? -%}
-      {% comment %}theme-check-disable AssetPreload{% endcomment %}
-      <link rel="preload" as="font" href="{{ settings.type_body_font | font_url }}" type="font/woff2" crossorigin>
-      {% comment %}theme-check-enable AssetPreload{% endcomment %}
-    {%- endunless -%}
     {%- comment -%}
-      The display face is self-hosted Cormorant Garamond (assets/brand.css), not the
-      theme-settings heading font, so that is what gets preloaded. Playfair Display
-      stays declared via font_face above as the fallback and is only fetched if
-      Cormorant fails to load, so preloading it too would be dead weight.
+      Both faces are self-hosted in assets/ and declared in brand.css, so those
+      are what get preloaded - Inter for everything functional, DM Serif Display
+      for h1/h2.
+
+      The theme-settings fonts (Playfair Display, Jost) are NOT preloaded. They
+      are declared via font_face above purely as the fallback chain and are only
+      ever fetched if a self-hosted file fails, so preloading them would put a
+      request on the critical path for bytes that are normally never used. That
+      was the case here until this change.
     {%- endcomment -%}
     {% comment %}theme-check-disable AssetPreload{% endcomment %}
-    <link rel="preload" as="font" href="{{ 'cormorant-garamond.woff2' | asset_url }}" type="font/woff2" crossorigin>
+    <link rel="preload" as="font" href="{{ 'inter.woff2' | asset_url }}" type="font/woff2" crossorigin>
+    <link rel="preload" as="font" href="{{ 'dm-serif-display.woff2' | asset_url }}" type="font/woff2" crossorigin>
     {% comment %}theme-check-enable AssetPreload{% endcomment %}
 
     {%- if localization.available_countries.size > 1 or localization.available_languages.size > 1 -%}

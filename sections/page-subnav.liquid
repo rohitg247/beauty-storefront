@@ -1,0 +1,88 @@
+{% comment %}
+  Sticky sub-navigation for the long content pages: Skin Science, Results,
+  Trust & Transparency and FAQ.
+
+  WHY THIS IS NOT THE LEFT RAIL THE BOARDS DRAW
+  ---------------------------------------------
+  Board panels 9-12 all show a left-hand rail sitting beside the content. In
+  Shopify OS 2.0, sections rendered into a JSON template are SIBLINGS - a
+  section cannot wrap the ones after it. Producing a true side-by-side rail
+  would mean collapsing each of those four pages into one monolithic section
+  and giving up the block-level editing the whole template system exists for,
+  or absolutely positioning a rail into the page gutter and hard-coding a
+  matching left padding onto every other section, which breaks the moment a
+  merchant adds a full-bleed band.
+
+  So this delivers the rail's JOB - see the page's parts, jump between them,
+  know where you are - as a bar that sticks under the header. It keeps every
+  section independently editable, works identically on all four pages, and has
+  no width at which it collapses.
+
+  Recorded as a deliberate deviation in docs/changes.md.
+
+  Anchors: these point at the hand-written `anchor` settings already on those
+  sections (/pages/trust#quality-standards and so on), which is the same
+  mechanism the navigation menus use. Nothing here invents a target.
+{% endcomment %}
+
+{%- if section.blocks.size > 0 -%}
+  {{ 'section-page-subnav.css' | asset_url | stylesheet_tag }}
+
+  <nav
+    class="page-subnav color-{{ section.settings.color_scheme }}"
+    aria-label="{{ section.settings.aria_label | default: 'On this page' | escape }}"
+  >
+    <div class="page-width">
+      <ul class="page-subnav__list" role="list">
+        {%- for block in section.blocks -%}
+          {%- if block.settings.label != blank and block.settings.anchor != blank -%}
+            <li {{ block.shopify_attributes }}>
+              <a class="page-subnav__link" href="#{{ block.settings.anchor | handleize }}">
+                {{- block.settings.label | escape -}}
+              </a>
+            </li>
+          {%- endif -%}
+        {%- endfor -%}
+      </ul>
+    </div>
+  </nav>
+{%- endif -%}
+
+{% schema %}
+{
+  "name": "Page sub-navigation",
+  "tag": "section",
+  "class": "page-subnav-section",
+  "max_blocks": 10,
+  "settings": [
+    {
+      "type": "text",
+      "id": "aria_label",
+      "label": "Accessible label",
+      "default": "On this page"
+    },
+    {
+      "type": "color_scheme",
+      "id": "color_scheme",
+      "default": "scheme-2",
+      "label": "Color scheme"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "item",
+      "name": "Link",
+      "settings": [
+        { "type": "text", "id": "label", "label": "Label" },
+        {
+          "type": "text",
+          "id": "anchor",
+          "label": "Anchor id",
+          "info": "Must match the Anchor id set on the section it points at, without the #."
+        }
+      ]
+    }
+  ],
+  "presets": [{ "name": "Page sub-navigation" }]
+}
+{% endschema %}

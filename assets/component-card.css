@@ -593,3 +593,19 @@
     clip-path: polygon(var(--shape--blob-5));
   }
 }
+
+/*
+  EMBRAE: the Bundle badge.
+
+  Sale and sold-out badges are pinned bottom-left by Dawn. A bundle can also be
+  on sale, so this stacks above rather than replacing them - the badge container
+  is already a flex column.
+*/
+.badge--bundle {
+  align-self: flex-start;
+  font-size: 1.2rem;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  box-shadow: var(--surface-edge);
+}

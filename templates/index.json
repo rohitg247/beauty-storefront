@@ -10,51 +10,97 @@
 {
   "sections": {
     "hero": {
-      "type": "image-banner",
+      "type": "slideshow",
       "blocks": {
-        "heading": {
-          "type": "heading",
+        "slide-brand": {
+          "type": "slide",
           "settings": {
-            "heading": "Cold-pressed actives, clinically dosed",
-            "heading_size": "h0"
+            "image": "shopify://shop_images/embrae-complete-routine-set.jpg",
+            "image_mobile": "shopify://shop_images/embrae-starter-duo-set.jpg",
+            "heading": "Skincare for changing climates",
+            "heading_size": "h1",
+            "subheading": "Science-led skincare designed to help your skin reset, defend, adapt and protect through everyday urban stress.",
+            "button_label": "Take the skin quiz",
+            "link": "/pages/quiz",
+            "button_style_secondary": false,
+            "image_overlay_opacity": 10,
+            "show_text_box": true,
+            "box_align": "middle-left",
+            "text_alignment": "left",
+            "text_alignment_mobile": "left",
+            "color_scheme": "scheme-1"
           }
         },
-        "text": {
-          "type": "text",
+        "slide-routine": {
+          "type": "slide",
           "settings": {
-            "text": "Ten formulas, made in small batches and dated on the box. Nothing in them you would not want on your skin.",
-            "text_style": "body"
+            "image": "shopify://shop_images/embrae-morning-ritual-set.jpg",
+            "heading": "Reset. Defend. Adapt. Protect.",
+            "heading_size": "h1",
+            "subheading": "Four actions. One climate-ready routine.",
+            "button_label": "Shop the routine",
+            "link": "/collections/all",
+            "button_style_secondary": false,
+            "image_overlay_opacity": 10,
+            "show_text_box": true,
+            "box_align": "middle-left",
+            "text_alignment": "left",
+            "text_alignment_mobile": "left",
+            "color_scheme": "scheme-1"
           }
         },
-        "buttons": {
-          "type": "buttons",
+        "slide-hero-product": {
+          "type": "slide",
           "settings": {
-            "button_label_1": "Take the skin quiz",
-            "button_link_1": "/pages/quiz",
-            "button_style_secondary_1": false,
-            "button_label_2": "Shop all",
-            "button_link_2": "shopify://collections/all",
-            "button_style_secondary_2": true
+            "image": "shopify://shop_images/embrae-radiance-serum.jpg",
+            "heading": "Radiance Serum",
+            "heading_size": "h1",
+            "subheading": "A lightweight daily serum that supports the skin barrier against everyday urban stress.",
+            "button_label": "Shop the serum",
+            "link": "/collections/serums",
+            "button_style_secondary": false,
+            "image_overlay_opacity": 10,
+            "show_text_box": true,
+            "box_align": "middle-left",
+            "text_alignment": "left",
+            "text_alignment_mobile": "left",
+            "color_scheme": "scheme-1"
+          }
+        },
+        "slide-offer": {
+          "type": "slide",
+          "settings": {
+            "image": "shopify://shop_images/embrae-complete-routine-set-pack.png",
+            "heading": "The complete routine",
+            "heading_size": "h1",
+            "subheading": "All four steps together, with free shipping over ₹1,499.",
+            "button_label": "Shop bundles",
+            "link": "/collections/bundles",
+            "button_style_secondary": false,
+            "image_overlay_opacity": 20,
+            "show_text_box": true,
+            "box_align": "middle-left",
+            "text_alignment": "left",
+            "text_alignment_mobile": "left",
+            "color_scheme": "scheme-3"
           }
         }
       },
       "block_order": [
-        "heading",
-        "text",
-        "buttons"
+        "slide-brand",
+        "slide-routine",
+        "slide-hero-product",
+        "slide-offer"
       ],
       "settings": {
-        "enable_webgl_hero": true,
-        "image_overlay_opacity": 30,
-        "image_height": "large",
+        "layout": "full_bleed",
+        "slide_height": "large",
+        "slider_visual": "dots",
+        "auto_rotate": true,
+        "change_slides_speed": 5,
         "image_behavior": "none",
-        "desktop_content_position": "middle-left",
-        "desktop_content_alignment": "left",
-        "show_text_box": false,
-        "color_scheme": "scheme-3",
-        "stack_images_on_mobile": true,
-        "mobile_content_alignment": "left",
-        "show_text_below": false
+        "show_text_below": true,
+        "accessibility_info": "EMBRAE hero slideshow"
       }
     },
     "categories": {
@@ -449,7 +495,8 @@
         "section_color_scheme": "scheme-1",
         "color_scheme": "scheme-1",
         "padding_top": 88,
-        "padding_bottom": 88
+        "padding_bottom": 88,
+        "image": "shopify://shop_images/embrae-urban-skyline.jpg"
       }
     },
     "science": {
@@ -525,47 +572,6 @@
         "color_scheme": "scheme-1",
         "padding_top": 96,
         "padding_bottom": 96
-      }
-    },
-    "routine": {
-      "type": "multicolumn",
-      "blocks": {
-        "morning": {
-          "type": "column",
-          "settings": {
-            "title": "Morning",
-            "text": "<p>Cleanse, treat, moisturize, protect. Four steps, under three minutes, built around the day ahead of you.</p>",
-            "link_label": "Build a morning routine",
-            "link": "/pages/education#routine-builder"
-          }
-        },
-        "evening": {
-          "type": "column",
-          "settings": {
-            "title": "Evening",
-            "text": "<p>Remove the day, then repair overnight. Actives go on at night because that is when skin does the work.</p>",
-            "link_label": "Build an evening routine",
-            "link": "/pages/education#routine-builder"
-          }
-        }
-      },
-      "block_order": [
-        "morning",
-        "evening"
-      ],
-      "settings": {
-        "title": "A routine you will actually keep",
-        "heading_size": "h1",
-        "image_width": "full",
-        "image_ratio": "square",
-        "columns_desktop": 2,
-        "column_alignment": "left",
-        "background_style": "primary",
-        "color_scheme": "scheme-2",
-        "columns_mobile": "1",
-        "swipe_on_mobile": false,
-        "padding_top": 88,
-        "padding_bottom": 88
       }
     },
     "founder": {
@@ -721,23 +727,128 @@
         "padding_top": 96,
         "padding_bottom": 96
       }
+    },
+    "routine-architecture": {
+      "type": "routine-architecture",
+      "blocks": {
+        "reset": {
+          "type": "step",
+          "settings": {
+            "action": "RESET",
+            "text": "Cleanse and remove what your skin doesn't need.",
+            "image": "shopify://shop_images/embrae-routine-reset.jpg",
+            "texture": "shopify://shop_images/embrae-texture-gel.jpg",
+            "link_label": "Shop",
+            "link": "/collections/cleansers"
+          }
+        },
+        "defend": {
+          "type": "step",
+          "settings": {
+            "action": "DEFEND",
+            "text": "Strengthen and defend against daily stressors.",
+            "image": "shopify://shop_images/embrae-routine-defend.jpg",
+            "texture": "shopify://shop_images/embrae-texture-serum.jpg",
+            "link_label": "Shop",
+            "link": "/collections/serums"
+          }
+        },
+        "adapt": {
+          "type": "step",
+          "settings": {
+            "action": "ADAPT",
+            "text": "Hydrate and help skin adapt to changing conditions.",
+            "image": "shopify://shop_images/embrae-routine-adapt.jpg",
+            "texture": "shopify://shop_images/embrae-texture-cream.jpg",
+            "link_label": "Shop",
+            "link": "/collections/moisturizers"
+          }
+        },
+        "protect": {
+          "type": "step",
+          "settings": {
+            "action": "PROTECT",
+            "text": "Shield against UV and environmental damage.",
+            "image": "shopify://shop_images/embrae-routine-protect.jpg",
+            "texture": "shopify://shop_images/embrae-texture-drops.jpg",
+            "link_label": "Shop",
+            "link": "/collections/sunscreen"
+          }
+        }
+      },
+      "block_order": [
+        "reset",
+        "defend",
+        "adapt",
+        "protect"
+      ],
+      "settings": {
+        "anchor": "the-routine",
+        "caption": "THE EMBRAE ROUTINE",
+        "heading": "Four actions. One climate-ready routine.",
+        "heading_size": "h1",
+        "button_label": "Shop the routine",
+        "button_link": "/collections/all",
+        "color_scheme": "scheme-4",
+        "padding_top": 72,
+        "padding_bottom": 72
+      }
+    },
+    "routine-daypart": {
+      "type": "routine-daypart",
+      "blocks": {
+        "morning": {
+          "type": "panel",
+          "settings": {
+            "heading": "Morning",
+            "text": "Cleanse, treat, moisturize, protect. Four steps, under three minutes, built around the day ahead of you.",
+            "steps": "Cleanse, Defend, Adapt, Protect",
+            "image": "shopify://shop_images/embrae-routine-reset.jpg",
+            "button_label": "Build a morning routine",
+            "button_link": "/pages/quiz",
+            "color_scheme": "scheme-1"
+          }
+        },
+        "evening": {
+          "type": "panel",
+          "settings": {
+            "heading": "Evening",
+            "text": "Remove the day, then repair overnight. This is when your skin does the real work.",
+            "steps": "Cleanse, Treat, Recover",
+            "image": "shopify://shop_images/embrae-routine-adapt.jpg",
+            "button_label": "Build an evening routine",
+            "button_link": "/pages/quiz",
+            "color_scheme": "scheme-3"
+          }
+        }
+      },
+      "block_order": [
+        "morning",
+        "evening"
+      ],
+      "settings": {
+        "anchor": "routine-experience",
+        "padding_top": 0,
+        "padding_bottom": 0
+      }
     }
   },
   "order": [
     "hero",
     "problem",
     "promises",
-    "story",
-    "science",
-    "ingredient-spotlight",
-    "concern-router",
+    "routine-architecture",
     "categories",
     "bestsellers",
-    "routine",
+    "science",
+    "routine-daypart",
     "results",
     "testimonials",
     "founder",
     "faq-preview",
+    "ingredient-spotlight",
+    "concern-router",
+    "story",
     "cta",
     "newsletter"
   ]

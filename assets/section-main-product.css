@@ -1492,3 +1492,62 @@ a.product__text {
     border: none;
   }
 }
+
+/*
+  EMBRAE additions — the benefit line and the attribute icon row.
+  Appended rather than merged so an upstream Dawn diff stays readable.
+*/
+
+/*
+  The one-line benefit, directly under the title.
+
+  Deliberately NOT the display serif. It is a functional sentence that has to
+  be read fast, and the doc assigns everything functional to Inter.
+*/
+.product__benefit-line {
+  font-family: var(--font-body-family);
+  font-size: clamp(1.7rem, 0.6vw + 1.5rem, 1.9rem);
+  font-weight: 500;
+  line-height: 1.45;
+  margin: 0 0 var(--space-xs);
+  /* Slightly recessed so it supports the title instead of competing with it,
+     but nowhere near the pale grey the doc rules out for real content. */
+  opacity: 0.82;
+}
+
+/*
+  Attribute icon row, under the buy buttons.
+
+  Four maximum, enforced in Liquid. Grid rather than flex-wrap so four items
+  never leave a ragged orphan on a second line.
+*/
+.product__attributes {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: var(--space-xs);
+  margin: var(--space-sm) 0 0;
+  padding: 0;
+}
+
+.product__attributes > li {
+  display: flex;
+  justify-content: center;
+}
+
+.product__attributes .embrae-icon__label {
+  font-size: 1.4rem;
+  line-height: 1.35;
+  opacity: 0.85;
+}
+
+/*
+  360px is the hard floor and four chips plus four two-word labels will not sit
+  in one row there honestly. Two-by-two keeps every label readable rather than
+  shrinking the type below the doc's limit.
+*/
+@media screen and (max-width: 489px) {
+  .product__attributes {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: var(--space-sm) var(--space-xs);
+  }
+}

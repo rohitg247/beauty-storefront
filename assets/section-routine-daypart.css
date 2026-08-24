@@ -1,0 +1,111 @@
+/*
+  Routine daypart — the Morning / Evening split.
+
+  Full bleed on purpose: the two colour fields meeting edge to edge is the
+  device. Putting them inside page-width gutters would separate them into two
+  cards and lose the day/night read.
+*/
+
+.routine-daypart {
+  display: grid;
+  gap: 0;
+}
+
+.routine-daypart__panel {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  min-block-size: 42rem;
+  overflow: hidden;
+}
+
+.routine-daypart__image {
+  position: absolute;
+  inset: 0;
+  inline-size: 100%;
+  block-size: 100%;
+  object-fit: cover;
+  /* Sits under the copy. The panel's own scheme background shows through
+     wherever the image does not reach. */
+  z-index: 0;
+}
+
+.routine-daypart__body {
+  position: relative;
+  z-index: 1;
+  padding: var(--space-md) var(--space-sm);
+  max-inline-size: 46rem;
+  /*
+    Text over an image needs its own ground, or contrast depends on whatever
+    the photograph happens to be doing. The doc is explicit: never place text
+    over a complex image without sufficient contrast.
+
+    A scheme-coloured scrim rather than a fixed black one, so it stays warm
+    cream on the morning panel and deep green on the evening panel.
+  */
+  background: linear-gradient(
+    to top,
+    rgba(var(--color-background), 0.94) 0%,
+    rgba(var(--color-background), 0.86) 55%,
+    rgba(var(--color-background), 0) 100%
+  );
+}
+
+.routine-daypart__heading {
+  margin: 0 0 var(--space-xs);
+}
+
+.routine-daypart__text {
+  margin: 0 0 var(--space-xs);
+  font-size: 1.6rem;
+  line-height: 1.6;
+}
+
+.routine-daypart__text > :last-child {
+  margin-bottom: 0;
+}
+
+.routine-daypart__steps {
+  margin: 0 0 var(--space-sm);
+  padding-inline-start: 2.2rem;
+  font-size: 1.6rem;
+  line-height: 1.7;
+}
+
+.routine-daypart__button {
+  align-self: flex-start;
+}
+
+@media screen and (min-width: 750px) {
+  .routine-daypart {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .routine-daypart__panel {
+    min-block-size: 52rem;
+  }
+
+  .routine-daypart__body {
+    padding: var(--space-md);
+  }
+}
+
+/* Three panels only become a row on real desktop width; at tablet a third
+   would be ~250px and the copy would be unreadable. */
+@media screen and (min-width: 990px) {
+  .routine-daypart:has(> :nth-child(3)) {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+}
+
+/*
+  Landscape tablet is 1024 wide but only 768 tall, which CLAUDE.md calls out
+  specifically. A 52rem panel plus a header eats the whole viewport, so the
+  minimum height comes down when the viewport is short.
+*/
+@media screen and (min-width: 750px) and (max-height: 820px) and (orientation: landscape) {
+  .routine-daypart__panel {
+    min-block-size: 38rem;
+  }
+}

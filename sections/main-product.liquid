@@ -106,6 +106,65 @@
                       </h2>
                     </a>
                   </div>
+                {%- comment -%}
+                  EMBRAE: the one-line benefit.
+
+                  Board panel 4 puts a single line directly under the title and
+                  above the price - the sentence that says what the product
+                  does. The Build Brief section 11 lists it as step 3 of the
+                  mobile purchase view, and it was the one element missing from
+                  the first screen.
+
+                  Falls back to nothing rather than to the description: a
+                  truncated paragraph in this slot reads as broken copy.
+                {%- endcomment -%}
+                {%- when 'benefit_line' -%}
+                  {%- assign benefit = product.metafields.embrae.benefit_line.value -%}
+                  {%- if benefit != blank -%}
+                    <p class="product__benefit-line" {{ block.shopify_attributes }}>
+                      {{- benefit | escape -}}
+                    </p>
+                  {%- endif -%}
+
+                {%- comment -%}
+                  EMBRAE: the attribute icon row.
+
+                  Four short claims under the buy buttons, each on an icon chip
+                  from snippets/icon-embrae.liquid so they share one icon system
+                  rather than importing a second style.
+
+                  Every value here is a CLAIM. The doc warns against crowding
+                  the purchase area with badges, so the row is capped at four
+                  and anything beyond that is ignored rather than wrapped onto a
+                  second line. Undocumented claims must be removed from the
+                  metafield, not restyled - see docs/admin-tasks.md section 15b.
+                {%- endcomment -%}
+                {%- when 'attributes' -%}
+                  {%- assign attrs = product.metafields.embrae.attributes.value -%}
+                  {%- if attrs != blank and attrs.size > 0 -%}
+                    <ul class="product__attributes list-unstyled" role="list" {{ block.shopify_attributes }}>
+                      {%- for attr in attrs limit: 4 -%}
+                        {%- comment -%}
+                          The icon is derived from the label so a merchant never
+                          has to pick one. An unrecognised label still renders
+                          its text - icon-embrae draws nothing for an unknown
+                          name, so the row degrades to plain labels.
+                        {%- endcomment -%}
+                        {%- assign a = attr | downcase -%}
+                        {%- assign ico = 'science' -%}
+                        {%- if a contains 'derm' -%}{%- assign ico = 'dermatologist' -%}
+                        {%- elsif a contains 'fragrance' or a contains 'comedogenic' or a contains 'sensitive' -%}{%- assign ico = 'sensitive' -%}
+                        {%- elsif a contains 'vegan' -%}{%- assign ico = 'vegan' -%}
+                        {%- elsif a contains 'cruelty' or a contains 'animal' -%}{%- assign ico = 'cruelty-free' -%}
+                        {%- elsif a contains 'recycl' -%}{%- assign ico = 'recyclable' -%}
+                        {%- elsif a contains 'batch' -%}{%- assign ico = 'small-batch' -%}
+                        {%- elsif a contains 'clean' or a contains 'lightweight' or a contains 'absorb' -%}{%- assign ico = 'clean' -%}
+                        {%- endif -%}
+                        <li>{%- render 'icon-embrae', icon: ico, label: attr -%}</li>
+                      {%- endfor -%}
+                    </ul>
+                  {%- endif -%}
+
                 {%- when 'price' -%}
                   <div id="price-{{ section.id }}" role="status" {{ block.shopify_attributes }}>
                     {%- render 'price',
@@ -805,6 +864,16 @@
     {
       "type": "title",
       "name": "t:sections.main-product.blocks.title.name",
+      "limit": 1
+    },
+    {
+      "type": "benefit_line",
+      "name": "Benefit line",
+      "limit": 1
+    },
+    {
+      "type": "attributes",
+      "name": "Attribute icons",
       "limit": 1
     },
     {

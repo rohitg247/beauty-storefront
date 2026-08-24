@@ -1,0 +1,103 @@
+/*
+  Sticky page sub-navigation.
+
+  Sits under the header on the long content pages. Horizontal at every width:
+  a wrapping row of chips changes height as you scroll past it, which makes a
+  sticky element jump the content underneath it.
+*/
+
+.page-subnav {
+  position: sticky;
+  /*
+    The header is sticky-on-scroll-up, so its height is the offset. Dawn writes
+    --header-bottom-position at runtime; the fallback covers the first paint
+    before that lands, and the moment the header is not sticky.
+  */
+  top: var(--header-bottom-position, 0);
+  z-index: 3;
+  background-color: rgb(var(--color-background));
+  border-bottom: var(--rule);
+  /* Contained, so it can never overlap the cart drawer or a modal. */
+  isolation: isolate;
+}
+
+@supports (backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px)) {
+  /*
+    A genuine overlay surface - content passes underneath it - which is the
+    only place a live blur earns its cost. It is never put on a card.
+  */
+  .page-subnav {
+    background-color: rgba(var(--color-background), 0.86);
+    -webkit-backdrop-filter: blur(16px) saturate(1.4);
+    backdrop-filter: blur(16px) saturate(1.4);
+  }
+}
+
+.page-subnav__list {
+  display: flex;
+  flex-wrap: nowrap;
+  gap: var(--space-2xs);
+  margin: 0;
+  padding: 0.8rem 0;
+  list-style: none;
+  overflow-x: auto;
+  scroll-snap-type: x proximity;
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: none;
+}
+
+.page-subnav__list::-webkit-scrollbar {
+  display: none;
+}
+
+.page-subnav__link {
+  display: inline-flex;
+  align-items: center;
+  /* 44px tap target. These are the primary way around a long page on a
+     phone, so they are not allowed to be thin. */
+  min-height: 4.4rem;
+  padding: 0 1.6rem;
+  border-radius: 999px;
+  font-family: var(--font-body-family);
+  font-size: 1.5rem;
+  font-weight: 500;
+  line-height: 1;
+  text-decoration: none;
+  white-space: nowrap;
+  scroll-snap-align: start;
+  color: rgb(var(--color-foreground));
+  box-shadow: var(--surface-edge);
+  transition: box-shadow var(--dur-fast) linear, background-color var(--dur-fast) linear;
+}
+
+.page-subnav__link:hover,
+.page-subnav__link:focus-visible {
+  background-color: rgba(var(--color-foreground), 0.05);
+  box-shadow: var(--surface-edge), var(--elev-rest);
+}
+
+/*
+  :target styles the section being pointed at, so the chip is not the thing
+  highlighted - the destination is. Cheaper and more reliable than a scroll
+  observer, and it works with JS off.
+*/
+.anchor-target:target {
+  /* Nothing visual here on purpose: scroll-margin is applied globally in
+     brand.css so a targeted heading clears the sticky header. This rule
+     exists so that offset also accounts for this bar. */
+  scroll-margin-top: calc(var(--header-bottom-position, 0px) + 7rem);
+}
+
+@media screen and (min-width: 990px) {
+  .page-subnav__list {
+    flex-wrap: wrap;
+    overflow-x: visible;
+    gap: var(--space-2xs) var(--space-xs);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .page-subnav__link {
+    transition: none;
+  }
+}

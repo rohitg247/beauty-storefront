@@ -1,0 +1,168 @@
+/*
+  Routine architecture — the RESET / DEFEND / ADAPT / PROTECT band.
+
+  Colour comes entirely from the scheme custom properties. Depth comes from the
+  tokens in brand.css, so a card here matches a product card without repeating
+  the shadow values.
+*/
+
+.routine-arch__header {
+  margin-bottom: var(--space-md);
+  max-width: 62rem;
+}
+
+.routine-arch__caption {
+  margin: 0 0 var(--space-2xs);
+  opacity: 0.75;
+}
+
+.routine-arch__heading {
+  margin: 0;
+}
+
+.routine-arch__list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  gap: var(--space-sm);
+}
+
+.routine-arch__item {
+  display: flex;
+  flex-direction: column;
+  /* The step is a surface, so it carries the same stack as a product card. */
+  background-image: var(--surface-wash);
+  border-radius: 1.2rem;
+  box-shadow: var(--surface-hairline), var(--surface-edge), var(--elev-rest);
+  padding: var(--space-sm);
+  transition: box-shadow var(--dur-base) var(--ease-out-expo);
+}
+
+.routine-arch__item:hover,
+.routine-arch__item:focus-within {
+  box-shadow: var(--surface-hairline), var(--surface-edge), var(--elev-raised);
+}
+
+.routine-arch__index {
+  font-family: var(--font-heading-family);
+  font-size: clamp(3.2rem, 3vw + 1.4rem, 4.8rem);
+  line-height: 1;
+  margin: 0 0 var(--space-xs);
+  /* Structural, not a heading — it should recede, not compete with the verb. */
+  opacity: 0.28;
+}
+
+.routine-arch__media {
+  position: relative;
+  /* Fixed ratio so the row does not reflow as images load, and so swapping in
+     real photography later cannot change the layout. */
+  aspect-ratio: 4 / 5;
+  margin-bottom: var(--space-xs);
+}
+
+.routine-arch__product {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+.routine-arch__texture {
+  position: absolute;
+  inset-inline-end: 0;
+  inset-block-end: 0;
+  inline-size: 32%;
+  aspect-ratio: 1;
+  object-fit: cover;
+  border-radius: 50%;
+  box-shadow: var(--surface-edge), var(--elev-rest);
+}
+
+.routine-arch__action {
+  font-family: var(--font-body-family);
+  font-size: 1.6rem;
+  font-weight: 600;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  margin: 0 0 var(--space-2xs);
+}
+
+.routine-arch__text {
+  margin: 0;
+  font-size: 1.6rem;
+  line-height: 1.6;
+}
+
+.routine-arch__text > :last-child {
+  margin-bottom: 0;
+}
+
+.routine-arch__link {
+  margin-top: var(--space-xs);
+  font-size: 1.5rem;
+  /* Pushes the link to the bottom so links align across steps of unequal
+     copy length. */
+  margin-block-start: auto;
+  padding-top: var(--space-xs);
+  align-self: flex-start;
+  /* 44px tap target without adding a visible box. */
+  min-height: 4.4rem;
+  display: inline-flex;
+  align-items: center;
+}
+
+.routine-arch__cta {
+  margin-top: var(--space-md);
+}
+
+/*
+  Mobile: a snap-scrolling row, not four stacked cards.
+
+  Four full-width steps is most of a phone screen each, and the sequence is the
+  whole message — if you cannot see that there are four and that they are
+  ordered, the section has failed. 78% width leaves the next card peeking,
+  which is what tells someone it scrolls.
+*/
+@media screen and (max-width: 749px) {
+  .routine-arch__list {
+    grid-auto-flow: column;
+    grid-auto-columns: 78%;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+    /* Bleed to the screen edge so the row reads as scrollable, while the
+       first card still lines up with the page gutter. */
+    margin-inline: calc(-1 * var(--space-xs));
+    padding-inline: var(--space-xs);
+    padding-bottom: var(--space-2xs);
+  }
+
+  .routine-arch__list::-webkit-scrollbar {
+    display: none;
+  }
+
+  .routine-arch__item {
+    scroll-snap-align: start;
+  }
+}
+
+/* The tablet band CLAUDE.md flags: Dawn would apply the desktop grid here and
+   produce four ~170px cards. Explicit two-up instead. */
+@media screen and (min-width: 750px) {
+  .routine-arch__list {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media screen and (min-width: 990px) {
+  .routine-arch__list {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .routine-arch__item {
+    transition: none;
+  }
+}

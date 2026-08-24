@@ -60,6 +60,10 @@ def index_settings(defs):
     return out
 
 
+# Shopify's inline_richtext allowlist. Anything else is rejected on upload.
+INLINE_OK = {'b', 'br', 'em', 'i', 'span', 'strong', 'u', 'a'}
+
+
 def check_value(where, spec, value):
     t = spec.get('type')
 
@@ -97,6 +101,21 @@ def check_value(where, spec, value):
             elif not RICHTEXT_OK.match(value):
                 err('%s: richtext must start with <p>/<ul>/<ol>/<h1>-<h6>, got %r'
                     % (where, value[:60]))
+
+    elif t == 'inline_richtext':
+        # inline_richtext accepts INLINE tags only. A <p> is rejected on upload
+        # with "Tag '<p>' is not permitted" - and theme check does not see it,
+        # because the offending value lives in a template, not the schema.
+        #
+        # If the copy genuinely needs a paragraph, the setting type is wrong and
+        # should be `richtext`; do not strip the tag and lose the markup.
+        if isinstance(value, str) and value.strip():
+            bad = [tag for tag in re.findall(r'<\s*([a-zA-Z][a-zA-Z0-9]*)', value)
+                   if tag.lower() not in INLINE_OK]
+            if bad:
+                err('%s: inline_richtext does not permit <%s>. Allowed: %s. '
+                    'Either drop the tag or change the setting to richtext.'
+                    % (where, '>, <'.join(sorted(set(bad))), ', '.join(sorted(INLINE_OK))))
 
     elif t == 'checkbox':
         if not isinstance(value, bool):
@@ -213,6 +232,47 @@ def check_settings_data():
                 check_value('%s [%s.%s]' % (path, label, k), specs[k], v)
 
 
+def check_link_list_limit():
+    """Shopify permits exactly ONE link_list setting per settings array.
+
+    A second one fails the upload with "Invalid schema: setting link_list type
+    can only be inserted once in the settings". It is not in the schema docs and
+    theme check does not flag it, so it is only ever discovered on push.
+
+    The workaround, if a section genuinely needs two menus, is a `text` setting
+    holding a menu handle resolved through the global `linklists` drop - see
+    sections/header.liquid and snippets/header-drawer.liquid.
+    """
+    for path in sorted(glob.glob('sections/*.liquid')):
+        path = path.replace(os.sep, '/')
+        try:
+            raw = io.open(path, encoding='utf-8').read()
+        except OSError:
+            continue
+        m = re.search(r'\{%-?\s*schema\s*-?%\}(.*?)\{%-?\s*endschema', raw, re.S)
+        if not m:
+            continue
+        try:
+            schema = json.loads(m.group(1))
+        except ValueError as e:
+            err('%s: schema is not valid JSON (%s)' % (path, e))
+            continue
+
+        arrays = [('settings', schema.get('settings') or [])]
+        for blk in schema.get('blocks') or []:
+            if isinstance(blk, dict):
+                arrays.append(('block "%s"' % blk.get('type'), blk.get('settings') or []))
+
+        for label, arr in arrays:
+            ids = [x.get('id') for x in arr
+                   if isinstance(x, dict) and x.get('type') == 'link_list']
+            if len(ids) > 1:
+                err('%s [%s]: %d link_list settings (%s). Shopify allows exactly '
+                    'one per settings array. Use a text setting holding a menu '
+                    'handle plus the linklists drop for the others.'
+                    % (path, label, len(ids), ', '.join(str(i) for i in ids)))
+
+
 os.chdir(sys.argv[1] if len(sys.argv) > 1 else '.')
 
 # Metaobject templates are templates/metaobject/<type>.json - a SUBDIRECTORY,
@@ -226,6 +286,7 @@ for p in sorted(set(glob.glob('templates/*.json')
 
 check_metaobject_template_paths()
 check_settings_data()
+check_link_list_limit()
 
 for w in warnings:
     print('WARN  ' + w)

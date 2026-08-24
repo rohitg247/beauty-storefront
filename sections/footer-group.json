@@ -24,14 +24,14 @@
         "education": {
           "type": "link_list",
           "settings": {
-            "heading": "EDUCATION",
+            "heading": "SKIN SCIENCE",
             "menu": "footer-education"
           }
         },
         "about": {
           "type": "link_list",
           "settings": {
-            "heading": "ABOUT",
+            "heading": "WHY EMBRAE",
             "menu": "footer-about"
           }
         },
@@ -48,12 +48,20 @@
             "heading": "CONNECT",
             "menu": "footer-connect"
           }
+        },
+        "results": {
+          "type": "link_list",
+          "settings": {
+            "heading": "RESULTS",
+            "menu": "footer-results"
+          }
         }
       },
       "block_order": [
         "shop",
-        "education",
         "about",
+        "education",
+        "results",
         "support",
         "connect"
       ],
@@ -62,7 +70,7 @@
         "newsletter_enable": true,
         "newsletter_heading": "Get the restock note",
         "enable_follow_on_shop": true,
-        "show_social": false,
+        "show_social": true,
         "enable_country_selector": false,
         "enable_language_selector": false,
         "payment_enable": true,
@@ -71,9 +79,61 @@
         "padding_top": 96,
         "padding_bottom": 48
       }
+    },
+    "trust-strip": {
+      "type": "commitments",
+      "blocks": {
+        "trust-1": {
+          "type": "commitment",
+          "settings": {
+            "icon": "truck",
+            "title": "Free shipping",
+            "text": "On orders over ₹1,499"
+          }
+        },
+        "trust-2": {
+          "type": "commitment",
+          "settings": {
+            "icon": "padlock",
+            "title": "Secure payments",
+            "text": "Every major method, encrypted"
+          }
+        },
+        "trust-3": {
+          "type": "commitment",
+          "settings": {
+            "icon": "stopwatch",
+            "title": "Dispatched in 24 hours",
+            "text": "On orders placed before 2pm"
+          }
+        },
+        "trust-4": {
+          "type": "commitment",
+          "settings": {
+            "icon": "return",
+            "title": "Easy returns",
+            "text": "30 days on unopened orders"
+          }
+        }
+      },
+      "block_order": [
+        "trust-1",
+        "trust-2",
+        "trust-3",
+        "trust-4"
+      ],
+      "settings": {
+        "caption": "",
+        "heading": "",
+        "columns_desktop": "4",
+        "color_scheme": "scheme-4",
+        "padding_top": 36,
+        "padding_bottom": 36
+      }
     }
   },
   "order": [
+    "trust-strip",
     "footer"
   ]
 }

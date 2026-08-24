@@ -138,10 +138,70 @@
         "padding_top": 72,
         "padding_bottom": 96
       }
+    },
+    "subnav": {
+      "type": "page-subnav",
+      "blocks": {
+        "real-results": {
+          "type": "item",
+          "settings": {
+            "label": "Real Results",
+            "anchor": "real-results"
+          }
+        },
+        "before-after": {
+          "type": "item",
+          "settings": {
+            "label": "Before & After",
+            "anchor": "before-after"
+          }
+        },
+        "customer-stories": {
+          "type": "item",
+          "settings": {
+            "label": "Customer Stories",
+            "anchor": "customer-stories"
+          }
+        },
+        "reviews": {
+          "type": "item",
+          "settings": {
+            "label": "Reviews",
+            "anchor": "reviews"
+          }
+        },
+        "video-testimonials": {
+          "type": "item",
+          "settings": {
+            "label": "Video Testimonials",
+            "anchor": "video-testimonials"
+          }
+        },
+        "media-mentions": {
+          "type": "item",
+          "settings": {
+            "label": "Media Mentions",
+            "anchor": "media-mentions"
+          }
+        }
+      },
+      "block_order": [
+        "real-results",
+        "before-after",
+        "customer-stories",
+        "reviews",
+        "video-testimonials",
+        "media-mentions"
+      ],
+      "settings": {
+        "aria_label": "On this page",
+        "color_scheme": "scheme-2"
+      }
     }
   },
   "order": [
     "banner",
+    "subnav",
     "real-results",
     "before-after",
     "customer-stories",

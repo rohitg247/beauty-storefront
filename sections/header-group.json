@@ -20,26 +20,10 @@
             "text": "Free shipping over ₹1,499",
             "link": ""
           }
-        },
-        "announcement-bar-1": {
-          "type": "announcement",
-          "settings": {
-            "text": "Small batches, dated on the box",
-            "link": ""
-          }
-        },
-        "announcement-bar-2": {
-          "type": "announcement",
-          "settings": {
-            "text": "30-day returns on unopened orders",
-            "link": ""
-          }
         }
       },
       "block_order": [
-        "announcement-bar-0",
-        "announcement-bar-1",
-        "announcement-bar-2"
+        "announcement-bar-0"
       ],
       "settings": {
         "auto_rotate": true,
@@ -56,7 +40,7 @@
       "settings": {
         "logo_position": "middle-left",
         "mobile_logo_position": "center",
-        "menu": "embrae-nav",
+        "menu": "embrae-primary",
         "menu_type_desktop": "dropdown",
         "sticky_header_type": "on-scroll-up",
         "show_line_separator": false,
@@ -66,7 +50,8 @@
         "enable_language_selector": false,
         "margin_bottom": 0,
         "padding_top": 20,
-        "padding_bottom": 20
+        "padding_bottom": 20,
+        "menu_secondary_handle": "embrae-secondary"
       }
     }
   },

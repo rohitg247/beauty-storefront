@@ -1356,6 +1356,20 @@
         "id": "social_vimeo_link",
         "label": "t:settings_schema.social-media.settings.social_vimeo_link.label",
         "placeholder": "t:settings_schema.social-media.settings.social_vimeo_link.info"
+      },
+      {
+        "type": "text",
+        "id": "social_whatsapp_number",
+        "label": "WhatsApp number",
+        "info": "Country code and number, digits only, e.g. 919876543210. The wa.me link is built from this, so a full URL is not needed and will not work.",
+        "placeholder": "919876543210"
+      },
+      {
+        "type": "text",
+        "id": "social_email",
+        "label": "Support email address",
+        "info": "Shown in the footer and mobile menu as a mailto link.",
+        "placeholder": "hello@embrae.com"
       }
     ]
   },

@@ -34,109 +34,177 @@
   /* Hairline — the recurring structural device */
   --rule: 1px solid rgba(var(--color-foreground), 0.16);
   --rule-strong: 1px solid rgba(var(--color-foreground), 0.4);
+
+  /*
+    Elevation.
+
+    Two layers per step, never one: a tight contact shadow that sells the
+    depth, plus a wide soft one with negative spread that gives it air. A
+    single blurred layer is what makes a card look like a 2014 Material
+    tile.
+
+    Built from --color-shadow, which theme.liquid already emits per scheme
+    as an "r,g,b" triplet. So no hex enters this file, and the shadow
+    re-tints itself: deep-green-tinted on cream, and effectively invisible
+    on the green scheme — which is correct, dark sections carry no lift.
+
+    Opacities are deliberately low. The Typography doc forbids heavy drop
+    shadows; this has to read as a surface catching light, not as a box
+    floating over the page.
+  */
+  --elev-rest: 0 1px 2px rgba(var(--color-shadow), 0.04),
+    0 6px 16px -6px rgba(var(--color-shadow), 0.1);
+  --elev-raised: 0 2px 4px rgba(var(--color-shadow), 0.05),
+    0 14px 32px -10px rgba(var(--color-shadow), 0.14);
+  --elev-pressed: inset 0 1px 3px rgba(var(--color-shadow), 0.12);
+
+  /* Specular top edge. The single cue that reads as a lit surface. */
+  --surface-hairline: inset 0 1px 0 rgba(var(--color-background), 0.9);
+  /* Edge definition as a shadow RING, never a border: it composites in the
+     same property as the elevation, so it costs no layout width and cannot
+     band against the fill. */
+  --surface-edge: 0 0 0 1px rgba(var(--color-shadow), 0.07);
+  /* Ambient wash across a card — light from the top-left, brand tint
+     falling to the bottom-right. Only noticeable if you remove it. */
+  --surface-wash: linear-gradient(
+    160deg,
+    rgba(var(--color-background), 1) 0%,
+    rgba(var(--color-background), 1) 45%,
+    rgba(var(--color-shadow), 0.03) 100%
+  );
+
+  /* 120ms is the tactile budget for a press. Longer reads as lag. */
+  --dur-press: 120ms;
+  --ease-snap: cubic-bezier(0.2, 0, 0, 1);
 }
 
 /* ------------------------------------------------------------------
    2. Typography
 
-   Cormorant Garamond is the display face — the closest free match to
-   the EMBRAE wordmark's hairline serifs and wide A. It only works
-   large and tight. Jost carries everything functional. The two never
-   swap roles.
+   Two families, and only two. This is the Typography doc's hard rule
+   and it is the difference between a premium site and a moodboard.
 
-   Cormorant is NOT a valid Shopify font handle, so it cannot go in the
-   font picker without failing theme upload. It is self-hosted here
-   instead, and the picker stays on a real Shopify handle
-   (playfair_display_n7) which serves as the fallback.
+   DM Serif Display carries the display voice: hero h1, section h2, the
+   founder quote. Nothing else. It has one weight and needs no more.
 
-   Consequence, on purpose: the heading font picker in theme settings
-   no longer changes the display face. The wordmark is a brand
-   constant, not a merchant setting. Changing it means changing the
-   @font-face below.
+   Inter carries everything functional — navigation, body, product
+   names, prices, buttons, ingredients, FAQs, forms, cart. Roughly 90%
+   of the visible text on the site.
 
-   One file, not two: Google serves Cormorant Garamond as a variable
-   font, so a single 37KB woff2 covers the whole 300-700 range.
+   Both are self-hosted rather than pulled from fonts.googleapis.com.
+   A third-party font request sits on the critical path and the whole
+   SEO phase rests on Core Web Vitals.
 
-   The src URL is relative on purpose. brand.css and the font are both
-   served out of the theme's assets directory on Shopify's CDN, so a
-   bare filename resolves correctly without needing brand.css to become
-   a .liquid file.
+   Neither is a valid Shopify font handle, so neither can go in the
+   settings_data.json font pickers — Shopify rejects the upload. The
+   pickers stay on Playfair Display and Jost, which are valid, and are
+   overridden below. If this file is ever removed the store falls back
+   to a display serif and a geometric sans and stays completely
+   readable. That is the safety contract.
    ------------------------------------------------------------------ */
 
 @font-face {
-  font-family: 'Cormorant Garamond';
+  font-family: 'Inter';
   font-style: normal;
-  font-weight: 300 700;
+  /* One variable file covers the whole 400-700 range we use. */
+  font-weight: 400 700;
   font-display: swap;
-  src: url('cormorant-garamond.woff2') format('woff2');
-  /* latin subset. Includes U+2122 for the trademark mark in EMBRAE(tm).
-     Excludes U+20B9 rupee - prices are body copy, and a missing glyph
-     falls back per-character rather than breaking the line. */
+  src: url('inter.woff2') format('woff2');
+  /* latin subset. Includes U+2122 for EMBRAE(tm). Excludes U+20B9
+     rupee - prices are body copy, and a missing glyph falls back
+     per-character rather than breaking the line. */
   unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6,
     U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122,
     U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
 }
 
-/* Manrope, self-hosted for the same reason as Cormorant above: a call to
-   fonts.googleapis.com is a third-party request on the critical path, and
-   the whole SEO phase rests on Core Web Vitals.
-
-   Latin subset only, variable 200-800, so one 24KB woff2 covers every
-   weight h1 could ever want. */
 @font-face {
-  font-family: 'Manrope';
+  font-family: 'DM Serif Display';
   font-style: normal;
-  font-weight: 200 800;
+  /* Single weight by design. The doc forbids thin weights and this face
+     only ships 400 - which is the correct weight for it at display size. */
+  font-weight: 400;
   font-display: swap;
-  src: url('manrope.woff2') format('woff2');
+  src: url('dm-serif-display.woff2') format('woff2');
   unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6,
     U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122,
     U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
 }
 
-/* Overrides the --font-heading-family Dawn writes inline in theme.liquid.
-   Same specificity, later in the cascade, so this wins. If brand.css is
-   ever removed the store falls back to Playfair Display and stays
-   completely readable - which is the safety contract. */
+/* Overrides the two families Dawn writes inline in theme.liquid. Same
+   specificity, later in the cascade, so these win. */
 :root {
-  --font-heading-family: 'Cormorant Garamond', 'Playfair Display', Georgia,
+  --font-heading-family: 'DM Serif Display', 'Playfair Display', Georgia,
     'Times New Roman', serif;
-  --font-heading-weight: 600;
-  /* h1 only. h2 and below stay on the serif. */
-  --font-display-family: 'Manrope', 'Jost', -apple-system, BlinkMacSystemFont,
+  --font-heading-weight: 400;
+  --font-body-family: 'Inter', 'Jost', -apple-system, BlinkMacSystemFont,
     'Segoe UI', Helvetica, Arial, sans-serif;
+  --font-body-weight: 400;
+  --font-body-weight-bold: 600;
 }
+
+/*
+  Type scale, straight off the Typography doc's mobile/desktop tables.
+
+  Every clamp below is written mobile-floor to desktop-ceiling so the
+  floor is the doc's mobile figure and the ceiling is its desktop one.
+  The old scale ran a 68px h1 - well past the doc's 60px cap - because
+  it was tuned for a condensed serif. DM Serif sets wider and does not
+  need it.
+*/
 
 h0,
 .h0,
 h1,
 .h1 {
-  /* Manrope is a geometric sans and sets much wider than Cormorant at the
-     same size, so the clamp ceiling comes down and the tracking tightens.
-     Weight 700 rather than the serif's 600 - a sans needs more mass to hold
-     the same presence at display size. */
-  font-family: var(--font-display-family);
-  font-size: clamp(3.2rem, 6vw, 6.8rem);
-  line-height: 1.02;
-  letter-spacing: -0.03em;
-  font-weight: 700;
+  font-family: var(--font-heading-family);
+  /* 34px floor -> 60px ceiling */
+  font-size: clamp(3.4rem, 4.4vw + 1.2rem, 6rem);
+  line-height: 1.1;
+  letter-spacing: -0.015em;
+  font-weight: 400;
 }
 
 h2,
 .h2 {
-  font-size: clamp(2.8rem, 4.4vw, 5.2rem);
-  line-height: 1;
-  letter-spacing: -0.015em;
+  font-family: var(--font-heading-family);
+  /* 26px -> 42px */
+  font-size: clamp(2.6rem, 2.6vw + 1.2rem, 4.2rem);
+  line-height: 1.15;
+  letter-spacing: -0.01em;
+  font-weight: 400;
 }
 
+/* h3 and below leave the serif and become Inter SemiBold. A serif at
+   24px in a dense content block reads as decoration, not hierarchy. */
 h3,
 .h3 {
-  font-size: clamp(2.2rem, 2.6vw, 3.2rem);
-  line-height: 1.08;
-  letter-spacing: -0.01em;
+  font-family: var(--font-body-family);
+  /* 22px -> 30px */
+  font-size: clamp(2.2rem, 1.2vw + 1.6rem, 3rem);
+  line-height: 1.25;
+  letter-spacing: -0.005em;
+  font-weight: 600;
 }
 
-/* Optical sizing keeps the thin strokes from disappearing at display sizes. */
+h4,
+.h4 {
+  font-family: var(--font-body-family);
+  font-size: clamp(1.8rem, 0.6vw + 1.5rem, 2.2rem);
+  line-height: 1.3;
+  font-weight: 600;
+}
+
+h5,
+h6,
+.h5,
+.h6 {
+  font-family: var(--font-body-family);
+  font-size: 1.6rem;
+  line-height: 1.4;
+  font-weight: 600;
+}
+
 h1,
 h2,
 h3,
@@ -149,18 +217,66 @@ h3,
 }
 
 /*
-  The utility voice: Jost, uppercase, widely tracked. Used for eyebrows,
-  section labels, prices in cards, and product data (volume, concentration).
-  No third typeface is loaded to get this.
+  Body.
+
+  16px is a floor, not a suggestion. The doc is explicit: product
+  information, benefits, prices, FAQs and purchase guidance must not
+  drop below it on mobile. Dawn's own base.css sets several of these
+  in the 1.3-1.4rem range, which is why they are restated here.
+*/
+body,
+.rte,
+p,
+li,
+dd,
+dt,
+label,
+input,
+select,
+textarea,
+button {
+  font-family: var(--font-body-family);
+}
+
+body {
+  /* 16px -> 18px */
+  font-size: clamp(1.6rem, 0.3vw + 1.5rem, 1.8rem);
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+}
+
+p,
+.rte p,
+li {
+  line-height: 1.6;
+}
+
+/* Product titles sit between body and h4 - the doc gives them their own
+   step because they are scanned, not read. */
+.card__heading,
+.product__title,
+.card-information__text {
+  font-family: var(--font-body-family);
+  font-size: clamp(2rem, 0.8vw + 1.7rem, 2.4rem);
+  line-height: 1.25;
+  font-weight: 500;
+  letter-spacing: -0.005em;
+}
+
+/*
+  The utility voice: Inter, uppercase, widely tracked. Eyebrows, section
+  labels, product data. Raised from 11px to 14px - the doc allows 14-15px
+  only where the information is not critical, and 11px was below its floor
+  in every context.
 */
 .label,
 .section-header__eyebrow,
 .card__data,
 .collection-hero__description .label {
   font-family: var(--font-body-family);
-  font-size: 1.1rem;
+  font-size: 1.4rem;
   font-weight: 500;
-  letter-spacing: 0.16em;
+  letter-spacing: 0.14em;
   text-transform: uppercase;
   line-height: 1.4;
 }
@@ -173,6 +289,21 @@ p {
 a.link {
   text-underline-offset: 0.3em;
   text-decoration-thickness: 1px;
+}
+
+/*
+  iOS Safari zooms the whole page when a focused input is under 16px.
+  There is no way to undo that zoom without a viewport lock, which
+  breaks pinch-zoom accessibility. So the fix is the font size.
+*/
+input,
+select,
+textarea,
+.field__input,
+.select__select,
+.customer input,
+.customer select {
+  font-size: 1.6rem;
 }
 
 /* ------------------------------------------------------------------
@@ -222,11 +353,17 @@ body::after {
 .shopify-challenge__button,
 .customer button {
   font-family: var(--font-body-family);
-  font-size: 1.2rem;
+  /* Was 1.2rem. The doc puts button text at 15-16px and 12px uppercase
+     was well under its floor - the one place small type actively costs
+     conversions. */
+  font-size: 1.5rem;
   font-weight: 500;
-  letter-spacing: 0.14em;
+  /* Tracking comes down with the size increase; 0.14em on 15px reads as
+     spaced-out rather than deliberate. */
+  letter-spacing: 0.08em;
   text-transform: uppercase;
-  padding: 1.6rem 3.2rem;
+  padding: 1.4rem 3.2rem;
+  /* 48px floor, per the doc's 48-52px for important mobile actions. */
   min-height: 4.8rem;
   background-image: linear-gradient(rgb(var(--color-foreground)), rgb(var(--color-foreground)));
   background-repeat: no-repeat;
@@ -244,18 +381,71 @@ body::after {
   color: rgb(var(--color-background));
 }
 
+/*
+  Press response on the primary conversion actions only.
+
+  120ms, scale plus a drop to the pressed shadow. Any longer and it reads
+  as lag rather than as the surface giving under a finger. Deliberately
+  NOT applied to every button - a whole page of springy controls is the
+  "bouncing animation" the doc rules out.
+*/
+.product-form__submit,
+.shopify-payment-button__button,
+.sticky-atc .button {
+  transition: transform var(--dur-press) var(--ease-snap), box-shadow var(--dur-press) var(--ease-snap),
+    background-size var(--dur-base) var(--ease-out-expo);
+}
+
+.product-form__submit:active,
+.shopify-payment-button__button:active,
+.sticky-atc .button:active {
+  transform: scale(0.985);
+  box-shadow: var(--elev-pressed);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .product-form__submit:active,
+  .shopify-payment-button__button:active,
+  .sticky-atc .button:active {
+    transform: none;
+  }
+}
+
 /* ------------------------------------------------------------------
    6. Product and collection cards
 
-   Flat. No box, no drop shadow. The image sits in a fixed frame and
-   drifts on hover; a hairline draws in beneath the title. The extra
-   ancestor class beats component-card.css, which Dawn loads later.
+   Still unboxed - the mockups show product text sitting on the page
+   ground, not inside a panel, and the doc warns against putting every
+   section in a card. What changed is that the MEDIA FRAME now carries
+   the surface treatment: wash, hairline, edge ring and a rest-to-raised
+   lift. Depth without boxing.
+
+   With card_style: standard, Dawn puts the card colour scheme on
+   .card__inner and leaves .card__content outside it (card-product.liquid
+   :59 and :148). So .card__inner is the element that is actually a
+   surface, and .card stays transparent - giving both a fill would double
+   the shadow.
+
+   The extra ancestor class beats component-card.css, which Dawn loads
+   later.
    ------------------------------------------------------------------ */
 
-.card-wrapper .card,
-.card-wrapper .card__inner {
+.card-wrapper .card {
   background: transparent;
   box-shadow: none;
+}
+
+.card-wrapper .card__inner {
+  background-image: var(--surface-wash);
+  box-shadow: var(--surface-hairline), var(--surface-edge), var(--elev-rest);
+  transition: box-shadow var(--dur-base) var(--ease-out-expo),
+    transform var(--dur-base) var(--ease-out-expo);
+}
+
+.card-wrapper:hover .card__inner,
+.card-wrapper:focus-within .card__inner {
+  box-shadow: var(--surface-hairline), var(--surface-edge), var(--elev-raised);
+  transform: translateY(-2px);
 }
 
 .card-wrapper .card__media,
@@ -281,17 +471,24 @@ body::after {
   row-gap: 0.4rem;
 }
 
+/* Inter Medium, not the display serif. The doc assigns product titles
+   their own step because they are scanned rather than read, and a serif
+   at 20px in a dense grid reads as decoration. */
 .card-wrapper .card__heading {
-  font-family: var(--font-heading-family);
-  font-size: 2rem;
-  line-height: 1.1;
+  font-family: var(--font-body-family);
+  font-size: clamp(2rem, 0.8vw + 1.7rem, 2.4rem);
+  font-weight: 500;
+  line-height: 1.25;
   letter-spacing: -0.005em;
 }
 
+/* Was 1.3rem. Price is critical purchase information and the doc puts a
+   hard 16px floor under it. */
 .card-wrapper .card-information .price {
   font-family: var(--font-body-family);
-  font-size: 1.3rem;
-  letter-spacing: 0.08em;
+  font-size: 1.6rem;
+  font-weight: 500;
+  letter-spacing: 0;
 }
 
 /*
@@ -351,7 +548,7 @@ body::after {
 .header__menu-item,
 .header__inline-menu .list-menu__item {
   font-family: var(--font-body-family);
-  font-size: 1.2rem;
+  font-size: 1.5rem;
   font-weight: 500;
   letter-spacing: 0.14em;
   text-transform: uppercase;
@@ -415,7 +612,7 @@ body::after {
 @media screen and (min-width: 990px) and (max-width: 1279px) {
   .header__menu-item,
   .header__inline-menu .list-menu__item {
-    font-size: 1.1rem;
+    font-size: 1.4rem;
     letter-spacing: 0.1em;
   }
 }
@@ -498,7 +695,7 @@ body::after {
 .title-wrapper-with-link .link,
 .title-wrapper-with-link .link-with-motion {
   font-family: var(--font-body-family);
-  font-size: 1.15rem;
+  font-size: 1.4rem;
   font-weight: 500;
   letter-spacing: 0.14em;
   text-transform: uppercase;
@@ -614,7 +811,7 @@ body::after {
 
 .testimonial__name {
   font-family: var(--font-body-family);
-  font-size: 1.2rem;
+  font-size: 1.5rem;
   font-weight: 500;
   letter-spacing: 0.14em;
   text-transform: uppercase;
@@ -622,7 +819,7 @@ body::after {
 
 .testimonial__role {
   display: block;
-  font-size: 1.3rem;
+  font-size: 1.5rem;
   opacity: 0.7;
   letter-spacing: 0.02em;
   text-transform: none;
@@ -717,7 +914,7 @@ body::after {
 }
 
 .sticky-atc__price {
-  font-size: 1.3rem;
+  font-size: 1.6rem;
   letter-spacing: 0.08em;
 }
 
@@ -759,7 +956,7 @@ body::after {
 
 .footer-block__heading {
   font-family: var(--font-body-family);
-  font-size: 1.15rem;
+  font-size: 1.4rem;
   font-weight: 500;
   letter-spacing: 0.16em;
   text-transform: uppercase;
@@ -825,7 +1022,244 @@ body::after {
 }
 
 /* ------------------------------------------------------------------
-   14. Reduced motion
+   14b. Footer - six columns, one row
+
+   Merchant instruction, and board 2 panel 13 draws it: SHOP, WHY EMBRAE,
+   SKIN SCIENCE, RESULTS, SUPPORT, CONNECT side by side, never wrapping
+   to a second row.
+
+   Dawn's .grid is a flex-wrap row whose item widths come from Liquid
+   classes, so six columns wrap on their own. Overriding to CSS grid is
+   the only way to pin the count, and it also kills the ragged last row
+   flex-wrap produces.
+
+   750-989 is the band that fights back: six columns there is about
+   108px each, and "Video Testimonials" and "Ingredient Library" both
+   wrap. They are ALLOWED to wrap - what is not allowed is dropping the
+   type below the doc's floor to prevent it, so the gap tightens and the
+   labels wrap onto two lines instead.
+   ------------------------------------------------------------------ */
+
+@media screen and (min-width: 750px) {
+  .footer__content-top .grid {
+    display: grid;
+    grid-template-columns: repeat(6, minmax(0, 1fr));
+    column-gap: var(--space-xs);
+    row-gap: 0;
+  }
+
+  /* Dawn sizes these with grid__item width classes that assume flex. */
+  .footer__content-top .grid > .grid__item {
+    width: auto;
+    max-width: none;
+    padding-left: 0;
+    flex: none;
+  }
+}
+
+@media screen and (min-width: 990px) {
+  .footer__content-top .grid {
+    column-gap: var(--space-sm);
+  }
+}
+
+.footer-block__heading {
+  padding-bottom: var(--space-2xs);
+  margin-bottom: var(--space-xs);
+  border-bottom: var(--rule);
+}
+
+/* Footer link rows are a tap target on mobile and were sitting at the
+   28-32px Dawn default. */
+.footer-block__details-content .list-menu__item--link {
+  padding-top: 0.9rem;
+  padding-bottom: 0.9rem;
+  font-size: 1.5rem;
+}
+
+/* ------------------------------------------------------------------
+   14c. Trust strip
+
+   The four-item band above the footer. Stone rather than green so the
+   page does not run CTA -> strip -> footer as three dark bands.
+   ------------------------------------------------------------------ */
+
+.multicolumn.commitments .multicolumn-card {
+  border-top: 0;
+  padding-top: 0;
+}
+
+@media screen and (max-width: 749px) {
+  /* Four items will not fit a 360px row honestly, and stacking them into
+     four full rows makes the footer even longer. Snap-scroll instead -
+     the doc's own answer for a six-item row on mobile. */
+  .shopify-section-group-footer-group .multicolumn-list {
+    display: flex;
+    flex-wrap: nowrap;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+  }
+
+  .shopify-section-group-footer-group .multicolumn-list::-webkit-scrollbar {
+    display: none;
+  }
+
+  .shopify-section-group-footer-group .multicolumn-list__item {
+    flex: 0 0 62%;
+    scroll-snap-align: start;
+  }
+}
+
+/* ------------------------------------------------------------------
+   15. Ambient wash on the green bands
+
+   The prototype boards show soft aqua shapes bleeding behind the hero,
+   the closing CTA and the footer. These are those.
+
+   Radial gradients, NOT filter: blur(). A radial gradient already is a
+   smooth falloff; blurring a full-bleed element forces an offscreen
+   compositing pass for a result nobody can tell apart. This costs one
+   paint layer and no GPU memory.
+
+   Scoped to .color-scheme-3, which is exactly the three green surfaces
+   and nothing else, so it cannot leak onto a light section. The colour
+   is --color-button, which on scheme-3 is the muted aqua.
+
+   Specificity: Dawn's .gradient sets the `background` SHORTHAND, which
+   would reset background-image. Three classes beats its one, so these
+   layers survive - and background-attachment is forced back to scroll
+   because .gradient sets `fixed`, which is both expensive and visually
+   wrong for a decorative blob (and broken outright on iOS Safari).
+   ------------------------------------------------------------------ */
+
+.shopify-section .gradient.color-scheme-3,
+.shopify-section-group-footer-group .gradient.color-scheme-3 {
+  background-image: radial-gradient(
+      58% 52% at 88% 10%,
+      rgba(var(--color-button), 0.16),
+      transparent 68%
+    ),
+    radial-gradient(42% 46% at 6% 94%, rgba(var(--color-button), 0.1), transparent 70%);
+  background-attachment: scroll;
+  background-repeat: no-repeat;
+}
+
+/* ------------------------------------------------------------------
+   16. Icon chips
+
+   One icon system: 1.5px stroke, round caps, deep green, sitting on a
+   raised puck. The chip is what gives an SVG presence — a bare line
+   icon on a flat ground reads as a wireframe placeholder.
+
+   The full depth stack, not a single shadow: radial highlight from the
+   top-left, inset hairline, edge ring, two-layer lift. One shadow on a
+   flat fill is what makes icon badges look cheap.
+   ------------------------------------------------------------------ */
+
+.embrae-chip {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex: 0 0 auto;
+  inline-size: 5.6rem;
+  block-size: 5.6rem;
+  /* Fully curved. A circle reads as an object; a rounded square reads as
+     a button that does not do anything. */
+  border-radius: 50%;
+  background-image: radial-gradient(
+    120% 120% at 30% 25%,
+    rgba(var(--color-background), 0.95),
+    transparent 60%
+  );
+  background-color: rgba(var(--color-shadow), 0.05);
+  box-shadow: var(--surface-hairline), var(--surface-edge), var(--elev-rest);
+  transition: box-shadow var(--dur-base) var(--ease-out-expo),
+    transform var(--dur-base) var(--ease-out-expo);
+}
+
+/* Wrapper. Column by default (chip above label, as the values row and
+   trust strip are drawn); add embrae-icon--inline for the label beside
+   the chip, which is how the footer trust strip reads on desktop. */
+.embrae-icon {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-2xs);
+  text-align: center;
+}
+
+.embrae-icon--inline {
+  flex-direction: row;
+  align-items: center;
+  gap: var(--space-xs);
+  text-align: start;
+}
+
+.embrae-icon__label {
+  font-family: var(--font-body-family);
+  font-size: 1.5rem;
+  line-height: 1.4;
+  /* Balanced so a two-word label does not orphan its second word under a
+     centred chip. */
+  text-wrap: balance;
+}
+
+/* The rounded-square variant, for the few places an icon sits inline in
+   a text row rather than standing on its own. */
+.embrae-chip--square {
+  border-radius: 1.8rem;
+}
+
+.embrae-chip svg {
+  inline-size: 2.4rem;
+  block-size: 2.4rem;
+  fill: none;
+  stroke: rgb(var(--color-button));
+  stroke-width: 1.5;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  /* Holds 1.5px at every chip size instead of scaling with the viewBox. */
+  vector-effect: non-scaling-stroke;
+  /* Sits the stroke a hair above the chip surface. This one filter is the
+     difference between embossed and printed. */
+  filter: drop-shadow(0 1px 0 rgba(var(--color-shadow), 0.12));
+}
+
+/* Only lifts where the chip is actually interactive. A row of hovering
+   decorative pucks is noise. */
+a:hover > .embrae-chip,
+button:hover > .embrae-chip,
+a:focus-visible > .embrae-chip,
+button:focus-visible > .embrae-chip {
+  box-shadow: var(--surface-hairline), var(--surface-edge), var(--elev-raised);
+  transform: translateY(-2px);
+}
+
+@media screen and (max-width: 749px) {
+  .embrae-chip {
+    inline-size: 4.4rem;
+    block-size: 4.4rem;
+  }
+
+  .embrae-chip svg {
+    inline-size: 2rem;
+    block-size: 2rem;
+  }
+}
+
+/* Any chip that is itself a tap target keeps the 48px floor at every
+   width, overriding the mobile step-down above. */
+a > .embrae-chip,
+button > .embrae-chip,
+.embrae-chip--interactive {
+  min-inline-size: 4.8rem;
+  min-block-size: 4.8rem;
+}
+
+/* ------------------------------------------------------------------
+   17. Reduced motion
 
    Kills every transform and opacity animation this file introduces,
    and hides the WebGL canvas so the gradient fallback stands alone.
@@ -843,6 +1277,18 @@ body::after {
   .card-wrapper:hover .card__media img,
   .card-wrapper:focus-within .card__media img {
     transform: none;
+  }
+
+  /* The card media frame lift and the chip lift. Both introduced with
+     the elevation ramp, both transform-based, both off here. */
+  .card-wrapper:hover .card__inner,
+  .card-wrapper:focus-within .card__inner,
+  a:hover > .embrae-chip,
+  button:hover > .embrae-chip,
+  a:focus-visible > .embrae-chip,
+  button:focus-visible > .embrae-chip {
+    transform: none;
+    transition: none;
   }
 
   .card-wrapper .card__heading,

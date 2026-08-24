@@ -136,6 +136,33 @@
                 assign fetch_priority = 'high'
               endif
             -%}
+            {%- comment -%}
+              image_mobile is an EMBRAE addition. Dawn gives a slide one
+              image_picker, so a hero composed for a 16:9 desktop frame gets
+              centre-cropped on a phone - which on this store's hero puts the
+              headline off the left edge and the product off the right.
+
+              The Typography doc section 9 requires a separate mobile crop for
+              hero photography, and 70-80% of the traffic is mobile.
+
+              Rendered as a <picture> only when a mobile image is actually set.
+              With the setting empty the output is byte-identical to stock
+              Dawn, so this cannot regress an existing slideshow.
+            {%- endcomment -%}
+            {%- if block.settings.image_mobile != blank -%}<picture>
+              <source
+                media="(max-width: 749px)"
+                srcset="
+                  {{ block.settings.image_mobile | image_url: width: 550 }} 550w,
+                  {{ block.settings.image_mobile | image_url: width: 750 }} 750w,
+                  {{ block.settings.image_mobile | image_url: width: 1100 }} 1100w,
+                  {{ block.settings.image_mobile | image_url: width: 1500 }} 1500w
+                "
+                sizes="100vw"
+                width="{{ block.settings.image_mobile.width }}"
+                height="{{ block.settings.image_mobile.height }}"
+              >
+            {%- endif -%}
             {%- if forloop.first %}
               {{
                 block.settings.image
@@ -149,6 +176,7 @@
                 | image_tag: loading: 'lazy', height: height, sizes: sizes, widths: widths
               }}
             {%- endif -%}
+            {%- if block.settings.image_mobile != blank -%}</picture>{%- endif -%}
           {%- else -%}
             {%- assign placeholder_slide = forloop.index | modulo: 2 -%}
             {%- if placeholder_slide == 1 -%}
@@ -394,6 +422,12 @@
           "type": "image_picker",
           "id": "image",
           "label": "t:sections.slideshow.blocks.slide.settings.image.label"
+        },
+        {
+          "type": "image_picker",
+          "id": "image_mobile",
+          "label": "Mobile image",
+          "info": "Optional. A portrait crop for screens under 750px. Falls back to the desktop image if empty."
         },
         {
           "type": "range",

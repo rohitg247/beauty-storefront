@@ -82,19 +82,29 @@
           "settings": {
             "share_label": "Share"
           }
+        },
+        "benefit_line": {
+          "type": "benefit_line",
+          "settings": {}
+        },
+        "attributes": {
+          "type": "attributes",
+          "settings": {}
         }
       },
       "block_order": [
         "vendor",
         "title",
+        "benefit_line",
         "price",
         "description",
         "variant_picker",
         "quantity_selector",
         "buy_buttons",
-        "complementary",
+        "attributes",
         "ingredients",
         "shipping",
+        "complementary",
         "share"
       ],
       "settings": {

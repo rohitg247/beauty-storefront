@@ -142,6 +142,23 @@
                   {{- 'products.product.on_sale' | t -}}
                 </span>
               {%- endif -%}
+              {%- comment -%}
+                BUNDLE badge, drawn on board panel 5.
+              
+                Keyed on product TYPE, not a tag. Type is a single controlled value,
+                while tags are a free-for-all that also drive the concern and ingredient
+                facets - a "bundles" tag there would put this badge on anything filed
+                under that facet.
+              
+                A separate span rather than another elsif, because a bundle can also be
+                on sale and those are independent facts. Dawn pins sale and sold-out
+                bottom-left, so this stacks above them.
+              {%- endcomment -%}
+              {%- if card_product.type == 'Bundle' -%}
+                <span class="badge badge--bundle color-{{ settings.sale_badge_color_scheme }}">
+                  Bundle
+                </span>
+              {%- endif -%}
             </div>
           </div>
         </div>
@@ -564,6 +581,23 @@
                 class="badge badge--bottom-left color-{{ settings.sale_badge_color_scheme }}"
               >
                 {{- 'products.product.on_sale' | t -}}
+              </span>
+            {%- endif -%}
+            {%- comment -%}
+              BUNDLE badge, drawn on board panel 5.
+            
+              Keyed on product TYPE, not a tag. Type is a single controlled value,
+              while tags are a free-for-all that also drive the concern and ingredient
+              facets - a "bundles" tag there would put this badge on anything filed
+              under that facet.
+            
+              A separate span rather than another elsif, because a bundle can also be
+              on sale and those are independent facts. Dawn pins sale and sold-out
+              bottom-left, so this stacks above them.
+            {%- endcomment -%}
+            {%- if card_product.type == 'Bundle' -%}
+              <span class="badge badge--bundle color-{{ settings.sale_badge_color_scheme }}">
+                Bundle
               </span>
             {%- endif -%}
           </div>

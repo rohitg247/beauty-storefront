@@ -157,10 +157,78 @@
         "padding_top": 88,
         "padding_bottom": 88
       }
+    },
+    "subnav": {
+      "type": "page-subnav",
+      "blocks": {
+        "manufacturing": {
+          "type": "item",
+          "settings": {
+            "label": "Manufacturing",
+            "anchor": "manufacturing"
+          }
+        },
+        "quality-standards": {
+          "type": "item",
+          "settings": {
+            "label": "Quality Standards",
+            "anchor": "quality-standards"
+          }
+        },
+        "ingredient-transparency": {
+          "type": "item",
+          "settings": {
+            "label": "Ingredient Transparency",
+            "anchor": "ingredient-transparency"
+          }
+        },
+        "product-safety": {
+          "type": "item",
+          "settings": {
+            "label": "Product Safety",
+            "anchor": "product-safety"
+          }
+        },
+        "testing-efficacy": {
+          "type": "item",
+          "settings": {
+            "label": "Testing & Efficacy",
+            "anchor": "testing-efficacy"
+          }
+        },
+        "returns-refunds": {
+          "type": "item",
+          "settings": {
+            "label": "Returns & Refunds",
+            "anchor": "returns-refunds"
+          }
+        },
+        "customer-support": {
+          "type": "item",
+          "settings": {
+            "label": "Customer Support",
+            "anchor": "customer-support"
+          }
+        }
+      },
+      "block_order": [
+        "manufacturing",
+        "quality-standards",
+        "ingredient-transparency",
+        "product-safety",
+        "testing-efficacy",
+        "returns-refunds",
+        "customer-support"
+      ],
+      "settings": {
+        "aria_label": "On this page",
+        "color_scheme": "scheme-2"
+      }
     }
   },
   "order": [
     "banner",
+    "subnav",
     "manufacturing",
     "quality-standards",
     "ingredient-transparency",

@@ -878,8 +878,23 @@ class SlideshowComponent extends SliderComponent {
     if (this.querySelector('.slideshow__autoplay')) {
       this.sliderAutoplayButton = this.querySelector('.slideshow__autoplay');
       this.sliderAutoplayButton.addEventListener('click', this.autoPlayToggle.bind(this));
-      this.autoplayButtonIsSetToPlay = true;
-      this.play();
+
+      // EMBRAE fix: upstream called play() unconditionally here and only checked
+      // reducedMotion in the else branch below. But the else branch is the one
+      // that runs when there is NO play/pause button - so with autoplay enabled,
+      // which is exactly when the button renders, prefers-reduced-motion was
+      // ignored entirely and the carousel rotated regardless.
+      //
+      // Starting paused instead. The button is still there, so anyone who wants
+      // it moving can start it; it just no longer auto-starts against a stated
+      // OS-level preference.
+      if (this.reducedMotion.matches) {
+        this.autoplayButtonIsSetToPlay = false;
+        this.pause();
+      } else {
+        this.autoplayButtonIsSetToPlay = true;
+        this.play();
+      }
     } else {
       this.reducedMotion.matches || this.announcementBarArrowButtonWasClicked ? this.pause() : this.play();
     }

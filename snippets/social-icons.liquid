@@ -90,6 +90,42 @@
       </a>
     </li>
   {%- endif -%}
+  {%- comment -%}
+    WhatsApp and email are not Dawn settings - Dawn ships nine socials and
+    neither of these is among them. Both were added to settings_schema.json
+    because the prototype boards put them in the mobile menu and the footer,
+    and WhatsApp is the primary support channel for this store.
+
+    The merchant enters a bare number, not a URL, so it cannot be malformed.
+    The strip filters below tolerate the +, spaces and dashes people naturally
+    type into a phone field.
+
+    Icons come from snippets/icon-embrae.liquid so they match the rest of the
+    icon system rather than importing two more SVG styles.
+  {%- endcomment -%}
+  {%- if settings.social_whatsapp_number != blank -%}
+    {%- assign wa_number = settings.social_whatsapp_number
+      | remove: '+' | remove: ' ' | remove: '-' | remove: '(' | remove: ')'
+    -%}
+    <li class="list-social__item">
+      <a href="https://wa.me/{{ wa_number }}" class="link list-social__link" rel="noopener" target="_blank">
+        <span class="svg-wrapper">
+          {%- render 'icon-embrae', icon: 'whatsapp' -%}
+        </span>
+        <span class="visually-hidden">WhatsApp</span>
+      </a>
+    </li>
+  {%- endif -%}
+  {%- if settings.social_email != blank -%}
+    <li class="list-social__item">
+      <a href="mailto:{{ settings.social_email }}" class="link list-social__link">
+        <span class="svg-wrapper">
+          {%- render 'icon-embrae', icon: 'email' -%}
+        </span>
+        <span class="visually-hidden">{{ settings.social_email }}</span>
+      </a>
+    </li>
+  {%- endif -%}
   {%- if settings.social_vimeo_link != blank -%}
     <li class="list-social__item">
       <a href="{{ settings.social_vimeo_link }}" class="link list-social__link">
