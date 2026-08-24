@@ -15,8 +15,8 @@
 # structure: SPI Rules 2011 consent, cookies, sharing, and a named Grievance
 # Officer, which the IT Rules require and the previous version did not carry.
 #
-# Placeholders left ON PURPOSE, because inventing them would be worse than
-# leaving them visible:
+# All merchant details are now supplied and hardcoded - there are no
+# placeholders left. Recorded here so they are not re-derived:
 #   Pune   - the seat of courts for governing law
 #   EMBRAE CARE   - the registered company behind EMBRAE
 #   Rs99        - the flat fee under the free-shipping threshold
@@ -375,13 +375,18 @@ foreach ($p in $POLICIES) {
 Write-Output ""
 if ($Apply) {
   Write-Output "WRITTEN AS DRAFTS. Each carries a visible review banner."
-  Write-Output "Placeholders left on purpose, all REQUIRED before launch:"
-  Write-Output "  EMBRAE CARE EMBRAE CARE, Venkatesh Graffiti Glover, Mundhwa, Pune - 411036, Maharashtra, India Rajesh Gupta"
-  Write-Output "  Pune Rs99 24 August 2026"
+  Write-Output "No placeholders remain. Every detail is real:"
+  Write-Output "  EMBRAE CARE | GSTIN 27ATXPG8222A1ZN | Grievance Officer Rajesh Gupta"
+  Write-Output "  Venkatesh Graffiti Glover, Mundhwa, Pune - 411036, Maharashtra, India"
+  Write-Output "  Jurisdiction and arbitration seat: Pune | Shipping under Rs599: Rs99"
   Write-Output ""
-  Write-Output "If PRIVACY_POLICY failed on automatic management being turned on:"
-  Write-Output "  Shopify Admin > Settings > Policies > Privacy policy > turn OFF automatic"
-  Write-Output "  management, then re-run. The API cannot override that toggle."
+  Write-Output "THE BANNER IS THE ONLY THING LEFT. Each policy still opens with a"
+  Write-Output "DRAFT - NOT YET REVIEWED notice. Remove it only after legal review,"
+  Write-Output "by editing \$BANNER in this script and re-running."
+  Write-Output ""
+  Write-Output "If PRIVACY_POLICY ever fails on automatic management being turned on:"
+  Write-Output "  Shopify Admin > Settings > Policies > Privacy policy > turn OFF"
+  Write-Output "  automatic management, then re-run. The API cannot override it."
 } else {
   Write-Output "Nothing was written. Re-run with -Apply."
 }
