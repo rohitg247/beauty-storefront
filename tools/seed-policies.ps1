@@ -19,7 +19,7 @@
 # leaving them visible:
 #   Pune   - the seat of courts for governing law
 #   EMBRAE CARE   - the registered company behind EMBRAE
-#   [SHIPPING FEE]        - the flat fee under the free-shipping threshold
+#   Rs379        - the flat fee under the free-shipping threshold
 #   EMBRAE CARE, Venkatesh Graffiti Glover, Mundhwa, Pune - 411036, Maharashtra, India  - registered office, REQUIRED on both policies
 #   Rajesh Gupta - REQUIRED by the IT Rules 2011 and E-Commerce Rules 2020
 #   24 August 2026       - the date this is signed off
@@ -57,7 +57,7 @@ $BANNER
 <h2>Shipping charges</h2>
 <ul>
 <li><strong>Free shipping on all orders over $THRESHOLD.</strong></li>
-<li>Orders below $THRESHOLD carry a flat shipping fee of [SHIPPING FEE], shown at checkout before payment.</li>
+<li>Orders below $THRESHOLD carry a flat shipping fee of Rs379, shown at checkout before payment.</li>
 </ul>
 <p>The exact amount payable is always displayed on the checkout page before you confirm the order. Prices shown on the site are inclusive of GST.</p>
 
@@ -377,7 +377,7 @@ if ($Apply) {
   Write-Output "WRITTEN AS DRAFTS. Each carries a visible review banner."
   Write-Output "Placeholders left on purpose, all REQUIRED before launch:"
   Write-Output "  EMBRAE CARE EMBRAE CARE, Venkatesh Graffiti Glover, Mundhwa, Pune - 411036, Maharashtra, India Rajesh Gupta"
-  Write-Output "  Pune [SHIPPING FEE] 24 August 2026"
+  Write-Output "  Pune Rs379 24 August 2026"
   Write-Output ""
   Write-Output "If PRIVACY_POLICY failed on automatic management being turned on:"
   Write-Output "  Shopify Admin > Settings > Policies > Privacy policy > turn OFF automatic"
