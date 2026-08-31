@@ -1480,3 +1480,25 @@ button > .embrae-chip,
     white-space: nowrap;
   }
 }
+
+
+/*
+  Multicolumn in the tablet band (750-989px).
+
+  Dawn builds this grid as `grid--{columns_mobile}-col-tablet-down` plus
+  `grid--{columns_desktop}-col-desktop`, so the mobile count runs all the way to
+  989px and the desktop count only starts at 990px. With columns_mobile: 1 —
+  which is the right call at 360px for a title plus a paragraph — a 768px tablet
+  renders four full-width stacked text blocks and wastes the whole band.
+
+  CLAUDE.md requires an explicit intermediate count rather than an inherited one.
+  Two columns at 750-989px gives ~340px per card, which holds a heading and a
+  three-line paragraph comfortably. Scoped to 4-column desktop layouts so a
+  3-column multicolumn is untouched.
+*/
+@media screen and (min-width: 750px) and (max-width: 989px) {
+  .multicolumn-list.grid--1-col-tablet-down.grid--4-col-desktop:not(.slider) {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}

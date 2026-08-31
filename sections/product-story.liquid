@@ -9,6 +9,7 @@
     how_it_works   module 5  How it works
     how_to_use     module 6  How to use
     who_is_it_for  module 7  Who is it for (skin types + concerns)
+    texture        Master Brief 8.07  Texture / sensory
 
   WHY THIS EXISTS RATHER THAN A DYNAMIC SOURCE ON A STOCK rich-text SECTION
 
@@ -44,6 +45,8 @@
       assign body = product.metafields.embrae.how_to_use
     when 'results_timeline'
       assign body = product.metafields.embrae.results_timeline
+    when 'texture'
+      assign body = product.metafields.embrae.texture
   endcase
 
   assign concerns = product.metafields.embrae.concerns.value
@@ -148,7 +151,8 @@
         { "value": "how_it_works", "label": "How it works" },
         { "value": "how_to_use", "label": "How to use" },
         { "value": "who_is_it_for", "label": "Who is it for" },
-        { "value": "results_timeline", "label": "Results timeline" }
+        { "value": "results_timeline", "label": "Results timeline" },
+        { "value": "texture", "label": "Texture and sensory" }
       ],
       "default": "why_exists",
       "label": "Show which field",

@@ -101,130 +101,8 @@
         "image_behavior": "none",
         "show_text_below": true,
         "accessibility_info": "EMBRAE hero slideshow"
-      }
-    },
-    "categories": {
-      "type": "collection-list",
-      "blocks": {
-        "skincare": {
-          "type": "featured_collection",
-          "settings": {
-            "collection": "skincare"
-          }
-        },
-        "serums": {
-          "type": "featured_collection",
-          "settings": {
-            "collection": "serums"
-          }
-        },
-        "moisturizers": {
-          "type": "featured_collection",
-          "settings": {
-            "collection": "moisturizers"
-          }
-        }
       },
-      "block_order": [
-        "skincare",
-        "serums",
-        "moisturizers"
-      ],
-      "settings": {
-        "title": "Start here",
-        "heading_size": "h1",
-        "image_ratio": "portrait",
-        "columns_desktop": 3,
-        "color_scheme": "scheme-1",
-        "show_view_all": false,
-        "columns_mobile": "1",
-        "swipe_on_mobile": true,
-        "padding_top": 96,
-        "padding_bottom": 96
-      }
-    },
-    "bestsellers": {
-      "type": "featured-collection",
-      "settings": {
-        "collection": "bestsellers",
-        "products_to_show": 4,
-        "title": "Bestsellers",
-        "heading_size": "h1",
-        "description": "<p>The formulas customers finish the bottle of, then reorder.</p>",
-        "show_description": true,
-        "description_style": "body",
-        "columns_desktop": 4,
-        "enable_desktop_slider": false,
-        "full_width": false,
-        "show_view_all": true,
-        "view_all_style": "link",
-        "color_scheme": "scheme-1",
-        "image_ratio": "portrait",
-        "image_shape": "default",
-        "show_secondary_image": true,
-        "show_vendor": false,
-        "show_rating": false,
-        "quick_add": "standard",
-        "columns_mobile": "2",
-        "swipe_on_mobile": false,
-        "padding_top": 96,
-        "padding_bottom": 96
-      }
-    },
-    "story": {
-      "type": "image-with-text",
-      "blocks": {
-        "caption": {
-          "type": "caption",
-          "settings": {
-            "caption": "How we make it",
-            "text_style": "caption-with-letter-spacing",
-            "text_size": "medium"
-          }
-        },
-        "heading": {
-          "type": "heading",
-          "settings": {
-            "heading": "Small batches, dated on the box",
-            "heading_size": "h1"
-          }
-        },
-        "text": {
-          "type": "text",
-          "settings": {
-            "text": "<p>Actives lose potency the moment they are blended. So we make in batches of two hundred, print the blend date on every box, and do not warehouse stock. What arrives is weeks old, not quarters.</p><p>Botanicals are cold-pressed and sourced from named growers. Every active is listed at its actual concentration on the carton, not hidden inside a proprietary blend.</p>",
-            "text_style": "body"
-          }
-        },
-        "button": {
-          "type": "button",
-          "settings": {
-            "button_label": "Read the ingredient policy",
-            "button_link": "/pages/trust#ingredient-transparency",
-            "button_style_secondary": true
-          }
-        }
-      },
-      "block_order": [
-        "caption",
-        "heading",
-        "text",
-        "button"
-      ],
-      "settings": {
-        "height": "large",
-        "desktop_image_width": "medium",
-        "layout": "image_first",
-        "image_behavior": "ambient",
-        "content_layout": "no-overlap",
-        "desktop_content_position": "middle",
-        "desktop_content_alignment": "left",
-        "mobile_content_alignment": "left",
-        "section_color_scheme": "scheme-2",
-        "color_scheme": "scheme-2",
-        "padding_top": 96,
-        "padding_bottom": 96
-      }
+      "disabled": true
     },
     "results": {
       "type": "stat-band",
@@ -264,77 +142,8 @@
         "color_scheme": "scheme-3",
         "padding_top": 96,
         "padding_bottom": 96
-      }
-    },
-    "promises": {
-      "type": "commitments",
-      "blocks": {
-        "formulas": {
-          "type": "commitment",
-          "settings": {
-            "icon": "check_mark",
-            "title": "Named concentrations",
-            "text": "Every active printed at the strength it is dosed at."
-          }
-        },
-        "cruelty": {
-          "type": "commitment",
-          "settings": {
-            "icon": "paw_print",
-            "title": "Never tested on animals",
-            "text": "Leaping Bunny certified."
-          }
-        },
-        "tested": {
-          "type": "commitment",
-          "settings": {
-            "icon": "eye",
-            "title": "Dermatologist tested",
-            "text": "Patch tested on sensitive and acne-prone skin."
-          }
-        },
-        "batches": {
-          "type": "commitment",
-          "settings": {
-            "icon": "stopwatch",
-            "title": "Small batches",
-            "text": "Blend date printed on every box."
-          }
-        },
-        "packaging": {
-          "type": "commitment",
-          "settings": {
-            "icon": "recycle",
-            "title": "Recyclable packaging",
-            "text": "No plastic void fill, ever."
-          }
-        },
-        "shipping": {
-          "type": "commitment",
-          "settings": {
-            "icon": "truck",
-            "title": "Free over ₹599",
-            "text": "Dispatched within 24 hours."
-          }
-        }
       },
-      "block_order": [
-        "formulas",
-        "cruelty",
-        "tested",
-        "batches",
-        "packaging",
-        "shipping"
-      ],
-      "settings": {
-        "caption": "What we hold ourselves to",
-        "heading": "Every claim, in writing",
-        "heading_size": "h1",
-        "columns_desktop": "6",
-        "color_scheme": "scheme-2",
-        "padding_top": 96,
-        "padding_bottom": 96
-      }
+      "disabled": true
     },
     "testimonials": {
       "type": "testimonials",
@@ -417,178 +226,8 @@
         "color_scheme": "scheme-1",
         "padding_top": 96,
         "padding_bottom": 96
-      }
-    },
-    "newsletter": {
-      "type": "newsletter",
-      "blocks": {
-        "heading": {
-          "type": "heading",
-          "settings": {
-            "heading": "Get the restock note",
-            "heading_size": "h1"
-          }
-        },
-        "paragraph": {
-          "type": "paragraph",
-          "settings": {
-            "text": "<p>One email when a batch lands, and nothing else. Batches sell out in about ten days.</p>"
-          }
-        },
-        "email_form": {
-          "type": "email_form",
-          "settings": {}
-        }
       },
-      "block_order": [
-        "heading",
-        "paragraph",
-        "email_form"
-      ],
-      "settings": {
-        "color_scheme": "scheme-4",
-        "full_width": true,
-        "padding_top": 96,
-        "padding_bottom": 96
-      }
-    },
-    "problem": {
-      "type": "image-with-text",
-      "blocks": {
-        "caption": {
-          "type": "caption",
-          "settings": {
-            "caption": "The problem",
-            "text_style": "caption-with-letter-spacing",
-            "text_size": "medium"
-          }
-        },
-        "heading": {
-          "type": "heading",
-          "settings": {
-            "heading": "Indian skin is not under-treated. It is under-protected.",
-            "heading_size": "h1"
-          }
-        },
-        "text": {
-          "type": "text",
-          "settings": {
-            "text": "<p>Heat, humidity, monsoon damp, dry winter air-conditioning and particulate pollution all act on the skin barrier within the same year. Most formulas are developed for one stable climate. Ours are not.</p>",
-            "text_style": "body"
-          }
-        }
-      },
-      "block_order": [
-        "caption",
-        "heading",
-        "text"
-      ],
-      "settings": {
-        "height": "medium",
-        "desktop_image_width": "medium",
-        "layout": "image_first",
-        "image_behavior": "none",
-        "content_layout": "no-overlap",
-        "desktop_content_position": "middle",
-        "desktop_content_alignment": "left",
-        "mobile_content_alignment": "left",
-        "section_color_scheme": "scheme-1",
-        "color_scheme": "scheme-1",
-        "padding_top": 88,
-        "padding_bottom": 88,
-        "image": "shopify://shop_images/embrae-urban-skyline.jpg"
-      }
-    },
-    "science": {
-      "type": "multicolumn",
-      "blocks": {
-        "hydrate": {
-          "type": "column",
-          "settings": {
-            "title": "Hydrate",
-            "text": "<p>Humectants that hold water in the skin rather than pulling it up from deeper down. Squalane, glycerin, Pentavitin.</p>"
-          }
-        },
-        "strengthen": {
-          "type": "column",
-          "settings": {
-            "title": "Strengthen",
-            "text": "<p>Ceramides and niacinamide to rebuild the barrier, so skin stops losing what you put into it.</p>"
-          }
-        },
-        "protect": {
-          "type": "column",
-          "settings": {
-            "title": "Protect",
-            "text": "<p>Antioxidants against the particulate and UV load a city day actually delivers. Ectoin, vitamin C, ferulic acid.</p>"
-          }
-        }
-      },
-      "block_order": [
-        "hydrate",
-        "strengthen",
-        "protect"
-      ],
-      "settings": {
-        "title": "Three things, done properly",
-        "heading_size": "h1",
-        "image_width": "third",
-        "image_ratio": "circle",
-        "columns_desktop": 3,
-        "column_alignment": "left",
-        "background_style": "none",
-        "color_scheme": "scheme-1",
-        "columns_mobile": "1",
-        "swipe_on_mobile": false,
-        "padding_top": 88,
-        "padding_bottom": 88
-      }
-    },
-    "ingredient-spotlight": {
-      "type": "reference-row",
-      "settings": {
-        "source": "ingredient",
-        "caption": "The actives",
-        "heading": "Named, and printed at the dose",
-        "heading_size": "h1",
-        "columns_desktop": "4",
-        "link_label": "The full ingredient library",
-        "link": "/pages/education#ingredient-library",
-        "color_scheme": "scheme-2",
-        "padding_top": 96,
-        "padding_bottom": 96,
-        "ingredients": [
-          "gid://shopify/Metaobject/349952934001",
-          "gid://shopify/Metaobject/349953228913",
-          "gid://shopify/Metaobject/349953261681",
-          "gid://shopify/Metaobject/349953294449",
-          "gid://shopify/Metaobject/349953327217",
-          "gid://shopify/Metaobject/349953359985"
-        ]
-      }
-    },
-    "concern-router": {
-      "type": "reference-row",
-      "settings": {
-        "source": "concern",
-        "caption": "Start here",
-        "heading": "What is your skin actually doing?",
-        "heading_size": "h1",
-        "columns_desktop": "3",
-        "link_label": "All skin concerns",
-        "link": "/pages/education#skin-concerns",
-        "color_scheme": "scheme-1",
-        "padding_top": 96,
-        "padding_bottom": 96,
-        "concerns": [
-          "gid://shopify/Metaobject/349953392753",
-          "gid://shopify/Metaobject/349953425521",
-          "gid://shopify/Metaobject/349953458289",
-          "gid://shopify/Metaobject/349953491057",
-          "gid://shopify/Metaobject/349953523825",
-          "gid://shopify/Metaobject/349953556593"
-        ]
-      }
+      "disabled": true
     },
     "founder": {
       "type": "image-with-text",
@@ -604,7 +243,7 @@
         "heading": {
           "type": "heading",
           "settings": {
-            "heading": "Why I started this",
+            "heading": "Why EMBRAE exists.",
             "heading_size": "h1"
           }
         },
@@ -641,105 +280,6 @@
         "mobile_content_alignment": "left",
         "section_color_scheme": "scheme-1",
         "color_scheme": "scheme-1",
-        "padding_top": 96,
-        "padding_bottom": 96
-      }
-    },
-    "faq-preview": {
-      "type": "collapsible-content",
-      "blocks": {
-        "start": {
-          "type": "collapsible_row",
-          "settings": {
-            "heading": "Which product should I start with?",
-            "icon": "question_mark",
-            "row_content": "<p>Start with the concern, not the product. Pick what is bothering you most and the concern page will tell you what to use, and in what order.</p>"
-          }
-        },
-        "results": {
-          "type": "collapsible_row",
-          "settings": {
-            "heading": "How long until I see results?",
-            "icon": "stopwatch",
-            "row_content": "<p>Hydration changes within days. Barrier repair takes about four weeks. Pigmentation and fine lines take eight to twelve. Anything promising faster than that is not describing skin.</p>"
-          }
-        },
-        "sensitive": {
-          "type": "collapsible_row",
-          "settings": {
-            "heading": "Is this suitable for sensitive skin?",
-            "icon": "heart",
-            "row_content": "<p>Every formula is patch tested on sensitive and acne-prone skin. Introduce one active at a time and leave a week between additions.</p>"
-          }
-        },
-        "layering": {
-          "type": "collapsible_row",
-          "settings": {
-            "heading": "Can I use these alongside other skincare?",
-            "icon": "check_mark",
-            "row_content": "<p>Yes. Each product page lists what it should not be layered with, which is the part most routines get wrong.</p>"
-          }
-        }
-      },
-      "block_order": [
-        "start",
-        "results",
-        "sensitive",
-        "layering"
-      ],
-      "settings": {
-        "caption": "Common questions",
-        "heading": "Before you buy",
-        "heading_size": "h1",
-        "heading_alignment": "left",
-        "layout": "row",
-        "container_color_scheme": "scheme-1",
-        "color_scheme": "scheme-1",
-        "open_first_collapsible_row": true,
-        "image_ratio": "adapt",
-        "desktop_layout": "image_second",
-        "padding_top": 88,
-        "padding_bottom": 88
-      }
-    },
-    "cta": {
-      "type": "rich-text",
-      "blocks": {
-        "heading": {
-          "type": "heading",
-          "settings": {
-            "heading": "Start with the concern, not the product",
-            "heading_size": "h1"
-          }
-        },
-        "text": {
-          "type": "text",
-          "settings": {
-            "text": "<p>Tell us what your skin is doing and we will tell you what to use, in what order, and why.</p>"
-          }
-        },
-        "button": {
-          "type": "button",
-          "settings": {
-            "button_label": "Take the skin quiz",
-            "button_link": "/pages/quiz",
-            "button_style_secondary": false,
-            "button_label_2": "Shop all",
-            "button_link_2": "shopify://collections/all",
-            "button_style_secondary_2": true
-          }
-        }
-      },
-      "block_order": [
-        "heading",
-        "text",
-        "button"
-      ],
-      "settings": {
-        "desktop_content_position": "center",
-        "content_alignment": "center",
-        "color_scheme": "scheme-3",
-        "full_width": true,
         "padding_top": 96,
         "padding_bottom": 96
       }
@@ -800,8 +340,8 @@
       ],
       "settings": {
         "anchor": "the-routine",
-        "caption": "THE EMBRAE ROUTINE",
-        "heading": "Four actions. One climate-ready routine.",
+        "caption": "One routine for skin under pressure",
+        "heading": "Reset. Defend. Adapt. Protect.",
         "heading_size": "h1",
         "button_label": "Shop the routine",
         "button_link": "/collections/all",
@@ -844,28 +384,446 @@
       ],
       "settings": {
         "anchor": "routine-experience",
+        "padding_top": 96,
+        "padding_bottom": 0,
+        "caption": "Your routine, twice a day",
+        "heading": "Your morning. Your night.",
+        "heading_size": "h1"
+      }
+    },
+    "hero-editorial": {
+      "type": "image-with-text",
+      "blocks": {
+        "heading": {
+          "type": "heading",
+          "settings": {
+            "heading": "Built for Indian skin. Made for urban life.",
+            "heading_size": "h0"
+          }
+        },
+        "text": {
+          "type": "text",
+          "settings": {
+            "text": "<p>Science-led skincare designed for the heat, humidity, pollution, UV and everyday stress of modern Indian life.</p>",
+            "text_style": "body"
+          }
+        },
+        "cta-primary": {
+          "type": "button",
+          "settings": {
+            "button_label": "Explore the routine",
+            "button_link": "shopify://collections/essentials",
+            "button_style_secondary": false
+          }
+        },
+        "cta-secondary": {
+          "type": "button",
+          "settings": {
+            "button_label": "Take the skin quiz",
+            "button_link": "/pages/quiz",
+            "button_style_secondary": true
+          }
+        }
+      },
+      "block_order": [
+        "heading",
+        "text",
+        "cta-primary",
+        "cta-secondary"
+      ],
+      "settings": {
+        "image": "shopify://shop_images/embrae-hero-climate-skin.jpg",
+        "image_mobile": "shopify://shop_images/embrae-hero-routine.jpg",
+        "height": "large",
+        "desktop_image_width": "medium",
+        "layout": "text_first",
+        "image_behavior": "none",
+        "content_layout": "no-overlap",
+        "desktop_content_position": "middle",
+        "desktop_content_alignment": "left",
+        "mobile_content_alignment": "left",
+        "section_color_scheme": "scheme-1",
+        "color_scheme": "scheme-1",
         "padding_top": 0,
         "padding_bottom": 0
+      }
+    },
+    "urban-skin-reality": {
+      "type": "rich-text",
+      "blocks": {
+        "caption": {
+          "type": "caption",
+          "settings": {
+            "caption": "The urban skin reality",
+            "text_style": "caption-with-letter-spacing",
+            "text_size": "medium"
+          }
+        },
+        "heading": {
+          "type": "heading",
+          "settings": {
+            "heading": "Your skin faces more than skincare.",
+            "heading_size": "h0"
+          }
+        },
+        "environment": {
+          "type": "caption",
+          "settings": {
+            "caption": "Heat · Humidity · Pollution · UV · Dry air · Blue light · Stress",
+            "text_style": "caption-with-letter-spacing",
+            "text_size": "large"
+          }
+        },
+        "text": {
+          "type": "text",
+          "settings": {
+            "text": "<p>Modern skin is constantly adapting to its environment. EMBRAE was created to support that daily reality — helping skin reset, defend, adapt and protect.</p>"
+          }
+        }
+      },
+      "block_order": [
+        "caption",
+        "heading",
+        "environment",
+        "text"
+      ],
+      "settings": {
+        "desktop_content_position": "center",
+        "content_alignment": "center",
+        "color_scheme": "scheme-4",
+        "full_width": true,
+        "padding_top": 96,
+        "padding_bottom": 96
+      }
+    },
+    "start-with-your-skin": {
+      "type": "featured-collection",
+      "settings": {
+        "collection": "essentials",
+        "products_to_show": 4,
+        "title": "Start with your skin.",
+        "heading_size": "h1",
+        "description": "<p>Four essentials. One climate-conscious routine.</p>",
+        "show_description": true,
+        "description_style": "body",
+        "columns_desktop": 4,
+        "enable_desktop_slider": false,
+        "full_width": false,
+        "show_view_all": true,
+        "view_all_style": "link",
+        "color_scheme": "scheme-1",
+        "image_ratio": "portrait",
+        "image_shape": "default",
+        "show_secondary_image": true,
+        "show_vendor": false,
+        "show_rating": false,
+        "quick_add": "standard",
+        "columns_mobile": "2",
+        "swipe_on_mobile": false,
+        "padding_top": 96,
+        "padding_bottom": 96
+      }
+    },
+    "why-embrae": {
+      "type": "multicolumn",
+      "blocks": {
+        "climate": {
+          "type": "column",
+          "settings": {
+            "title": "01 — Climate-aware",
+            "text": "<p>Built around the environmental conditions skin experiences every day: heat, humidity, monsoon damp, dry air conditioning and particulate load.</p>"
+          }
+        },
+        "barrier": {
+          "type": "column",
+          "settings": {
+            "title": "02 — Barrier-first",
+            "text": "<p>A formulation philosophy centered on keeping skin comfortable and resilient, rather than stripping it and repairing the damage afterwards.</p>"
+          }
+        },
+        "science": {
+          "type": "column",
+          "settings": {
+            "title": "03 — Science-led",
+            "text": "<p>Ingredients and formulation decisions explained clearly, with every active printed at the strength it is dosed at.</p>"
+          }
+        },
+        "nothing": {
+          "type": "column",
+          "settings": {
+            "title": "04 — Nothing unnecessary",
+            "text": "<p>Clear formulation communication, without hiding behind vague beauty language or an ingredient list written to impress rather than inform.</p>"
+          }
+        }
+      },
+      "block_order": [
+        "climate",
+        "barrier",
+        "science",
+        "nothing"
+      ],
+      "settings": {
+        "title": "Skincare built around real life.",
+        "heading_size": "h1",
+        "image_width": "third",
+        "image_ratio": "circle",
+        "columns_desktop": 4,
+        "column_alignment": "left",
+        "background_style": "none",
+        "color_scheme": "scheme-1",
+        "columns_mobile": "1",
+        "swipe_on_mobile": false,
+        "padding_top": 88,
+        "padding_bottom": 88
+      }
+    },
+    "know-whats-inside": {
+      "type": "reference-row",
+      "settings": {
+        "source": "ingredient",
+        "caption": "Know what is inside",
+        "heading": "Named, and printed at the dose",
+        "heading_size": "h1",
+        "columns_desktop": "4",
+        "link_label": "The full ingredient library",
+        "link": "/pages/education#ingredient-library",
+        "color_scheme": "scheme-2",
+        "padding_top": 96,
+        "padding_bottom": 96,
+        "ingredients": [
+          "gid://shopify/Metaobject/349952934001",
+          "gid://shopify/Metaobject/349953228913",
+          "gid://shopify/Metaobject/349953261681",
+          "gid://shopify/Metaobject/349953294449",
+          "gid://shopify/Metaobject/349953327217",
+          "gid://shopify/Metaobject/349953359985"
+        ]
+      }
+    },
+    "skin-quiz-teaser": {
+      "type": "rich-text",
+      "blocks": {
+        "heading": {
+          "type": "heading",
+          "settings": {
+            "heading": "Not sure where to start?",
+            "heading_size": "h1"
+          }
+        },
+        "text": {
+          "type": "text",
+          "settings": {
+            "text": "<p>Tell us about your skin, your routine and the environment you live in. We will map the answer to a routine rather than to a product.</p>"
+          }
+        },
+        "button": {
+          "type": "button",
+          "settings": {
+            "button_label": "Take the skin quiz",
+            "button_link": "/pages/quiz",
+            "button_style_secondary": false
+          }
+        }
+      },
+      "block_order": [
+        "heading",
+        "text",
+        "button"
+      ],
+      "settings": {
+        "desktop_content_position": "center",
+        "content_alignment": "center",
+        "color_scheme": "scheme-2",
+        "full_width": false,
+        "padding_top": 96,
+        "padding_bottom": 96
+      }
+    },
+    "complete-routine": {
+      "type": "featured-product",
+      "blocks": {
+        "eyebrow": {
+          "type": "text",
+          "settings": {
+            "text": "The complete routine.",
+            "text_style": "uppercase"
+          }
+        },
+        "title": {
+          "type": "title",
+          "settings": {
+            "heading_size": "h1"
+          }
+        },
+        "price": {
+          "type": "price",
+          "settings": {}
+        },
+        "description": {
+          "type": "text",
+          "settings": {
+            "text": "Cleanser, serum, moisturizer and sunscreen — reset, defend, adapt and protect, in the order they are applied.",
+            "text_style": "body"
+          }
+        },
+        "buy_buttons": {
+          "type": "buy_buttons",
+          "settings": {
+            "show_dynamic_checkout": true,
+            "show_gift_card_recipient": false
+          }
+        }
+      },
+      "block_order": [
+        "eyebrow",
+        "title",
+        "price",
+        "description",
+        "buy_buttons"
+      ],
+      "settings": {
+        "product": "daily-urban-defense-routine",
+        "color_scheme": "scheme-3",
+        "secondary_background": false,
+        "media_size": "medium",
+        "constrain_to_viewport": true,
+        "media_fit": "contain",
+        "media_position": "left",
+        "image_zoom": "lightbox",
+        "hide_variants": false,
+        "enable_video_looping": false,
+        "padding_top": 96,
+        "padding_bottom": 96
+      }
+    },
+    "proof": {
+      "type": "commitments",
+      "blocks": {
+        "jobs": {
+          "type": "commitment",
+          "settings": {
+            "icon": "clipboard",
+            "title": "Four products, four jobs",
+            "text": "Reset, defend, adapt, protect. Nothing in the range duplicates another step."
+          }
+        },
+        "doses": {
+          "type": "commitment",
+          "settings": {
+            "icon": "check_mark",
+            "title": "Named concentrations",
+            "text": "Every active printed at the strength it is dosed at, on the carton and on the product page."
+          }
+        },
+        "inci": {
+          "type": "commitment",
+          "settings": {
+            "icon": "eye",
+            "title": "Full ingredient lists",
+            "text": "The complete INCI is published on every product page, not a selected highlight."
+          }
+        },
+        "shipping": {
+          "type": "commitment",
+          "settings": {
+            "icon": "truck",
+            "title": "Free shipping over ₹599",
+            "text": "On every order above the threshold, anywhere in India."
+          }
+        }
+      },
+      "block_order": [
+        "jobs",
+        "doses",
+        "inci",
+        "shipping"
+      ],
+      "settings": {
+        "caption": "No invented numbers",
+        "heading": "Why people choose EMBRAE",
+        "heading_size": "h1",
+        "columns_desktop": "4",
+        "color_scheme": "scheme-2",
+        "padding_top": 96,
+        "padding_bottom": 96
+      }
+    },
+    "journal": {
+      "type": "featured-blog",
+      "settings": {
+        "blog": "journal",
+        "post_limit": 3,
+        "heading": "Learn what your skin is dealing with.",
+        "heading_size": "h1",
+        "columns_desktop": 3,
+        "show_view_all": true,
+        "show_image": true,
+        "show_date": true,
+        "show_author": false,
+        "color_scheme": "scheme-1",
+        "padding_top": 96,
+        "padding_bottom": 96
+      }
+    },
+    "final-cta": {
+      "type": "rich-text",
+      "blocks": {
+        "heading": {
+          "type": "heading",
+          "settings": {
+            "heading": "Your skin. Your climate. Your routine.",
+            "heading_size": "h0"
+          }
+        },
+        "text": {
+          "type": "text",
+          "settings": {
+            "text": "<p>Explore EMBRAE, or find your routine in a few steps.</p>"
+          }
+        },
+        "buttons": {
+          "type": "button",
+          "settings": {
+            "button_label": "Shop EMBRAE",
+            "button_link": "shopify://collections/all",
+            "button_style_secondary": false,
+            "button_label_2": "Take the quiz",
+            "button_link_2": "/pages/quiz",
+            "button_style_secondary_2": true
+          }
+        }
+      },
+      "block_order": [
+        "heading",
+        "text",
+        "buttons"
+      ],
+      "settings": {
+        "desktop_content_position": "center",
+        "content_alignment": "center",
+        "color_scheme": "scheme-3",
+        "full_width": true,
+        "padding_top": 96,
+        "padding_bottom": 96
       }
     }
   },
   "order": [
+    "hero-editorial",
     "hero",
-    "problem",
-    "promises",
+    "urban-skin-reality",
     "routine-architecture",
-    "categories",
-    "bestsellers",
-    "science",
+    "start-with-your-skin",
+    "why-embrae",
+    "know-whats-inside",
     "routine-daypart",
-    "results",
-    "testimonials",
+    "skin-quiz-teaser",
+    "complete-routine",
     "founder",
-    "faq-preview",
-    "ingredient-spotlight",
-    "concern-router",
-    "story",
-    "cta",
-    "newsletter"
+    "proof",
+    "journal",
+    "final-cta",
+    "results",
+    "testimonials"
   ]
 }

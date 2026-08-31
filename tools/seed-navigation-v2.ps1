@@ -49,6 +49,7 @@ $Menus = @(
         @{ t = "Cleanser";       u = "/collections/cleansers" }
         @{ t = "Sunscreen";      u = "/collections/sunscreen" }
         @{ t = "Bundles & Kits"; u = "/collections/bundles" }
+        @{ t = "Shop the EMBRAE Routine"; u = "/products/daily-urban-defense-routine" }
       )}
       @{ t = "WHY EMBRAE"; u = "/pages/why"; kids = @(
         @{ t = "Why We Exist";   u = "/pages/why#why-we-exist" }
@@ -58,12 +59,14 @@ $Menus = @(
         @{ t = "Founder Story";  u = "/pages/about#founder-story" }
         @{ t = "Our Mission";    u = "/pages/about#our-mission" }
         @{ t = "Our Values";     u = "/pages/about#our-values" }
+        @{ t = "Meet the Team";  u = "/pages/about#our-team" }
       )}
       @{ t = "SKIN SCIENCE"; u = "/pages/education"; kids = @(
         @{ t = "Skin School";       u = "/blogs/skin-school" }
         @{ t = "Ingredient Library"; u = "/pages/education#ingredient-library" }
         @{ t = "Climate & Skin";    u = "/blogs/climate-skin" }
         @{ t = "Skin Concerns";     u = "/pages/education#skin-concerns" }
+        @{ t = "Routine Guide";     u = "/pages/education#routine-builder" }
         @{ t = "Myth vs Fact";      u = "/blogs/myth-vs-fact" }
         @{ t = "Journal";           u = "/blogs/journal" }
       )}
@@ -74,11 +77,7 @@ $Menus = @(
         @{ t = "Reviews";            u = "/pages/results#reviews" }
         @{ t = "Video Testimonials"; u = "/pages/results#video-testimonials" }
       )}
-      @{ t = "SKIN QUIZ"; u = "/pages/quiz"; kids = @(
-        @{ t = "Take the Skin Quiz";     u = "/pages/quiz" }
-        @{ t = "Build Your Routine";     u = "/pages/quiz#quiz-result" }
-        @{ t = "Product Recommendations"; u = "/pages/quiz#quiz-result" }
-      )}
+      @{ t = "SKIN QUIZ"; u = "/pages/quiz"; kids = @() }
     )
   }
   @{

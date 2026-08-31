@@ -312,19 +312,116 @@
         "padding_top": 40,
         "padding_bottom": 40
       }
+    },
+    "texture": {
+      "type": "product-story",
+      "settings": {
+        "field": "texture",
+        "caption": "Texture and finish",
+        "heading": "How it feels",
+        "heading_size": "h1",
+        "color_scheme": "scheme-2",
+        "padding_top": 72,
+        "padding_bottom": 72
+      }
+    },
+    "routine-position": {
+      "type": "routine-architecture",
+      "blocks": {
+        "reset": {
+          "type": "step",
+          "settings": {
+            "action": "RESET",
+            "text": "Cleanse and remove what your skin doesn't need.",
+            "image": "shopify://shop_images/embrae-routine-reset.jpg",
+            "texture": "shopify://shop_images/embrae-texture-gel.jpg",
+            "link_label": "Shop",
+            "link": "/collections/cleansers"
+          }
+        },
+        "defend": {
+          "type": "step",
+          "settings": {
+            "action": "DEFEND",
+            "text": "Strengthen and defend against daily stressors.",
+            "image": "shopify://shop_images/embrae-routine-defend.jpg",
+            "texture": "shopify://shop_images/embrae-texture-serum.jpg",
+            "link_label": "Shop",
+            "link": "/collections/serums"
+          }
+        },
+        "adapt": {
+          "type": "step",
+          "settings": {
+            "action": "ADAPT",
+            "text": "Hydrate and help skin adapt to changing conditions.",
+            "image": "shopify://shop_images/embrae-routine-adapt.jpg",
+            "texture": "shopify://shop_images/embrae-texture-cream.jpg",
+            "link_label": "Shop",
+            "link": "/collections/moisturizers"
+          }
+        },
+        "protect": {
+          "type": "step",
+          "settings": {
+            "action": "PROTECT",
+            "text": "Shield against UV and environmental damage.",
+            "image": "shopify://shop_images/embrae-routine-protect.jpg",
+            "texture": "shopify://shop_images/embrae-texture-drops.jpg",
+            "link_label": "Shop",
+            "link": "/collections/sunscreen"
+          }
+        }
+      },
+      "block_order": [
+        "reset",
+        "defend",
+        "adapt",
+        "protect"
+      ],
+      "settings": {
+        "anchor": "routine-position",
+        "caption": "Where this sits in the routine",
+        "heading": "Reset. Defend. Adapt. Protect.",
+        "heading_size": "h1",
+        "button_label": "Shop the complete routine",
+        "button_link": "/products/daily-urban-defense-routine",
+        "color_scheme": "scheme-4",
+        "padding_top": 72,
+        "padding_bottom": 72
+      }
+    },
+    "reviews": {
+      "type": "anchored-content",
+      "settings": {
+        "anchor": "reviews",
+        "eyebrow": "Reviews",
+        "heading": "Reviews open when the first orders ship",
+        "heading_size": "h1",
+        "body": "<p>Reviews are collected from verified purchasers only — an order has to exist before a review can be left. Until then there is nothing here, because a rating with no orders behind it is not a rating.</p><p>We do not edit reviews, remove negative ones, or reorder them to put the flattering ones first.</p>",
+        "link_label": "How we handle reviews",
+        "link": "/pages/results#reviews",
+        "link_style_secondary": true,
+        "color_scheme": "scheme-1",
+        "padding_top": 72,
+        "padding_bottom": 72
+      }
     }
   },
   "order": [
     "main",
     "timeline",
-    "badges",
     "why-exists",
     "benefits",
     "ingredient-story",
+    "texture",
     "how-it-works",
     "how-to-use",
+    "routine-position",
     "who-for",
+    "badges",
     "product-faqs",
+    "reviews",
     "disclosures",
     "related-products"
   ]

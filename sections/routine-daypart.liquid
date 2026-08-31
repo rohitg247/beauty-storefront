@@ -18,6 +18,19 @@
 
 {{ 'section-routine-daypart.css' | asset_url | stylesheet_tag }}
 
+{%- if section.settings.heading != blank or section.settings.caption != blank -%}
+  <div class="routine-daypart__header page-width">
+    {%- if section.settings.caption != blank -%}
+      <p class="routine-daypart__caption caption-with-letter-spacing">{{ section.settings.caption }}</p>
+    {%- endif -%}
+    {%- if section.settings.heading != blank -%}
+      <h2 class="routine-daypart__heading inline-richtext {{ section.settings.heading_size }}">
+        {{ section.settings.heading }}
+      </h2>
+    {%- endif -%}
+  </div>
+{%- endif -%}
+
 <div
   {% if section.settings.anchor != blank %}
     id="{{ section.settings.anchor | handleize }}"
@@ -84,6 +97,19 @@
       "id": "anchor",
       "label": "Anchor id",
       "info": "Lets navigation link straight to this section, e.g. routine-experience"
+    },
+    { "type": "text", "id": "caption", "label": "Caption" },
+    { "type": "inline_richtext", "id": "heading", "label": "Heading" },
+    {
+      "type": "select",
+      "id": "heading_size",
+      "options": [
+        { "value": "h2", "label": "Small" },
+        { "value": "h1", "label": "Medium" },
+        { "value": "h0", "label": "Large" }
+      ],
+      "default": "h1",
+      "label": "Heading size"
     },
     { "type": "header", "content": "Padding" },
     {
